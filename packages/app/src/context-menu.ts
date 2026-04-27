@@ -10,7 +10,28 @@ import {
 import { EventEmitter } from 'events';
 import { isPackaged } from './utils/env';
 import { serializedKeyboardEvent } from './services/services/menu/helpers';
+import { writeSpellCheckLanguages } from './spell-check';
 import uuid = require('uuid');
+
+const languageDisplay = (() => {
+  try { return new Intl.DisplayNames(['en'], { type: 'language' }); } catch { return null; }
+})();
+
+const buildSpellCheckLanguageSubmenu = (wc: Electron.WebContents): MenuItemConstructorOptions[] => {
+  const sess = wc.session;
+  const available = sess.availableSpellCheckerLanguages;
+  if (!available.length) return [];
+  const current = new Set(sess.getSpellCheckerLanguages());
+  return [...available].sort().map(code => ({
+    label: languageDisplay ? `${languageDisplay.of(code) || code} (${code})` : code,
+    type: 'radio' as const,
+    checked: current.has(code),
+    click: () => {
+      sess.setSpellCheckerLanguages([code]);
+      writeSpellCheckLanguages([code]);
+    },
+  }));
+};
 
 export type ContextMenuContext = {
   webContents?: Electron.WebContents,
@@ -246,6 +267,16 @@ export default class ContextMenu extends EventEmitter {
           click: () => webContents && webContents.replaceMisspelling(correction),
         });
       });
+    }
+
+    if (props.isEditable && webContents) {
+      const submenu = buildSpellCheckLanguageSubmenu(webContents);
+      if (submenu.length) {
+        menuTpl.push(
+          { type: 'separator' },
+          { label: 'Spell-check Language', submenu },
+        );
+      }
     }
 
     return delUnusedElements(menuTpl);

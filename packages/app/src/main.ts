@@ -177,6 +177,10 @@ const init = () => {
 
   initWorker();
 
+  app.on('web-contents-created', (_e, wc) => {
+    require('./spell-check').applySpellCheckLanguages(wc.session);
+  });
+
   if (isPackaged) {
     if (process.env.WEBPACK_DEVTOOL) {
       const sourceMapSupport = require('source-map-support');
