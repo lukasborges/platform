@@ -1,5 +1,13 @@
 # Station Desktop Application
 
+> **Fork of [getstation/desktop-app](https://github.com/getstation/desktop-app)**. I like the app and want to keep using it, but upstream hasn't shipped updates, fixes or improvements in a long time.
+
+## What this fork changes
+
+- **Google services log in via the normal Google login page**, instead of the OAuth consent flow that some Workspaces block. One login covers Gmail, Drive, Calendar and the other Google apps.
+- **Spell-check suggestions show up in the right-click menu** (broken in upstream).
+- **Spell-check language picker** in the right-click menu, with the choice remembered across restarts.
+
 ## Table of Contents
 - [Installation](#installation)
   - [Requirements](#requirements)
