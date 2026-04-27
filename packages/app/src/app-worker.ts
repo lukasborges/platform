@@ -295,8 +295,7 @@ export class BrowserXAppWorker {
           async onShow(props: Electron.ContextMenuParams) {
             const newProps = !props.misspelledWord ? props : {
               ...props,
-              misspellingCorrections: await services.tabWebContents
-                .querySpellchecker(webContentsId, props.misspelledWord),
+              misspellingCorrections: props.dictionarySuggestions,
             };
             const state = store.getState();
 
