@@ -21,7 +21,7 @@ import CacheFetcher from './cache-fetcher';
 import { MultiInstanceConfig } from './bxAppManifest';
 
 // allow bx to work with manifestV1 api
-export const compatLegacyManifest = over(lensProp('bx_multi_instance_config'), (config: MultiInstanceConfig): MultiInstanceConfig => {
+const compatV1 = over(lensProp('bx_multi_instance_config'), (config: MultiInstanceConfig): MultiInstanceConfig => {
   if (config && config.preset && !config.presets) {
     return {
       ...config,
@@ -31,6 +31,37 @@ export const compatLegacyManifest = over(lensProp('bx_multi_instance_config'), (
 
   return config || {};
 });
+
+// Drop google-account preset so Google apps log in via the normal accounts.google.com
+// page (corporate Workspaces often block third-party OAuth).
+const stripHandlebars = (s?: string) => (typeof s === 'string' ? s.replace(/\{\{[^}]*\}\}/g, '') : s);
+
+const dropGoogleAccountPreset = (manifest: any) => {
+  const config: MultiInstanceConfig | undefined = manifest && manifest.bx_multi_instance_config;
+  const presets = config && config.presets;
+  if (!presets || !presets.includes('google-account')) return manifest;
+
+  const remaining = presets.filter(p => p !== 'google-account');
+  const next: any = { ...manifest };
+  next.start_url = stripHandlebars(manifest.start_url);
+  next.bx_new_page_url = stripHandlebars(manifest.bx_new_page_url);
+
+  if (remaining.length === 0) {
+    delete next.bx_multi_instance_config;
+  } else {
+    const { preset, ...rest } = config!;
+    next.bx_multi_instance_config = {
+      ...rest,
+      presets: remaining,
+      preset: remaining[0],
+      start_url_tpl: stripHandlebars(rest.start_url_tpl),
+      new_page_url_tpl: stripHandlebars(rest.new_page_url_tpl),
+    };
+  }
+  return next;
+};
+
+export const compatLegacyManifest = (manifest: any) => dropGoogleAccountPreset(compatV1(manifest));
 
 // Default configuration, with preset Fetcher & Interpreter
 const defaultConfig: IProviderConfiguration = {
