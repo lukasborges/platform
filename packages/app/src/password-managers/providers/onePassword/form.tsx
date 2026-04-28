@@ -12,7 +12,6 @@ export interface Classes {
   buttonsContainer: string,
   marginBottom: string,
   error: string,
-  onboard: string,
 }
 
 export interface Props {
@@ -36,20 +35,6 @@ export interface State {
 }
 
 const styles = (theme: Theme) => ({
-  onboard: {
-    marginBottom: 8,
-    fontSize: '12px',
-    color: 'rgba(255,255,255,1)',
-    textAlign: 'left',
-    fontStyle: 'italic',
-    fontWeight: 600,
-    '& a': {
-      color: 'rgba(255,255,255,0.6)',
-      '&:hover': {
-        textDecoration: 'underline',
-      },
-    },
-  },
   buttonsContainer: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -145,15 +130,6 @@ export default class OnePasswordForm extends React.PureComponent<Props & Overrid
 
     return (
       <div>
-        <div className={classes!.onboard}>
-          👉
-          <a
-            href="http://faq.getstation.com/login-and-passwords/how-to-use-1password-integration"
-            target="_blank"
-          >
-            Detailed instructions on 1Password
-          </a>
-        </div>
         { error &&
           <div className={classes!.error}>{error}</div>
         }

@@ -5,9 +5,8 @@ import injectSheet from 'react-jss';
 import { compose } from 'react-apollo';
 import * as shortid from 'shortid';
 import { oc } from 'ts-optchain';
-import { getApplicationIconURL, getApplicationManifestURL, getApplicationId } from '../../applications/get';
+import { getApplicationIconURL, getApplicationId } from '../../applications/get';
 import { withGetApplication } from '../queries@local.gql.generated';
-import { APPLICATIONS_WITH_DIALOG_HINT } from '../../applications/manifest-provider/const';
 import { getDialogActions, getDialogApplication, getDialogMessage, getDialogTitle } from '../get';
 import { DialogItemAction, ExtendedDialogItem, ExtendedDialogItemImmutable } from '../types';
 
@@ -17,8 +16,6 @@ export interface Classes {
   content: string,
   title: string,
   dialogMessage: string,
-  hint: string,
-  hintLink: string,
   buttonWrapper: string,
   buttonContainer: string,
   button: string,
@@ -37,8 +34,6 @@ export interface StateProps {
 }
 
 export type Props = OwnProps & StateProps;
-
-const annoyedLink = 'https://github.com/getstation/desktop-app/wiki/FAQ-%7C-%F0%9F%93%A3-Notifications-&-badges#i-find-google-calendar-reminder-popups-annoying';
 
 const actionCTAOnBottom = (props: Props) =>
   props.dialog.get('actions').some((action) => Boolean(action!.get('text')));
@@ -83,15 +78,6 @@ const styles = (theme: Theme) => ({
     fontSize: 13,
     marginTop: 10,
   },
-  hint: {
-    marginTop: 10,
-    fontStyle: 'italic',
-    fontSize: 12,
-  },
-  hintLink: {
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
   buttonWrapper: {
     display: 'flex',
     flexDirection: (props: Props) => actionCTAOnBottom(props) ? 'row' : 'column',
@@ -126,16 +112,6 @@ class DialogItemImpl extends React.PureComponent<Props, {}> {
 
           <h4>{getDialogTitle(dialog)}</h4>
           <p className={classes!.dialogMessage}>{getDialogMessage(dialog)}</p>
-
-          {
-            APPLICATIONS_WITH_DIALOG_HINT.includes(getApplicationManifestURL(getDialogApplication(dialog))) &&
-            <div className={classes!.hint}>
-              Annoyed by this message?
-              <a className={classes!.hintLink} href={annoyedLink} target="_blank">
-                Turn it into notifications.
-              </a>
-            </div>
-          }
         </div>
 
         <div className={classes!.buttonWrapper}>

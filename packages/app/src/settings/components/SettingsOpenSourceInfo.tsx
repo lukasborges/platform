@@ -49,7 +49,7 @@ export default class SettingsOpenSourceInfo extends React.PureComponent<Props, {
           </label>
           <p>
             <Button
-              onClick={() => remote.shell.openExternal('https://github.com/getstation/desktop-app')}
+              onClick={() => remote.shell.openExternal('https://github.com/lukasborges/desktop-app')}
               className={classes!.button}
               btnSize={Size.XXSMALL}
             >

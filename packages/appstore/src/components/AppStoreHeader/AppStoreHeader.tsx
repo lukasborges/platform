@@ -23,7 +23,7 @@ class AppStoreHeader extends React.PureComponent<Props, {}> {
           <header className={classes.header}>
             {appStoreContext === ContextEnvPlatform.Browser &&
               <div className={classes.headerBanner}>
-                <form action="https://dl.getstation.com/download" method="get">
+                <form action="https://github.com/lukasborges/desktop-app/releases/latest" method="get">
                   <span>All your web applications in a single place</span>
                   <button className={classes.downloadLink} type="submit">Download Station</button>
                 </form>

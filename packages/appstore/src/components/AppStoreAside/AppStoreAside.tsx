@@ -35,7 +35,7 @@ class AppStoreAside extends React.PureComponent<AppStoreAsideProps, {}> {
           {appStoreContext === ContextEnvPlatform.Browser &&
             <div className={classes!.info}>
               <div className={classes!.text}>Powered by</div>
-              <a href="https://getstation.com" target="_blank" aria-label="Station website">
+              <a href="https://github.com/lukasborges/desktop-app" target="_blank" aria-label="Station GitHub">
                 <svg className={classes!.logo} xmlns="http://www.w3.org/2000/svg" width="48" height="14" viewBox="0 0 48 14">
                   <title>Station logo</title>
                   <defs>

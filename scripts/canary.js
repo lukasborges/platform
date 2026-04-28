@@ -57,7 +57,7 @@ const CACHE_FOLDER = '.cache';
 const CANARY_FILE_CACHE = `${CACHE_FOLDER}/canary.json`;
 
 const NOTIFICATION_CHANNEL = '#dev';
-const BX_REPO = 'getstation/desktop-app';
+const BX_REPO = 'lukasborges/desktop-app';
 const CANARY_REPO = 'getstation/station-canary';
 const CANARY_RELEASE_URL = 'https://github.com/getstation/station-canary/releases';
 const CANARY_LABEL = 'Ready for Canary';
