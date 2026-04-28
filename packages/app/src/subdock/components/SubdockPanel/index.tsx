@@ -29,7 +29,7 @@ type OwnProps = SubdockActionsProps & {
   application: Application,
   activeTab: ActiveTab,
   onOpenNewTab: () => void,
-  onClickAddNewInstance: (application: Application, identityNeeded?: boolean) => void,
+  onClickAddNewInstance: (application: Application) => void,
   handleHideSubdock: () => any,
 };
 
@@ -49,7 +49,7 @@ class SubdockPanel extends React.PureComponent<Props, State> {
     const { application, onClickAddNewInstance } = this.props;
 
     if (!application) return;
-    onClickAddNewInstance(application, Boolean(application.identity));
+    onClickAddNewInstance(application);
   }
 
   handleOpenNewTab() {

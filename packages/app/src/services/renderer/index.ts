@@ -14,8 +14,6 @@ import { CursorService } from '../services/cursor/interface';
 import { DownloadService } from '../services/download/interface';
 import { ChromeExtensionsService } from '../services/ecx/interface';
 import { ElectronAppService } from '../services/electron-app/interface';
-import { AuthenticationService } from '../services/authentication/interface';
-import { ElectronGoogleOAuthService } from '../services/electron-google-oauth/interface';
 import { ExtendedAppMetricsService } from '../services/extendedAppMetrics/interface';
 import { ManifestService } from '../services/manifest/interface';
 import { ContextMenuServiceManager, MenuService } from '../services/menu/interface';
@@ -61,8 +59,6 @@ export const mainServices: ServicesInitializerNode<GlobalServices> = {
   download: initRenderer(DownloadService, '__default__'),
   extendedAppMetrics: initRenderer(ExtendedAppMetricsService, '__default__'),
   autoUpdater: initRenderer(AutoUpdaterService, '__default__'),
-  electronGoogleOAuth: initRenderer(ElectronGoogleOAuthService, '__default__'),
-  authentication: initRenderer(AuthenticationService, '__default__'),
   browserWindow: initRenderer(BrowserWindowManagerService, '__default__'),
   defaultSession: initRenderer(SessionService, '__default__'),
   electronApp: initRenderer(ElectronAppService, '__default__'),

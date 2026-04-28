@@ -1,6 +1,5 @@
 require('./webpack.monkeypatch-crypto');
 const path = require('path');
-const webpack = require('webpack');
 
 /* eslint-disable no-param-reassign */
 
@@ -93,19 +92,6 @@ const mutateWebpackConfig = config => {
   mutateAddExternals(config);
   mutateDevtool(config);
   mutateAlias(config);
-
-  if (config.mode === 'production') {
-    config.plugins.push(
-      new webpack.DefinePlugin({
-        'process.env.GOOGLE_CLIENT_ID': JSON.stringify(
-          process.env.GOOGLE_CLIENT_ID
-        ),
-        'process.env.GOOGLE_CLIENT_SECRET': JSON.stringify(
-          process.env.GOOGLE_CLIENT_SECRET
-        )
-      })
-    );
-  }
 };
 
 module.exports = {

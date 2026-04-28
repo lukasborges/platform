@@ -16,7 +16,6 @@ import { openApplicationPreferences, OpenApplicationPreferencesVia } from '../se
 import { attach, detach } from '../subwindows/duck';
 import { closeTab } from '../tabs/duck';
 import { StationState } from '../types';
-import { requestSignInThenAddApplication } from '../user-identities/duck';
 
 import Subdock from './components/Subdock';
 import { Application } from './types';
@@ -56,7 +55,7 @@ export interface OwnProps {
   onRemoveFavorite: (favoriteId: string, tabId: string) => any,
   onDetachFavorite: () => any,
   onCloseTab: (tabId: string) => void,
-  onClickAddNewInstance: (application: Application, identityNeeded?: boolean) => void,
+  onClickAddNewInstance: (application: Application) => void,
   toggleNotifications: () => void,
   openApplicationPreferences: (application: Application) => void,
   onOpenNewTab: () => void,
@@ -148,10 +147,7 @@ const SubdockContainer = compose(
         openApplicationPreferences: (application: Application) =>
           openApplicationPreferences(application.manifestURL, OpenApplicationPreferencesVia.APP_SUBDOCK),
         onOpenNewTab: () => createNewEmptyTab(ownProps.applicationId, false),
-        onClickAddNewInstance: (application: Application, identityNeeded?: boolean) => {
-          if (identityNeeded) {
-            return requestSignInThenAddApplication('google', undefined, application.manifestURL, 'subdock');
-          }
+        onClickAddNewInstance: (application: Application) => {
           return installApplication(application.manifestURL, { navigate: true });
         },
       }, dispatch);

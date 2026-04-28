@@ -4,18 +4,14 @@ import injectSheet from 'react-jss';
 import ApplicationContainer from '../../../common/containers/ApplicationContainer';
 import { interpretedIconUrl } from '../../helpers';
 import { BxAppManifest } from '../../manifest-provider/bxAppManifest';
-import ChooseIdentityForm from './components/ChooseIdentityForm';
 import ChooseCommonForm from './components/ChooseCommonForm';
 import { MultiInstanceConfigPreset as Preset } from '../../manifest-provider/types';
 import NormalFlowForm from './components/NormalFlowForm';
 import { getPresets } from '../../manifest-provider/helpers';
 
-const requestGoogleSignin = () => window.bxApi.identities.requestLogin('google');
-
 const {
   Undefined: UndefinedPreset,
   Subdomain: SubdomainPreset,
-  GoogleAccount: GoogleAccountPreset,
   OnPremise: OnPremisePreset,
 } = Preset;
 
@@ -80,10 +76,6 @@ export default class MultiInstanceConfigurator extends React.Component<Props, St
 
   submitSubdomainForm = (subdomain: string) => {
     window.bxApi.applications.setConfigData(this.props.applicationId, { subdomain });
-  }
-
-  submitIdentityForm = (identityId: string) => {
-    window.bxApi.applications.setConfigData(this.props.applicationId, { identityId });
   }
 
   submitOnPremiseForm = (customURL: string) => {
@@ -154,18 +146,6 @@ export default class MultiInstanceConfigurator extends React.Component<Props, St
     return this.setDefaultSelectedPreset(presets);
   }
 
-  renderIdentityForm() {
-    const { manifest } = this.state;
-    return (
-      <ChooseIdentityForm
-        name={manifest!.name!}
-        onRequestSignin={requestGoogleSignin}
-        instanceTypeWording={manifest!.bx_multi_instance_config!.instance_wording}
-        onAccountChosen={this.submitIdentityForm}
-      />
-    );
-  }
-
   renderSubdomainForm() {
     const { manifest } = this.state;
     const presets = this.getPresets();
@@ -226,7 +206,6 @@ export default class MultiInstanceConfigurator extends React.Component<Props, St
     }
 
     switch (selectedPreset) {
-      case GoogleAccountPreset: return this.renderIdentityForm(); // google-account
       case SubdomainPreset: return this.renderSubdomainForm(); // subdomain
       case OnPremisePreset: return this.renderOnPremiseForm(); // on-premise/subdomain flows
       default: {

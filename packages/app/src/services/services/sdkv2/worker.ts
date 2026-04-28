@@ -38,12 +38,6 @@ const bxAPIAllowedActions = [
     allowedParameters: ['applicationId', 'configData'],
   },
   {
-    channel: SDKv2Actions.RequestLogin,
-    // Avoid circular imports
-    sagaMethod: () => import('../../../user-identities/sagas').then(x => x.callRequestSignIn),
-    allowedParameters: ['provider'],
-  },
-  {
     channel: SDKv2Actions.SearchApplication,
     // Avoid circular imports
     sagaMethod: () => import('../../../app-store/sagas').then(x => x.searchApplication),
