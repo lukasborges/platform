@@ -146,6 +146,14 @@ To package apps for the local platform:
 $ yarn run build
 ```
 
+#### Linux rpm (Fedora 41+)
+
+`electron-builder`'s bundled `fpm` is too old for `rpm >= 4.20`. Build the rpm with the helper script after `electron-builder` has produced `release/linux-unpacked/`:
+
+```bash
+$ ./scripts/build-rpm.sh
+```
+
 #### Code signing
 The application will be automatically signed by the CI on the `release` branch
 
