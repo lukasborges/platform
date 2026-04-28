@@ -40,12 +40,16 @@ export default class AboutWindowFooter extends React.PureComponent<Props, {}> {
         <p>2019 - { new Date().getFullYear() }</p>
         <a
           className={classes!.link}
-          href="https://medium.com/getstation/your-way-of-working-belongs-to-the-stone-age-9ff64782f40"
+          href="https://github.com/lukasborges/desktop-app"
           target="_blank"
         >
-          About Station
+          GitHub
         </a>
-        <a className={classes!.link} href="https://getstation.com/" target="_blank">
+        <a
+          className={classes!.link}
+          href="https://github.com/lukasborges/desktop-app/issues"
+          target="_blank"
+        >
           Support
         </a>
       </footer>

@@ -7,12 +7,13 @@
   "main": "./lib/index",
   "types": "./lib/index",
   "bugs": {
-    "url": "https://github.com/getstation/sdk/issues"
+    "url": "https://github.com/lukasborges/desktop-app/issues"
   },
-  "homepage": "https://github.com/getstation/sdk#readme",
+  "homepage": "https://github.com/lukasborges/desktop-app#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getstation/sdk.git"
+    "url": "git+https://github.com/lukasborges/desktop-app.git",
+    "directory": "packages/sdk"
   },
   "scripts": {
     "build": "tsc -p .",

@@ -37,7 +37,6 @@ export interface Props {
   step: number,
   emails: string[],
   loginButtonDisabled?: boolean,
-  privacyPoliciesLink: string,
   onClickLogin: () => any,
   onAppStoreStepFinished: (
     appsSelectedCount: number,
