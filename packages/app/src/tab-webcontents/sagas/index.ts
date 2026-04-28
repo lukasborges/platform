@@ -270,7 +270,8 @@ function* interceptAutofill({ webcontentsId }: { webcontentsId: number }) {
   const clickChannel = serviceAddObserverChannel(autofillMenu, 'onClickItem', 'autofill-popup-value-selected');
 
   yield takeEveryWitness(clickChannel, function* handle({ action, args }: any) {
-    if (args.length > 0) ipcRenderer.sendTo(webcontentsId, action, args[0]);
+    // Use proxy through main process instead of deprecated sendTo
+    if (args.length > 0) ipcRenderer.send('bx-api-response', webcontentsId, action, args[0]);
   });
 
   // yield takeEveryWitness(popupChannel, function* handle(rect: any) {
