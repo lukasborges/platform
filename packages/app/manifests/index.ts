@@ -1,5 +1,4 @@
 import * as Fuse from 'fuse.js';
-import { getChromeExtensionId } from '../src/abstract-application/helpers';
 import { MinimalApplication } from '../src/applications/graphql/withApplications';
 import { BxAppManifest } from '../src/applications/manifest-provider/bxAppManifest';
 import { ApplicationItem } from '../src/urlrouter/types';
@@ -98,7 +97,6 @@ export function manifestToMinimalApplication(manifest: Manifest): MinimalApplica
     bxAppManifestURL: getBxAppManifestURL(manifest.id),
     iconURL: manifest.icon,
     themeColor: manifest.theme_color ?? '',
-    isChromeExtension: Boolean(getChromeExtensionId(manifest)),
     recommendedPosition: manifest.recommendedPosition ? Number(manifest.recommendedPosition) : 0,
   });
 }

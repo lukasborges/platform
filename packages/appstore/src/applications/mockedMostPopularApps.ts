@@ -14,7 +14,6 @@ const TMP_MOST_POP_APPS = {
       iconURL: 'https://cdn.filestackcontent.com/Yxw83DJdRW2N2PkcDFGA',
       startURL:
         'https://accounts.google.com/AddSession?passive=true&Email={{userIdentity.profileData.email}}&continue=https://mail.google.com/mail/u/{{userIdentity.profileData.email}}',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/14/bxAppManifest.json',
       isPrivate: null,
@@ -34,7 +33,6 @@ const TMP_MOST_POP_APPS = {
       iconURL: 'https://cdn.filestackcontent.com/SoMG9urFTpGgqP2GVsdv',
       startURL:
         'https://calendar.google.com/calendar/{{#if moreThanOneIdentity}}b/{{userIdentity.profileData.email}}{{/if}}',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/18/bxAppManifest.json',
       isPrivate: null,
@@ -54,7 +52,6 @@ const TMP_MOST_POP_APPS = {
       iconURL: 'https://cdn.filestackcontent.com/J4MAUo7LRZm2fhyp6X0f',
       startURL:
         'https://accounts.google.com/AddSession?passive=true&Email={{userIdentity.profileData.email}}&continue=https://drive.google.com/drive/{{#if moreThanOneIdentity}}u/{{userIdentity.profileData.email}}{{/if}}',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/16/bxAppManifest.json',
       isPrivate: null,
@@ -73,7 +70,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#42C299',
       iconURL: 'https://cdn.filestackcontent.com/3xFWEVkgSEmQzEUIxGiv',
       startURL: 'https://{{subdomain}}.slack.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/21/bxAppManifest.json',
       isPrivate: null,
@@ -96,7 +92,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#25D366',
       iconURL: 'https://cdn.filestackcontent.com/34oofXYQG6nVG9oXXxPI',
       startURL: 'https://web.whatsapp.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/122/bxAppManifest.json',
       isPrivate: null,
@@ -115,7 +110,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0085D3',
       iconURL: 'https://cdn.filestackcontent.com/hihkW53ARiyuRQ7yZq7o',
       startURL: 'https://trello.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/20/bxAppManifest.json',
       isPrivate: null,
@@ -134,7 +128,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#09F',
       iconURL: 'https://cdn.filestackcontent.com/Mx7YEqznSJ2OkCO7novG',
       startURL: 'https://www.messenger.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/310/bxAppManifest.json',
       isPrivate: null,
@@ -153,7 +146,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0071A1',
       iconURL: 'https://cdn.filestackcontent.com/YAlX1QvGGulHyWhujTAX',
       startURL: 'https://www.linkedin.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/25/bxAppManifest.json',
       isPrivate: null,
@@ -172,7 +164,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#1DA1F2',
       iconURL: 'https://cdn.filestackcontent.com/d8JTzPSSvS3cVL6yO62A',
       startURL: 'https://twitter.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/59/bxAppManifest.json',
       isPrivate: null,
@@ -191,7 +182,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2EB7E5',
       iconURL: 'https://cdn.filestackcontent.com/I9X5pOO7TeacxmJvsP60',
       startURL: 'https://web.telegram.org',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/126/bxAppManifest.json',
       isPrivate: null,
@@ -210,7 +200,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#7AC143',
       iconURL: 'https://cdn.filestackcontent.com/uxqqrNpfRT6Uei1lH96Q',
       startURL: 'https://www.evernote.com/Home.action',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/104/bxAppManifest.json',
       isPrivate: null,
@@ -230,7 +219,6 @@ const TMP_MOST_POP_APPS = {
       iconURL: 'https://cdn.filestackcontent.com/8GXSa0qvQUW6xkGEsgcq',
       startURL:
         'https://keep.google.com/{{#if moreThanOneIdentity}}u/{{userIdentity.profileData.email}}{{/if}}',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/156/bxAppManifest.json',
       isPrivate: null,
@@ -249,7 +237,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#E43966',
       iconURL: 'https://cdn.filestackcontent.com/1Ob9MEgzSMqVSZZF6wY0',
       startURL: 'https://www.instagram.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/388/bxAppManifest.json',
       isPrivate: null,
@@ -268,7 +255,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#221E1B',
       iconURL: 'https://cdn.filestackcontent.com/ML2wP9JLS7WwJE4nOf3w',
       startURL: 'https://github.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/39/bxAppManifest.json',
       isPrivate: null,
@@ -287,7 +273,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0070C9',
       iconURL: 'https://cdn.filestackcontent.com/XdVhfkeSZyYeRGAc3yc3',
       startURL: 'https://outlook.live.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/140/bxAppManifest.json',
       isPrivate: null,
@@ -306,7 +291,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F95B82',
       iconURL: 'https://cdn.filestackcontent.com/b1goeyaVQM2lQA0PNE5b',
       startURL: 'https://app.asana.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/34/bxAppManifest.json',
       isPrivate: null,
@@ -325,7 +309,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#007EE5',
       iconURL: 'https://cdn.filestackcontent.com/zwo14IIeT1yAZdQwgwuG',
       startURL: 'https://www.dropbox.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/69/bxAppManifest.json',
       isPrivate: null,
@@ -344,7 +327,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00AFF0',
       iconURL: 'https://cdn.filestackcontent.com/3oVsMqx0TT2klDcIBv3k',
       startURL: 'https://web.skype.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/138/bxAppManifest.json',
       isPrivate: null,
@@ -363,7 +345,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#264970',
       iconURL: 'https://cdn.filestackcontent.com/Ch2raiH5Q0W7Dx6RD32p',
       startURL: 'https://{{subdomain}}.atlassian.net/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/100/bxAppManifest.json',
       isPrivate: null,
@@ -386,7 +367,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#82B750',
       iconURL: 'https://cdn.filestackcontent.com/jYO38GpXTlWHrZ36Cd0M',
       startURL: 'https://hangouts.google.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/115/bxAppManifest.json',
       isPrivate: null,
@@ -407,7 +387,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#3a9df4',
       iconURL: 'https://cdn.filestackcontent.com/pn92JMsJTmmyKMvTLhYZ',
       startURL: 'https://www.icloud.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/391/bxAppManifest.json',
       isPrivate: null,
@@ -426,7 +405,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2D8CFF',
       iconURL: 'https://cdn.filestackcontent.com/f8cBB3XlTRCkjJAtL6F7',
       startURL: 'https://zoom.us/signin',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/261/bxAppManifest.json',
       isPrivate: null,
@@ -445,7 +423,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#18B9C1',
       iconURL: 'https://cdn.filestackcontent.com/yPtdEx8RW2Tbajyq4Sbp',
       startURL: 'https://www.canva.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/187/bxAppManifest.json',
       isPrivate: null,
@@ -464,7 +441,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#E41317',
       iconURL: 'https://cdn.filestackcontent.com/2bBLLqqTUeBQ1arzX50S',
       startURL: 'https://toggl.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/134/bxAppManifest.json',
       isPrivate: null,
@@ -483,7 +459,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#149cd4',
       iconURL: 'https://cdn.filestackcontent.com/W7vLMuZ6SRmCuVuD3bT5',
       startURL: 'https://www.paypal.com/signin',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/394/bxAppManifest.json',
       isPrivate: null,
@@ -502,7 +477,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#E24329',
       iconURL: 'https://cdn.filestackcontent.com/hMPbjRpcRleMWdplfmfK',
       startURL: 'https://gitlab.com/users/sign_in',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/123/bxAppManifest.json',
       isPrivate: null,
@@ -521,7 +495,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2175FF',
       iconURL: 'https://cdn.filestackcontent.com/X7bGS8xQG2Da3brzvsgo',
       startURL: 'https://my.1password.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/181/bxAppManifest.json',
       isPrivate: null,
@@ -540,7 +513,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#DF662B',
       iconURL: 'https://cdn.filestackcontent.com/HDBMMXgT96KAXw5if2RJ',
       startURL: 'https://app.hubspot.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/64/bxAppManifest.json',
       isPrivate: null,
@@ -559,7 +531,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#fc9c04',
       iconURL: 'https://cdn.filestackcontent.com/OKnXQQEfTCS82Ae83Guc',
       startURL: 'https://amazon.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/478/bxAppManifest.json',
       isPrivate: null,
@@ -578,7 +549,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#3054BC',
       iconURL: 'https://cdn.filestackcontent.com/rO1qr1SOyxaJtNUaSaQL',
       startURL: 'https://contacts.google.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/214/bxAppManifest.json',
       isPrivate: null,
@@ -597,7 +567,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FFCA00',
       iconURL: 'https://cdn.filestackcontent.com/3YblQVApTatFB87Dfa5M',
       startURL: 'https://admin.mailchimp.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/40/bxAppManifest.json',
       isPrivate: null,
@@ -616,7 +585,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2DC100',
       iconURL: 'https://cdn.filestackcontent.com/I3Y4l7hoSNmJZFxlKh0R',
       startURL: 'https://web.wechat.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/379/bxAppManifest.json',
       isPrivate: null,
@@ -635,7 +603,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#1F8DED',
       iconURL: 'https://cdn.filestackcontent.com/Y6GmxbvTQCHxRC6jhsKA',
       startURL: 'https://app.intercom.io',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/23/bxAppManifest.json',
       isPrivate: null,
@@ -654,7 +621,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#ec5454',
       iconURL: 'https://cdn.filestackcontent.com/Sklz24ovQlq6D7ugQpJV',
       startURL: 'https://www.udemy.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/404/bxAppManifest.json',
       isPrivate: null,
@@ -673,7 +639,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0087BE',
       iconURL: 'https://cdn.filestackcontent.com/nBmsLYHeQrK1j1Gj3qRT',
       startURL: 'https://wordpress.com/wp-login.php',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/116/bxAppManifest.json',
       isPrivate: null,
@@ -692,7 +657,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4285F4',
       iconURL: 'https://cdn.filestackcontent.com/Pb8eVvJESNmyqDWYrTG5',
       startURL: 'https://adwords.google.com/um/Welcome/Home?',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/35/bxAppManifest.json',
       isPrivate: null,
@@ -711,7 +675,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F89920',
       iconURL: 'https://cdn.filestackcontent.com/0pxvMMXQt6j5uYDLDfRw',
       startURL: 'https://app.zeplin.io/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/303/bxAppManifest.json',
       isPrivate: null,
@@ -730,7 +693,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#373F4D',
       iconURL: 'https://cdn.filestackcontent.com/P0MEIe0OQE2vcRheBFpP',
       startURL: 'https://{{subdomain}}.facebook.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/125/bxAppManifest.json',
       isPrivate: null,
@@ -753,7 +715,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f4640c',
       iconURL: 'https://cdn.filestackcontent.com/7cGtj06gTW6kLOg2cuSI',
       startURL: 'https://soundcloud.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/401/bxAppManifest.json',
       isPrivate: null,
@@ -772,7 +733,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#7B68EE',
       iconURL: 'https://cdn.filestackcontent.com/ZerZczISRSb7wyR5HyOL',
       startURL: 'https://app.clickup.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/378/bxAppManifest.json',
       isPrivate: null,
@@ -791,7 +751,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F68D11',
       iconURL: 'https://cdn.filestackcontent.com/A76IE80oQuyj0CtOWtOl',
       startURL: 'https://{{subdomain}}.signin.aws.amazon.com/console',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/119/bxAppManifest.json',
       isPrivate: null,
@@ -814,7 +773,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00363E',
       iconURL: 'https://cdn.filestackcontent.com/bhdHUbarSoSoC75ieViz',
       startURL: 'https://{{subdomain}}.zendesk.com/agent',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/62/bxAppManifest.json',
       isPrivate: null,
@@ -837,7 +795,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00A1E0',
       iconURL: 'https://cdn.filestackcontent.com/qwJ6L2SvQIOry3P2ZCxs',
       startURL: 'https://login.salesforce.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/38/bxAppManifest.json',
       isPrivate: null,
@@ -856,7 +813,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4ccca4',
       iconURL: 'https://cdn.filestackcontent.com/L9hpfddHQMqDgomTHOoi',
       startURL: 'https://{{subdomain}}.backlog.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/595/bxAppManifest.json',
       isPrivate: null,
@@ -879,7 +835,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#009585',
       iconURL: 'https://cdn.filestackcontent.com/3WaVDBFxRPWKJy1iGRPO',
       startURL: 'https://meet.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/299/bxAppManifest.json',
       isPrivate: null,
@@ -898,7 +853,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0075C9',
       iconURL: 'https://cdn.filestackcontent.com/6cr3gowdQ2qKmjwsNGbl',
       startURL: 'https://account.box.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/73/bxAppManifest.json',
       isPrivate: null,
@@ -917,7 +871,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4c0c94',
       iconURL: 'https://cdn.filestackcontent.com/PidRuthS34AFc82TYn9Q',
       startURL: 'https://mail.yahoo.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/529/bxAppManifest.json',
       isPrivate: null,
@@ -936,7 +889,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#007EE5',
       iconURL: 'https://cdn.filestackcontent.com/xgfftrTaRJSuR6ePS33h',
       startURL: 'https://paper.dropbox.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/145/bxAppManifest.json',
       isPrivate: null,
@@ -955,7 +907,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#EA4988',
       iconURL: 'https://cdn.filestackcontent.com/0Mr0rCB1TbWP8ARR9g5R',
       startURL: 'https://dribbble.com/session/new',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/94/bxAppManifest.json',
       isPrivate: null,
@@ -974,7 +925,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F91B50',
       iconURL: 'https://cdn.filestackcontent.com/3ow8MIvBSvK7n6ysLDRg',
       startURL: 'https://{{subdomain}}.monday.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/385/bxAppManifest.json',
       isPrivate: null,
@@ -997,7 +947,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f48424',
       iconURL: 'https://cdn.filestackcontent.com/hb3OR2S9RvWXhJU20hUH',
       startURL: 'https://stackoverflow.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/563/bxAppManifest.json',
       isPrivate: null,
@@ -1016,7 +965,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#049cfc',
       iconURL: 'https://cdn.filestackcontent.com/7O3ROZ3RKmhbcJUAOp47',
       startURL: 'https://ifttt.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/402/bxAppManifest.json',
       isPrivate: null,
@@ -1035,7 +983,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4B7CF2',
       iconURL: 'https://cdn.filestackcontent.com/CohGM9YaTJSBdE7IsLcK',
       startURL: 'https://todo.microsoft.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/213/bxAppManifest.json',
       isPrivate: null,
@@ -1054,7 +1001,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FF4A00',
       iconURL: 'https://cdn.filestackcontent.com/AwJ5KJxWS1TIfEPFEXWA',
       startURL: 'https://zapier.com/app/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/99/bxAppManifest.json',
       isPrivate: null,
@@ -1073,7 +1019,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f48c04',
       iconURL: 'https://cdn.filestackcontent.com/k2dghL1TneYwqJxM4kMJ',
       startURL: 'https://www.draw.io/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/410/bxAppManifest.json',
       isPrivate: null,
@@ -1092,7 +1037,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#000000',
       iconURL: 'https://cdn.filestackcontent.com/t61I7miATe25IIyroqsQ',
       startURL: 'https://unsplash.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/422/bxAppManifest.json',
       isPrivate: null,
@@ -1111,7 +1055,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0092D0',
       iconURL: 'https://cdn.filestackcontent.com/hOpvT9HTnyZWusub1If0',
       startURL: 'https://wetransfer.com/sign-in',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/201/bxAppManifest.json',
       isPrivate: null,
@@ -1130,7 +1073,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#66CC66',
       iconURL: 'https://cdn.filestackcontent.com/sBL5CRfZQYqJwEdx7CPg',
       startURL: 'https://3.basecamp.com/sign_in',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/87/bxAppManifest.json',
       isPrivate: null,
@@ -1149,7 +1091,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4089F8',
       iconURL: 'https://cdn.filestackcontent.com/G0SURHVZTEOtLk7dMgiB',
       startURL: 'https://www.google.com/webmasters/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/246/bxAppManifest.json',
       isPrivate: null,
@@ -1168,7 +1109,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4a4a4a',
       iconURL: 'https://cdn.filestackcontent.com/GkU5gEL0SPW9Bfnp3ZQL',
       startURL: null,
-      isChromeExtension: true,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/415/bxAppManifest.json',
       isPrivate: null,
@@ -1187,7 +1127,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0056FE',
       iconURL: 'https://cdn.filestackcontent.com/VzZqsmY3RrG3nPwGeFdn',
       startURL: 'https://www.behance.net/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/382/bxAppManifest.json',
       isPrivate: null,
@@ -1206,7 +1145,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00A0DE',
       iconURL: 'https://cdn.filestackcontent.com/Ka0dYZbNSmGKmRMa2CQ4',
       startURL: 'https://dashboard.stripe.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/112/bxAppManifest.json',
       isPrivate: null,
@@ -1225,7 +1163,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#DA552F',
       iconURL: 'https://cdn.filestackcontent.com/0azETKerQKiUJoUuNOTG',
       startURL: 'https://www.producthunt.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/343/bxAppManifest.json',
       isPrivate: null,
@@ -1244,7 +1181,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FF7400',
       iconURL: 'https://cdn.filestackcontent.com/ZEXiDuivS9ONy9dYNVGw',
       startURL: 'https://id.getharvest.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/332/bxAppManifest.json',
       isPrivate: null,
@@ -1263,7 +1199,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#000000',
       iconURL: 'https://cdn.filestackcontent.com/Sk3I08KXTeWxgnWUr2fR',
       startURL: 'https://buffer.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/51/bxAppManifest.json',
       isPrivate: null,
@@ -1282,7 +1217,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#1E213F',
       iconURL: 'https://cdn.filestackcontent.com/kMqInOmTOuMJwO1VqlBA',
       startURL: 'https://mail.proton.me',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/550/bxAppManifest.json',
       isPrivate: null,
@@ -1301,7 +1235,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#fccc1b',
       iconURL: 'https://cdn.filestackcontent.com/FziR86KhQQOlvapE3VQL',
       startURL: 'http://music.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/615/bxAppManifest.json',
       isPrivate: null,
@@ -1320,7 +1253,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FCC338',
       iconURL: 'https://cdn.filestackcontent.com/NGoB7lJSH2ftuu1rCeMg',
       startURL: 'https://console.firebase.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/380/bxAppManifest.json',
       isPrivate: null,
@@ -1341,7 +1273,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#3a9df4',
       iconURL: 'https://cdn.filestackcontent.com/pn92JMsJTmmyKMvTLhYZ',
       startURL: 'https://www.icloud.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/391/bxAppManifest.json',
       isPrivate: null,
@@ -1360,7 +1291,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2D8CFF',
       iconURL: 'https://cdn.filestackcontent.com/f8cBB3XlTRCkjJAtL6F7',
       startURL: 'https://zoom.us/signin',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/261/bxAppManifest.json',
       isPrivate: null,
@@ -1379,7 +1309,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#18B9C1',
       iconURL: 'https://cdn.filestackcontent.com/yPtdEx8RW2Tbajyq4Sbp',
       startURL: 'https://www.canva.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/187/bxAppManifest.json',
       isPrivate: null,
@@ -1398,7 +1327,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#E41317',
       iconURL: 'https://cdn.filestackcontent.com/2bBLLqqTUeBQ1arzX50S',
       startURL: 'https://toggl.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/134/bxAppManifest.json',
       isPrivate: null,
@@ -1417,7 +1345,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#149cd4',
       iconURL: 'https://cdn.filestackcontent.com/W7vLMuZ6SRmCuVuD3bT5',
       startURL: 'https://www.paypal.com/signin',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/394/bxAppManifest.json',
       isPrivate: null,
@@ -1436,7 +1363,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#E24329',
       iconURL: 'https://cdn.filestackcontent.com/hMPbjRpcRleMWdplfmfK',
       startURL: 'https://gitlab.com/users/sign_in',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/123/bxAppManifest.json',
       isPrivate: null,
@@ -1455,7 +1381,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2175FF',
       iconURL: 'https://cdn.filestackcontent.com/X7bGS8xQG2Da3brzvsgo',
       startURL: 'https://my.1password.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/181/bxAppManifest.json',
       isPrivate: null,
@@ -1474,7 +1399,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#DF662B',
       iconURL: 'https://cdn.filestackcontent.com/HDBMMXgT96KAXw5if2RJ',
       startURL: 'https://app.hubspot.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/64/bxAppManifest.json',
       isPrivate: null,
@@ -1493,7 +1417,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#fc9c04',
       iconURL: 'https://cdn.filestackcontent.com/OKnXQQEfTCS82Ae83Guc',
       startURL: 'https://amazon.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/478/bxAppManifest.json',
       isPrivate: null,
@@ -1512,7 +1435,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#3054BC',
       iconURL: 'https://cdn.filestackcontent.com/rO1qr1SOyxaJtNUaSaQL',
       startURL: 'https://contacts.google.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/214/bxAppManifest.json',
       isPrivate: null,
@@ -1531,7 +1453,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FFCA00',
       iconURL: 'https://cdn.filestackcontent.com/3YblQVApTatFB87Dfa5M',
       startURL: 'https://admin.mailchimp.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/40/bxAppManifest.json',
       isPrivate: null,
@@ -1550,7 +1471,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#2DC100',
       iconURL: 'https://cdn.filestackcontent.com/I3Y4l7hoSNmJZFxlKh0R',
       startURL: 'https://web.wechat.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/379/bxAppManifest.json',
       isPrivate: null,
@@ -1569,7 +1489,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#1F8DED',
       iconURL: 'https://cdn.filestackcontent.com/Y6GmxbvTQCHxRC6jhsKA',
       startURL: 'https://app.intercom.io',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/23/bxAppManifest.json',
       isPrivate: null,
@@ -1588,7 +1507,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#ec5454',
       iconURL: 'https://cdn.filestackcontent.com/Sklz24ovQlq6D7ugQpJV',
       startURL: 'https://www.udemy.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/404/bxAppManifest.json',
       isPrivate: null,
@@ -1607,7 +1525,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0087BE',
       iconURL: 'https://cdn.filestackcontent.com/nBmsLYHeQrK1j1Gj3qRT',
       startURL: 'https://wordpress.com/wp-login.php',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/116/bxAppManifest.json',
       isPrivate: null,
@@ -1626,7 +1543,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4285F4',
       iconURL: 'https://cdn.filestackcontent.com/Pb8eVvJESNmyqDWYrTG5',
       startURL: 'https://ads.google.com/aw/overview',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/35/bxAppManifest.json',
       isPrivate: null,
@@ -1645,7 +1561,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F89920',
       iconURL: 'https://cdn.filestackcontent.com/0pxvMMXQt6j5uYDLDfRw',
       startURL: 'https://app.zeplin.io/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/303/bxAppManifest.json',
       isPrivate: null,
@@ -1664,7 +1579,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#373F4D',
       iconURL: 'https://cdn.filestackcontent.com/P0MEIe0OQE2vcRheBFpP',
       startURL: 'https://{{subdomain}}.facebook.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/125/bxAppManifest.json',
       isPrivate: null,
@@ -1687,7 +1601,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f4640c',
       iconURL: 'https://cdn.filestackcontent.com/7cGtj06gTW6kLOg2cuSI',
       startURL: 'https://soundcloud.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/401/bxAppManifest.json',
       isPrivate: null,
@@ -1706,7 +1619,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#7B68EE',
       iconURL: 'https://cdn.filestackcontent.com/ZerZczISRSb7wyR5HyOL',
       startURL: 'https://app.clickup.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/378/bxAppManifest.json',
       isPrivate: null,
@@ -1725,7 +1637,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F68D11',
       iconURL: 'https://cdn.filestackcontent.com/A76IE80oQuyj0CtOWtOl',
       startURL: 'https://{{subdomain}}.signin.aws.amazon.com/console',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/119/bxAppManifest.json',
       isPrivate: null,
@@ -1748,7 +1659,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00363E',
       iconURL: 'https://cdn.filestackcontent.com/bhdHUbarSoSoC75ieViz',
       startURL: 'https://{{subdomain}}.zendesk.com/agent',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/62/bxAppManifest.json',
       isPrivate: null,
@@ -1771,7 +1681,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00A1E0',
       iconURL: 'https://cdn.filestackcontent.com/qwJ6L2SvQIOry3P2ZCxs',
       startURL: 'https://login.salesforce.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/38/bxAppManifest.json',
       isPrivate: null,
@@ -1790,7 +1699,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4ccca4',
       iconURL: 'https://cdn.filestackcontent.com/L9hpfddHQMqDgomTHOoi',
       startURL: 'https://{{subdomain}}.backlog.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/595/bxAppManifest.json',
       isPrivate: null,
@@ -1813,7 +1721,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#009585',
       iconURL: 'https://cdn.filestackcontent.com/3WaVDBFxRPWKJy1iGRPO',
       startURL: 'https://meet.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/299/bxAppManifest.json',
       isPrivate: null,
@@ -1832,7 +1739,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0075C9',
       iconURL: 'https://cdn.filestackcontent.com/6cr3gowdQ2qKmjwsNGbl',
       startURL: 'https://account.box.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/73/bxAppManifest.json',
       isPrivate: null,
@@ -1851,7 +1757,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4c0c94',
       iconURL: 'https://cdn.filestackcontent.com/PidRuthS34AFc82TYn9Q',
       startURL: 'https://mail.yahoo.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/529/bxAppManifest.json',
       isPrivate: null,
@@ -1870,7 +1775,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#007EE5',
       iconURL: 'https://cdn.filestackcontent.com/xgfftrTaRJSuR6ePS33h',
       startURL: 'https://paper.dropbox.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/145/bxAppManifest.json',
       isPrivate: null,
@@ -1889,7 +1793,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#EA4988',
       iconURL: 'https://cdn.filestackcontent.com/0Mr0rCB1TbWP8ARR9g5R',
       startURL: 'https://dribbble.com/session/new',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/94/bxAppManifest.json',
       isPrivate: null,
@@ -1908,7 +1811,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#F91B50',
       iconURL: 'https://cdn.filestackcontent.com/3ow8MIvBSvK7n6ysLDRg',
       startURL: 'https://{{subdomain}}.monday.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/385/bxAppManifest.json',
       isPrivate: null,
@@ -1931,7 +1833,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f48424',
       iconURL: 'https://cdn.filestackcontent.com/hb3OR2S9RvWXhJU20hUH',
       startURL: 'https://stackoverflow.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/563/bxAppManifest.json',
       isPrivate: null,
@@ -1950,7 +1851,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#049cfc',
       iconURL: 'https://cdn.filestackcontent.com/7O3ROZ3RKmhbcJUAOp47',
       startURL: 'https://ifttt.com/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/402/bxAppManifest.json',
       isPrivate: null,
@@ -1969,7 +1869,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4B7CF2',
       iconURL: 'https://cdn.filestackcontent.com/CohGM9YaTJSBdE7IsLcK',
       startURL: 'https://todo.microsoft.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/213/bxAppManifest.json',
       isPrivate: null,
@@ -1988,7 +1887,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FF4A00',
       iconURL: 'https://cdn.filestackcontent.com/AwJ5KJxWS1TIfEPFEXWA',
       startURL: 'https://zapier.com/app/login',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/99/bxAppManifest.json',
       isPrivate: null,
@@ -2007,7 +1905,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#f48c04',
       iconURL: 'https://cdn.filestackcontent.com/k2dghL1TneYwqJxM4kMJ',
       startURL: 'https://www.draw.io/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/410/bxAppManifest.json',
       isPrivate: null,
@@ -2026,7 +1923,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#000000',
       iconURL: 'https://cdn.filestackcontent.com/t61I7miATe25IIyroqsQ',
       startURL: 'https://unsplash.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/422/bxAppManifest.json',
       isPrivate: null,
@@ -2045,7 +1941,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0092D0',
       iconURL: 'https://cdn.filestackcontent.com/hOpvT9HTnyZWusub1If0',
       startURL: 'https://wetransfer.com/sign-in',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/201/bxAppManifest.json',
       isPrivate: null,
@@ -2064,7 +1959,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#66CC66',
       iconURL: 'https://cdn.filestackcontent.com/sBL5CRfZQYqJwEdx7CPg',
       startURL: 'https://launchpad.37signals.com/signin',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/87/bxAppManifest.json',
       isPrivate: null,
@@ -2083,7 +1977,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4089F8',
       iconURL: 'https://cdn.filestackcontent.com/G0SURHVZTEOtLk7dMgiB',
       startURL: 'https://www.google.com/webmasters/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/246/bxAppManifest.json',
       isPrivate: null,
@@ -2102,7 +1995,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#4a4a4a',
       iconURL: 'https://cdn.filestackcontent.com/GkU5gEL0SPW9Bfnp3ZQL',
       startURL: null,
-      isChromeExtension: true,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/415/bxAppManifest.json',
       isPrivate: null,
@@ -2121,7 +2013,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#0056FE',
       iconURL: 'https://cdn.filestackcontent.com/VzZqsmY3RrG3nPwGeFdn',
       startURL: 'https://www.behance.net/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/382/bxAppManifest.json',
       isPrivate: null,
@@ -2140,7 +2031,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#00A0DE',
       iconURL: 'https://cdn.filestackcontent.com/Ka0dYZbNSmGKmRMa2CQ4',
       startURL: 'https://dashboard.stripe.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/112/bxAppManifest.json',
       isPrivate: null,
@@ -2159,7 +2049,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#DA552F',
       iconURL: 'https://cdn.filestackcontent.com/0azETKerQKiUJoUuNOTG',
       startURL: 'https://www.producthunt.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/343/bxAppManifest.json',
       isPrivate: null,
@@ -2178,7 +2067,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FF7400',
       iconURL: 'https://cdn.filestackcontent.com/ZEXiDuivS9ONy9dYNVGw',
       startURL: 'https://id.getharvest.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/332/bxAppManifest.json',
       isPrivate: null,
@@ -2197,7 +2085,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#000000',
       iconURL: 'https://cdn.filestackcontent.com/Sk3I08KXTeWxgnWUr2fR',
       startURL: 'https://buffer.com/',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/51/bxAppManifest.json',
       isPrivate: null,
@@ -2216,7 +2103,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#1E213F',
       iconURL: 'https://cdn.filestackcontent.com/kMqInOmTOuMJwO1VqlBA',
       startURL: 'https://mail.proton.me',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/550/bxAppManifest.json',
       isPrivate: null,
@@ -2235,7 +2121,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#fccc1b',
       iconURL: 'https://cdn.filestackcontent.com/FziR86KhQQOlvapE3VQL',
       startURL: 'http://music.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/615/bxAppManifest.json',
       isPrivate: null,
@@ -2254,7 +2139,6 @@ const TMP_MOST_POP_APPS = {
       themeColor: '#FCC338',
       iconURL: 'https://cdn.filestackcontent.com/NGoB7lJSH2ftuu1rCeMg',
       startURL: 'https://console.firebase.google.com',
-      isChromeExtension: false,
       bxAppManifestURL:
         'http://localhost:4001/application-recipe/380/bxAppManifest.json',
       isPrivate: null,

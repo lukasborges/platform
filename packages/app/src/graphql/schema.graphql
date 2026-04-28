@@ -204,16 +204,6 @@ type AbstractApplication {
   manifest: ManifestData,
   settings: Settings,
   instances: [Instance],
-  extensions: [Extension],
-}
-
-# todo: `Extension` should be replaced by the usage of `AbstractApplication` directly
-type Extension {
-  id: ID,
-  manifestURL: ID,
-  name: String,
-  iconUrl: String,
-  added: Boolean,
 }
 
 # todo: `Instance` should be replaced by the usage of `Application` directly
@@ -288,8 +278,6 @@ type ManifestData {
  bx_not_use_native_window_open_on_host: Boolean,
  """true - use default shared session. false or unset - isolated session for each app instance"""
  bx_use_default_session: Boolean,
- """Application Chrome Extension ID"""
- cxExtensionId: ID,
 }
 
 type Settings {

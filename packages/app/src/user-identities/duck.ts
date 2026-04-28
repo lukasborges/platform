@@ -20,8 +20,7 @@ export type AddedApplicationVia =
   | 'subdock'
   | 'deeplink-auto-install'
   | 'onboarding'
-  | 'settings-app-add-account'
-  | 'settings-app-install-extension';
+  | 'settings-app-add-account';
 
 // Action Types
 

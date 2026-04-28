@@ -20,7 +20,6 @@ const application = (i: number) => {
     categoryName: 'File Provider',
     iconURL: 'https://cdn.filestackcontent.com/J4MAUo7LRZm2fhyp6X0f',
     themeColor: '#FCCD48',
-    isExtension: false,
     shouldDisplayCategory: false,
   };
 };

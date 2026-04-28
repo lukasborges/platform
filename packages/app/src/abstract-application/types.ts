@@ -1,6 +1,6 @@
 import { ApplicationSettings } from '../application-settings/types';
 import { ManifestData } from '../graphql/resolvers-types.generated';
-import { Instance, Extension } from '../settings/applications/types';
+import { Instance } from '../settings/applications/types';
 
 export type AbstractApplication = {
   manifestURL: string,
@@ -8,5 +8,4 @@ export type AbstractApplication = {
   manifest: ManifestData,
   settings: ApplicationSettings,
   instances: Instance[],
-  extensions: Extension[],
 };

@@ -70,7 +70,6 @@ class AppStoreBoostedApps extends React.PureComponent<AppStoreBoostedAppsProps, 
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}
@@ -91,7 +90,6 @@ class AppStoreBoostedApps extends React.PureComponent<AppStoreBoostedAppsProps, 
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}
@@ -112,7 +110,6 @@ class AppStoreBoostedApps extends React.PureComponent<AppStoreBoostedAppsProps, 
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}

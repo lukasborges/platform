@@ -7,14 +7,6 @@ export type PasswordManagerLink = {
   providerId: string,
 };
 
-export type Extension = {
-  id: string,
-  manifestURL: string,
-  name: string,
-  added: boolean,
-  iconUrl: string,
-};
-
 export type Instance = {
   id: string,
   name: string,

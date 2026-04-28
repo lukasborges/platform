@@ -24,7 +24,6 @@ story
             categoryName={text('Category Name', 'File Provider')}
             iconURL={text('Icon URL', 'https://cdn.filestackcontent.com/J4MAUo7LRZm2fhyp6X0f')}
             themeColor={color('Theme Color', '#FCCD48')}
-            isExtension={boolean('Is extension', false)}
             shouldDisplayCategory={boolean('Should display category', false)}
             onSelect={action('onSelect')}
           />

@@ -4,7 +4,6 @@ export type MinimalApplication = {
   bxAppManifestURL: string,
   iconURL: string,
   themeColor: string,
-  isChromeExtension: boolean,
   recommendedPosition: number,
 };
 

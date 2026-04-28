@@ -5,7 +5,6 @@ import { AutolaunchService } from './services/autolaunch/interface';
 import { BrowserWindowManagerService } from './services/browser-window/interface';
 import { CursorService } from './services/cursor/interface';
 import { DownloadService } from './services/download/interface';
-import { ChromeExtensionsService } from './services/ecx/interface';
 import { ElectronAppService } from './services/electron-app/interface';
 import { ExtendedAppMetricsService } from './services/extendedAppMetrics/interface';
 import { ManifestService } from './services/manifest/interface';
@@ -31,7 +30,6 @@ export type GlobalServices = {
   browserWindow: BrowserWindowManagerService,
   defaultSession: SessionService,
   electronApp: ElectronAppService,
-  ecx: ChromeExtensionsService,
   apolloLink: ApolloLinkService,
   tabWebContents: TabWebContentsService,
   sdkipc: SDKIPCBroadcastService,

@@ -57,7 +57,6 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}
@@ -77,7 +76,6 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}
@@ -97,7 +95,6 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
                     return <AppStoreApplication
                       key={app.id}
                       application={app}
-                      isExtension={app.isChromeExtension}
                       appStoreContext={appStoreContext}
                       alternate={alternate}
                       onAddApplication={onAddApplication}

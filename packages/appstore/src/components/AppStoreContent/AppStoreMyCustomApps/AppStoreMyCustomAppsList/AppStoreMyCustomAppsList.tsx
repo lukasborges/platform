@@ -59,7 +59,6 @@ class AppStoreMyCustomAppsList extends React.PureComponent<AppStoreMyCustomAppsP
                       return <AppStoreApplication
                         key={app.id}
                         application={app}
-                        isExtension={app.isChromeExtension}
                         appStoreContext={appStoreContext}
                         alternate={alternate}
                         onAddApplication={onAddApplication}

@@ -102,12 +102,6 @@ const AppStoreAsideNav = (
       iconName: '#i--categories',
       hash: screenHash.ALL_APPS,
     },
-    {
-      screenName: screenNames.allExtensions,
-      title: 'All extensions',
-      iconName: '#i--extensions',
-      hash: screenHash.ALL_EXTENSIONS,
-    },
   ];
 
   const myStationNavMenuList = [

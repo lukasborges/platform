@@ -16,7 +16,6 @@ export type Application = {
   categoryName?: string,
   iconURL?: string | null,
   themeColor?: string | null,
-  isExtension?: boolean,
   computedApplicationURL?: string,
   configuration?: ApplicationConfiguration,
   description?: string | null,

@@ -3,7 +3,7 @@ import { from, of, Observable, BehaviorSubject } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { oc } from 'ts-optchain';
 
-import { applicationLabel, getChromeExtensionId } from '../abstract-application/helpers';
+import { applicationLabel } from '../abstract-application/helpers';
 import { Resolvers } from '../graphql/resolvers-types.generated';
 import { getOrderedFavoritesForApplicationId } from '../ordered-favorites/selectors';
 import { getOrderedTabsForApplicationId } from '../ordered-tabs/selectors';
@@ -213,7 +213,7 @@ const resolvers: Resolvers = {
       // @ts-ignore since not implemeted yet in manifest, `bxAppManifest.d.ts` does not have it yet
       return manifest.bx_not_use_native_window_open_on_host;
     },
-    cxExtensionId: (manifest) => getChromeExtensionId(manifest),
+    cxExtensionId: () => undefined,
   },
 
   BxMultiInstanceConfig: {

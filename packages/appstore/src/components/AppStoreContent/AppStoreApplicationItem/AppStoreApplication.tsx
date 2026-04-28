@@ -31,7 +31,6 @@ export type AppStoreApplicationProps = {
   application: Application,
   appStoreContext: number,
   onAddApplication: (applicationId: string, manifestURL: string) => any,
-  isExtension?: boolean,
   alternate?: boolean,
   marginBottom?: number,
   isCategoryNameDisplayed?: boolean,
@@ -109,7 +108,7 @@ class AppStoreApplication extends React.PureComponent<Props, AppStoreApplication
   }
 
   render() {
-    const { application, classes, isExtension, appStoreContext, isCategoryNameDisplayed = true } = this.props;
+    const { application, classes, appStoreContext, isCategoryNameDisplayed = true } = this.props;
     const categoryName = !!application && !!application.category && application.category.name || null;
     const isCustom = categoryName === customAppsCategories.privateApps || application.isPrivate;
     const isShouldDisplayPopup = this.state.appNameWidth >= applicationNameMaxWidth;
@@ -120,7 +119,6 @@ class AppStoreApplication extends React.PureComponent<Props, AppStoreApplication
           <AppStoreApplicationLogo
             iconURL={application.iconURL}
             themeColor={application.themeColor}
-            isExtension={isExtension}
             isAnimationStopped={this.state.isAnimationStopped}
             toggleAnimation={this.toggleAnimation}
           />

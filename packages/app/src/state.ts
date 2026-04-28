@@ -1,7 +1,6 @@
 import { StationApp } from './app/types';
 import { ApplicationsSettings } from './application-settings/types';
 import { StationApplications } from './applications/types';
-import { Extensions } from './chrome-extensions/types';
 import { DialogItems } from './dialogs/types';
 import { StationDock } from './dock/types';
 import { StationFavorites } from './favorites/types';
@@ -25,7 +24,6 @@ export type StationRawState = {
   history: StationHistory;
   applicationSettings: ApplicationsSettings;
   dialogs: DialogItems;
-  chromeExtensions: Extensions;
   dock: StationDock;
   app: StationApp;
   favorites: StationFavorites;

@@ -52,7 +52,7 @@ class AppStoreImpl extends React.PureComponent<IProps> {
           active={isPaneVisible}
           onClick={this.onClickDockIcon}
           badge={badgeIsActive}
-          tooltip={'Add apps and extensions'}
+          tooltip={'Add apps'}
         />
 
         { isPaneVisible &&

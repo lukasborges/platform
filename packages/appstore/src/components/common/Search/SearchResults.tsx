@@ -67,7 +67,6 @@ const SearchResults = ({
               categoryName,
               iconURL,
               themeColor,
-              isExtension,
               shouldDisplayCategory,
               onSelect,
               startUrl,
@@ -82,7 +81,6 @@ const SearchResults = ({
                   categoryName={categoryName}
                   iconURL={iconURL}
                   themeColor={themeColor}
-                  isExtension={isExtension}
                   shouldDisplayCategory={shouldDisplayCategory}
                   onSelect={onSelect}
                   startUrl={startUrl}

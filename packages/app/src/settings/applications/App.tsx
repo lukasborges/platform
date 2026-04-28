@@ -12,19 +12,14 @@ import { uninstallAllInstances } from '../../abstract-application/duck';
 import { withCheckForUpdatesApplicationMutation, withGetAbstractApplication } from '../../abstract-application/queries@local.gql.generated';
 import { setAlwaysLoaded, setInstanceLogoInDock } from '../../application-settings/duck';
 import { changeSelectedApp, installApplication, uninstallApplication } from '../../applications/duck';
-import { checkForUpdate } from '../../chrome-extensions/duck';
-import { getExtensionState } from '../../chrome-extensions/selectors';
-import { ExtensionState } from '../../chrome-extensions/types';
 import AppIcon from '../../dock/components/AppIcon';
 import { removeLink } from '../../password-managers/duck';
 import { StationState } from '../../types';
 import AddNewInstance from '../applications/components/AddNewInstance';
-import ApplicationExtensions from '../applications/components/ApplicationExtensions';
 import ListInstances from '../applications/components/ListInstances';
 import { getApplicationsForDock } from '../../dock/selectors';
 import RemoveModalConfirmation from '../applications/components/RemoveModalConfirmation';
-import { Extension, Instance, Instances } from './types';
-import ExtensionInfos from './components/ExtensionInfos';
+import { Instance, Instances } from './types';
 import { pure } from 'recompose';
 
 interface Classes {
@@ -35,7 +30,6 @@ interface Classes {
   appTitle: string,
   appVersion: string,
   subtitle: string,
-  extensionInfosWrapper: string,
   descriptionWrapper: string,
   description: string,
   instancesContainer: string,
@@ -52,10 +46,8 @@ type DefaultProps = {
   applicationName: string,
   applicationIcon: string,
   applicationThemeColor: string,
-  applicationCxExtensionId?: string,
   instanceWording: string,
   instances: Instances,
-  extensions: Extension[],
   useInstanceLogoInDock: boolean,
   applications: Instances,
 };
@@ -72,23 +64,17 @@ type OwnProps = DefaultProps & {
   ) => any,
 };
 
-interface StateProps {
-  extensionState?: ExtensionState,
-}
-
 interface DispatchProps {
   onRemoveAllInstances: () => any,
   onAddNewInstance: () => any,
   onRemoveInstance: (instanceId: string) => any,
   onConfigureInstance: (instanceId: string) => any,
   onUnlinkPasswordManager: () => any,
-  onExtensionToggle: (extensionManifestURL: string, added: boolean) => any,
   onToggleInstanceLogoInDock: () => any,
   onToogleAutoSleep: (event: React.FormEvent<HTMLInputElement>) => any,
-  onExtensionCheckForUpdate: typeof checkForUpdate,
 }
 
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = OwnProps & DispatchProps;
 
 interface State {
   removeApplication: boolean,
@@ -137,7 +123,6 @@ interface State {
     ...theme.fontMixin(12, 600),
     margin: [20, 0, 10],
   },
-  extensionInfosWrapper: {},
   descriptionWrapper: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -167,10 +152,8 @@ class AppImpl extends React.PureComponent<Props, State> {
     applicationName: '',
     applicationIcon: '',
     applicationThemeColor: '',
-    applicationCxExtensionId: undefined,
     instanceWording: 'instance',
     instances: Iterable([]),
-    extensions: [],
     useInstanceLogoInDock: false,
     applications: List([]),
   };
@@ -228,17 +211,13 @@ class AppImpl extends React.PureComponent<Props, State> {
       applicationThemeColor,
       instanceWording,
       instances,
-      extensions,
       useInstanceLogoInDock,
       attachAppRef,
       onAddNewInstance,
       onConfigureInstance,
       onUnlinkPasswordManager,
-      onExtensionToggle,
       onToggleInstanceLogoInDock,
-      onExtensionCheckForUpdate,
       applications,
-      extensionState,
     } = this.props;
 
     const {
@@ -291,15 +270,6 @@ class AppImpl extends React.PureComponent<Props, State> {
           </Tooltip>
         </div>
 
-        {extensionState &&
-          <div className={classes!.extensionInfosWrapper}>
-            <ExtensionInfos
-              extensionState={extensionState}
-              onCheckForUpdate={onExtensionCheckForUpdate}
-            />
-          </div>
-        }
-
         <div className={classes!.instancesContainer}>
           <div className={classes!.listInstances} >
             <ListInstances
@@ -319,11 +289,6 @@ class AppImpl extends React.PureComponent<Props, State> {
             onClick={onAddNewInstance}
           />
         </div>
-
-        <ApplicationExtensions
-          extensions={extensions}
-          onExtensionToggle={onExtensionToggle}
-        />
 
         <div className={classes!.subtitle}>
           DOCK ICON
@@ -380,19 +345,16 @@ const App = compose(
         const manifest = abstractApplication.manifest;
         const settings = abstractApplication.settings;
         const instances = abstractApplication.instances;
-        const extensions = abstractApplication.extensions;
 
-        if (manifest() && settings() && extensions()) {
+        if (manifest() && settings()) {
           return {
             alwaysLoadedByDefault: manifest.bx_keep_always_loaded(),
             alwaysLoaded: settings.alwaysLoaded(),
             applicationName: manifest.name(),
             applicationIcon: manifest.interpretedIconURL(),
             applicationThemeColor: manifest.theme_color(),
-            applicationCxExtensionId: manifest.cxExtensionId(),
             instanceWording: manifest.bx_multi_instance_config!.instance_wording(),
             instances: Iterable(instances()),
-            extensions: extensions(),
             useInstanceLogoInDock: settings.instanceLogoInDock(),
           };
         }
@@ -407,9 +369,8 @@ const App = compose(
         mutate && mutate({ variables: { manifestURL: ownProps.manifestURL } }),
     }),
   }),
-  connect<StateProps, DispatchProps, OwnProps>(
-    (state: StationState, props: DefaultProps) => ({
-      extensionState: props.applicationCxExtensionId ? getExtensionState(state, props.applicationCxExtensionId) : undefined,
+  connect<{}, DispatchProps, OwnProps>(
+    (state: StationState) => ({
       applications: getApplicationsForDock(state),
     }),
     // @ts-ignore
@@ -437,13 +398,6 @@ const App = compose(
             return changeSelectedApp(id);
           },
           onUnlinkPasswordManager: (applicationId: string) => removeLink({ applicationId }),
-          onExtensionToggle: (extensionManifestURL: string, added: boolean) => {
-            if (added) {
-              return installApplication(extensionManifestURL);
-            }
-
-            return uninstallAllInstances(extensionManifestURL);
-          },
           onToggleInstanceLogoInDock: (event: React.FormEvent<HTMLInputElement>) => {
             // @ts-ignore checked exists
             const checked = event.target.checked;
@@ -455,7 +409,6 @@ const App = compose(
             const checked = event.target.checked;
             return setAlwaysLoaded(manifestURL, checked);
           },
-          onExtensionCheckForUpdate: checkForUpdate,
         },
         dispatch
       );

@@ -8,7 +8,6 @@ import { AutolaunchServiceImpl } from '../services/autolaunch/main';
 import { BrowserWindowManagerServiceImpl } from '../services/browser-window/manager';
 import { CursorServiceImpl } from '../services/cursor/main';
 import { DownloadServiceImpl } from '../services/download/main';
-import { ChromeExtensionsService } from '../services/ecx/interface';
 import { ElectronAppServiceImpl } from '../services/electron-app/main';
 import { ExtendedAppMetricsServiceImpl } from '../services/extendedAppMetrics/main';
 import { ManifestService } from '../services/manifest/interface';
@@ -21,9 +20,6 @@ import { SessionServiceImpl } from '../services/session/main';
 import { TabWebContentsServiceImpl } from '../services/tab-webcontents/main';
 import { URLRouterHelperServiceImpl } from '../services/url-router-helper/main';
 import { GlobalServices, ServicesInitializerImpl, ServicesInitializerNode } from '../types';
-
-const ChromeExtensionsServiceImpl: ChromeExtensionsService = process.env.STATION_DISABLE_ECX ?
-  require('../services/ecx/dummy').ChromeExtensionsServiceDummy : require('../services/ecx/main').ChromeExtensionsServiceImpl;
 
 export const getWorkerPeerHandler = (duplex: Duplex) => {
   const channel: RPCChannel = rpcchannel(duplex, {
@@ -49,7 +45,6 @@ export const mainServices: ServicesInitializerImpl<GlobalServices> = {
   browserWindow: initMain(BrowserWindowManagerServiceImpl, '__default__'),
   defaultSession: initMain(SessionServiceImpl, '__default__'),
   electronApp: initMain(ElectronAppServiceImpl, '__default__'),
-  ecx: initMain(ChromeExtensionsServiceImpl, '__default__'),
   tabWebContents: initMain(TabWebContentsServiceImpl, '__default__'),
   sdkipc: initMain(SDKIPCBroadcastServiceImpl, '__default__'),
   autolaunch: initMain(AutolaunchServiceImpl, '__default__'),

@@ -12,7 +12,6 @@ import { AutolaunchService } from '../services/autolaunch/interface';
 import { BrowserWindowManagerService } from '../services/browser-window/interface';
 import { CursorService } from '../services/cursor/interface';
 import { DownloadService } from '../services/download/interface';
-import { ChromeExtensionsService } from '../services/ecx/interface';
 import { ElectronAppService } from '../services/electron-app/interface';
 import { ExtendedAppMetricsService } from '../services/extendedAppMetrics/interface';
 import { ManifestService } from '../services/manifest/interface';
@@ -62,7 +61,6 @@ export const mainServices: ServicesInitializerNode<GlobalServices> = {
   browserWindow: initRenderer(BrowserWindowManagerService, '__default__'),
   defaultSession: initRenderer(SessionService, '__default__'),
   electronApp: initRenderer(ElectronAppService, '__default__'),
-  ecx: initRenderer(ChromeExtensionsService, '__default__'),
   tabWebContents: initRenderer(TabWebContentsService, '__default__'),
   sdkipc: initRenderer(SDKIPCBroadcastService, '__default__'),
   autolaunch: initRenderer(AutolaunchService, '__default__'),

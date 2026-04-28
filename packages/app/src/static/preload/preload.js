@@ -113,9 +113,6 @@ if (typeof chrome === 'undefined') {
 
 // Some apps like Qonto determine if browser is Chrome by checking if window.chrome.webstore exists
 window.chrome = Object.assign({ webstore: true }, window.chrome);
-if (!process.env.STATION_DISABLE_ECX) {
-  require('electron-chrome-extension/preload');
-}
 require('./window-open');
 
 // This piece of code is injected by `Google Drive Offline` extension

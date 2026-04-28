@@ -16,7 +16,6 @@ export enum ApplicationActionType {
 interface OwnProps {
   application: MinimalApplication,
   onAdd: (application: MinimalApplication, iconRef?: any) => any,
-  isExtension?: boolean,
   subTitle?: string,
   actionType?: ApplicationActionType,
   alternate?: boolean,
@@ -73,16 +72,6 @@ const styles = (theme: ThemeTypes) => createStyles({
     borderRadius: '50%',
     width: 30,
   },
-  iconPin: {
-    ...theme.mixins.flexbox.containerCenter,
-    position: 'absolute',
-    bottom: -6,
-    right: -7,
-    ...theme.mixins.size(22),
-    backgroundColor: '#BBB',
-    border: '2px solid white',
-    borderRadius: '100%',
-  },
   action: {
     flexShrink: 0,
     ...roundedBackground('#999'),
@@ -119,7 +108,7 @@ class ApplicationImpl extends React.PureComponent<Props, {}> {
   }
 
   render() {
-    const { classes, application, isExtension, actionType, subTitle } = this.props;
+    const { classes, application, actionType, subTitle } = this.props;
 
     return (
       <div className={classes!.container}>
@@ -127,12 +116,6 @@ class ApplicationImpl extends React.PureComponent<Props, {}> {
           <div ref={this.iconRef} className={classes!.icon}>
             <AppIcon imgUrl={application.iconURL} themeColor={application.themeColor} />
           </div>
-
-          {isExtension &&
-            <div className={classes!.iconPin}>
-              <Icon symbolId={IconSymbol.EXTENSION} size={25} color={'#5d5d5d'} />
-            </div>
-          }
         </div>
 
         <p className={classes!.applicationDetails}>
