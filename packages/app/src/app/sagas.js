@@ -44,7 +44,6 @@ import { DELAY } from '../persistence/backend';
 import { getWindowCurrentTabId } from '../windows/get';
 import { getWindow } from '../windows/selectors';
 import {
-  getAppAutoLaunchEnabledStatus,
   getAppHideMainMenuStatus,
   getAppMinimizeToTrayStatus,
   getPromptDownloadEnabled,
@@ -76,14 +75,10 @@ function* sagaPrepareQuit(bxApp) {
 }
 
 function* sagaSyncAutoLaunch() {
-  let isEnabled = yield select(getAppAutoLaunchEnabledStatus);
-  if (typeof isEnabled === 'undefined') {
-    // the settings is not defined:
-    // by default we activate the autoLauncher
-    isEnabled = true;
-  }
-
-  yield put(enableAutoLaunch(isEnabled));
+  // Autolaunch feature disabled in this fork: always force off so the app
+  // never registers itself in the OS autostart, regardless of any stale
+  // persisted preference.
+  yield put(enableAutoLaunch(false));
 }
 
 function* sagaEnableAutoLaunch({ enable }) {
