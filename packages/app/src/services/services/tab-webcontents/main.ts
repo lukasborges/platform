@@ -1,5 +1,5 @@
 import * as BluebirdPromise from 'bluebird';
-import { app, ipcMain, session, HandlerDetails } from 'electron';
+import { app, ipcMain, session, shell, HandlerDetails } from 'electron';
 import log from 'electron-log';
 import { omit } from 'ramda';
 import { fromEvent, Observable, Subject } from 'rxjs';
@@ -264,57 +264,49 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
     return false;
   }
 
-  async setUrlDispatcherProvider(provider: RPC.Node<UrlDispatcherProviderService>) {
+  async setUrlDispatcherProvider(_provider: RPC.Node<UrlDispatcherProviderService>) {
     return new ServiceSubscription(this.onNewWebviews().subscribe(wc => {
-      
+
       wc.setWindowOpenHandler((details: HandlerDetails) => {
+        // Fork-specific: every link click that would spawn a new window/tab
+        // is sent to the OS default browser instead of opening inside Station.
+        // Two narrow exceptions stay inside Electron:
+        //   1. OAuth flows / popup-window patterns initiated by a webview
+        //      (about:blank, accounts.google.com/o/oauth2/, popup features,
+        //      named frame targets - see isNewWindowForUserRequest). These
+        //      need to complete in the same Electron context so the redirect
+        //      reaches the originating webview; sending them to the OS
+        //      browser breaks third-party "Sign in with Google" and similar
+        //      federated logins inside webviews.
+        //   2. The download hack - Gmail/Google attachments rely on a hidden
+        //      window to receive the download.
 
-        // log.debug('WindowOpen', details, process.type);
+        if (details.disposition === 'new-window' && this.isNewWindowForUserRequest(details)) {
+          return { action: 'allow' };
+        }
 
-        let useDownloadHack = false;
+        if (details.disposition === 'foreground-tab' && handleDownloadHack(wc, details.url)) {
+          return {
+            action: 'allow',
+            overrideBrowserWindowOptions: {
+              fullscreen: false,
+              show: false,
+            }
+          };
+        }
 
-        if (details.disposition === 'new-window') {
-          if (this.isNewWindowForUserRequest(details)) {
-            return { action: 'allow' };
-          }
-          provider.dispatchUrl(details.url, wc.id, DEFAULT_BROWSER_BACKGROUND);
+        if (details.disposition === 'new-window'
+          || details.disposition === 'background-tab'
+          || details.disposition === 'foreground-tab') {
+          shell.openExternal(details.url);
           return { action: 'deny' };
         }
-        else if (details.disposition === 'background-tab') {
-          provider.dispatchUrl(details.url, wc.id, DEFAULT_BROWSER);
-          return { action: 'deny' };
-        }
-        else if (details.disposition === 'foreground-tab') {
-          useDownloadHack = handleDownloadHack(wc, details.url);
-        }
 
-        //vk: 2023.09.29 don't know how to verify this hack
-        //    will fix it later
-
-        // else if (disposition === 'foreground-tab' && String(url).startsWith('about:blank')) {
-        //   // Gmail PDF hack. Will download a printed PDF from thumbnail
-        //   // EDIT: not only Gmail or just PDF but most of the URL link on a Google app with overriden User Agent
-        //   // also falls here
-        //   const guest = await handleHackGoogleAppsURLs(event, options);
-
-        //   if (guest) { // not a download
-        //     const newWindowUrl = guest.webContents.getURL();
-        //     if (newWindowUrl.startsWith('about:blank')) {
-        //       // if popup is still blank after 2 seconds, we show it to let it finish
-        //       guest.show();
-        //     } else {
-        //       guest.close();
-        //       // otherwise dispatch the current URL of the guest window into our URLRouter
-        //       await provider.dispatchUrl(newWindowUrl, wc.id);
-        //     }
-        //   }
-        // }
-
-        return { 
+        return {
           action: 'allow',
           overrideBrowserWindowOptions: {
             fullscreen: false,
-            show: !useDownloadHack,
+            show: true,
           }
         };
       });
