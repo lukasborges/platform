@@ -23,7 +23,6 @@ export interface Application {
   themeColor: string,
   iconURL: string,
   startURL: string,
-  isChromeExtension: boolean,
   bxAppManifestURL: string
   isPrivate?: boolean | null,
   isPreconfigurable?: boolean | null,

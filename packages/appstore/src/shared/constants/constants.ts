@@ -2,7 +2,6 @@ export const screenNames = {
   companyApps: 'COMPANY_APPS',
   mostPopulars: 'MOST_POPULAR',
   allApps: 'ALL_APPS',
-  allExtensions: 'ALL_EXTENSIONS',
   boostedApps: 'BOOSTED_APPS',
   onboardEmployees: 'ONBOARD_EMPLOYEES',
   myCustomApps: 'MY_CUSTOM_APPS',
@@ -11,7 +10,6 @@ export const screenNames = {
 export enum screenHash {
   MOST_POPULAR = '#most-popular',
   ALL_APPS = '#all-apps',
-  ALL_EXTENSIONS = '#all-extensions',
   BOOSTED_APPS = '#boosted-apps',
   MY_CUSTOM_APPS = '#custom-apps',
 }

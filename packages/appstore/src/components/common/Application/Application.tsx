@@ -93,7 +93,6 @@ const Application = ({
   categoryName,
   iconURL,
   themeColor,
-  isExtension,
   shouldDisplayCategory,
   onSelect,
 }: Props) => {
@@ -109,7 +108,6 @@ const Application = ({
         <ApplicationLogo
           applicationIconURL={iconURL || ''}
           applicationThemeColor={themeColor || 'transparent'}
-          applicationIsExtension={Boolean(isExtension)}
         />
         <div className={classes!.applicationDetails}>
           <div className={classes!.applicationNameContainer}>

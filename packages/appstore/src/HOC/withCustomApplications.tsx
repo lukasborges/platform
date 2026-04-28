@@ -26,7 +26,6 @@ export default function withCustomApplications(Component: React.Component<any>) 
                 name: 'Miscellaneous',
               },
               name: app.name,
-              isChromeExtension: false,
               themeColor: app.theme_color,
               startURL: app.start_url,
             };

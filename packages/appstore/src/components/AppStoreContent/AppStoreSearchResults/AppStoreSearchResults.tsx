@@ -77,7 +77,6 @@ class AppStoreSearchResults extends React.Component<AppStoreSearchResultsProps, 
                       key={app.id}
                       application={app}
                       appStoreContext={appStoreContext}
-                      isExtension={app.isChromeExtension}
                       alternate={alternate}
                       onAddApplication={onAddApplication}
                       marginBottom={38}

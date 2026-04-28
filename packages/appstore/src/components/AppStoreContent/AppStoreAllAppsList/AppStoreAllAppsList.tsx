@@ -66,7 +66,6 @@ class AppStoreAllAppsList extends React.PureComponent<AppStoreAllAppsProps> {
                 return <AppStoreApplication
                   key={app.id}
                   application={app}
-                  isExtension={app.isChromeExtension}
                   appStoreContext={appStoreContext}
                   alternate={alternate}
                   onAddApplication={onAddApplication}

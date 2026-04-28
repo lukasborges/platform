@@ -125,17 +125,3 @@ export const applicationLabel = (
   return labels.join(' - ');
 };
 
-export const getChromeExtensionId = (manifest: BxAppManifest) => {
-  if (manifest.import) {
-    const potentialRecord = manifest.import
-      .find((i: any) => i.platform === 'chrome');
-
-    if (potentialRecord) {
-      return potentialRecord.id;
-    }
-
-    return undefined;
-  }
-
-  return undefined;
-};

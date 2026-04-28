@@ -1,4 +1,3 @@
-import { ThemeTypes } from '@getstation/theme';
 import * as isBlank from 'is-blank';
 
 import { AppStoreApplicationLogoProps } from './AppStoreApplicationLogo';
@@ -11,7 +10,7 @@ const checkThemeColor = (color: string | undefined) => {
   return true;
 };
 
-const styles = (theme: ThemeTypes) => ({
+const styles = () => ({
   iconContainer: {
     margin: '0 10px 0 0',
     position: 'relative',
@@ -20,7 +19,7 @@ const styles = (theme: ThemeTypes) => ({
     height: 40,
     backgroundColor: (props: AppStoreApplicationLogoProps) => checkThemeColor(props.themeColor) ? props.themeColor : defaultThemeColor,
     borderRadius: '50%',
-    overflow: ({ isExtension }: AppStoreApplicationLogoProps) => isExtension ? 'visible' : 'hidden',
+    overflow: 'hidden',
   },
   icon: {
     display: 'inline-block',
@@ -32,23 +31,12 @@ const styles = (theme: ThemeTypes) => ({
     top: 0,
     left: 0,
   },
-  iconPin: {
-    ...theme.mixins.flexbox.containerCenter,
-    position: 'absolute',
-    bottom: -6,
-    right: -7,
-    ...theme.mixins.size(22),
-    backgroundColor: '#BBB',
-    border: '2px solid white',
-    borderRadius: '100%',
-  },
 });
 
 export interface AppStoreApplicationLogoClasses {
   iconContainer: string,
   icon: string,
   animationIcon: string,
-  iconPin: string,
 }
 
 export default styles;

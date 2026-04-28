@@ -6,7 +6,6 @@ import applicationSettings from '../application-settings/duck';
 import applications from '../applications/duck';
 import auto_update from '../auto-update/duck';
 import bang from '../bang/duck';
-import chromeExtensions from '../chrome-extensions/duck';
 import dialogs from '../dialogs/duck';
 import dlToaster from '../dl-toaster/duck';
 import dock from '../dock/duck';
@@ -68,7 +67,6 @@ const rootReducer = combineReducers({
   servicesData: serviceDataReducer,
   applicationSettings,
   plugins,
-  chromeExtensions,
 });
 
 export default rootReducer;

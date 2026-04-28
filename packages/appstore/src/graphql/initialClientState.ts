@@ -37,7 +37,6 @@ export default {
       },
       iconURL: '',
       startURL: '',
-      isChromeExtension: false,
       name: '',
       themeColor: '',
       __typename: 'Application',

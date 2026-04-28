@@ -18,8 +18,6 @@ export const typeDefs = gql`
     "An URL to icon represenrting the app"
     iconURL: String
     id: ID!
-    "true if this application is a chrome extension"
-    isChromeExtension: Boolean
     "Manifest"
     name: String!
     "The id of the BrowserX service in the previous architecture"

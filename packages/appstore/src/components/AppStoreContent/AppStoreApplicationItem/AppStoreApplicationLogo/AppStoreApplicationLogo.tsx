@@ -11,7 +11,6 @@ export type AppStoreApplicationLogoProps = {
   classes?: AppStoreApplicationLogoClasses,
   iconURL: string,
   themeColor?: string,
-  isExtension?: boolean,
   isAnimationStopped: boolean,
   toggleAnimation: (isAnimationStopped: boolean) => void,
 };
@@ -29,7 +28,7 @@ export default class AppStoreApplicationLogo extends React.PureComponent<AppStor
   }
 
   render() {
-    const { classes, isExtension, iconURL, isAnimationStopped, toggleAnimation } = this.props;
+    const { classes, iconURL, isAnimationStopped, toggleAnimation } = this.props;
     const defaultOptions = {
       loop: false,
       autoplay: true,
@@ -65,13 +64,6 @@ export default class AppStoreApplicationLogo extends React.PureComponent<AppStor
                 },
               ]}
             />
-          </div>
-        }
-
-        {
-          isExtension &&
-          <div className={classes!.iconPin}>
-            <Icon symbolId={IconSymbol.EXTENSION} size={25} color={'#5d5d5d'}/>
           </div>
         }
       </div>

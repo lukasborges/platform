@@ -141,20 +141,6 @@ const applyLogLevel = () => {
   }, log.transports.console);
 };
 
-const installDevToolsExtensions = async () => {
-//  const ECx = require('electron-chrome-extension').default;
-
-  // REACT_DEVELOPER_TOOLS
-//  await ECx.load('fmkadmapgofadopljbjfkapdkoienihi');
-
-  // Apollo Client Developer Tools
-//  await ECx.load('jdkknkkbebbapilgoeccciglkfbmbnfm');
-
-  // TODO: not working as it
-  // Redux DevTools
-  // await ECx.load('lmhkpmbekcpmknklioeibfkpmmfibljd');
-};
-
 const lazyBxAppMain = () => {
   // require `app-main` lazily so that configurations overriden below
   // are taken into account
@@ -191,13 +177,6 @@ const init = () => {
   }
 
   const bxAppMain = lazyBxAppMain();
-
-  if (!isPackaged && !process.env.STATION_DISABLE_ECX) {
-    app.on('session-created', s => {
-      s.setPreloads([path.resolve(__dirname, 'static/preload/dev-preload.js')]);
-    });
-    bxAppMain.onOpen = installDevToolsExtensions;
-  }
 
   // let's go baby
   bxAppMain.init();

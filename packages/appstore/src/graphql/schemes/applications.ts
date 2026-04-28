@@ -13,9 +13,6 @@ export type ApplicationsRequestVariables = {
     search?: {
       contains: string,
     },
-    isChromeExtension?: {
-      eq: boolean,
-    },
     category?: {
       contains: string,
     },
@@ -49,7 +46,6 @@ export const QUERY_GET_APPLICATIONS = gql`
                 themeColor
                 iconURL
                 startURL
-                isChromeExtension
                 bxAppManifestURL
                 isPrivate
                 isPreconfigurable

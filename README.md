@@ -121,7 +121,6 @@ To inspect the main process, connect Chrome by visiting `chrome://inspect` and s
 - `STATION_SHOW_REQUIRE_TIME` if exists, the app will display the execution time of requiring modules upon quit
   - ~~Main: timers shown upon quit~~ (disabled for now)
   - ~~Renderer: to show timers, execute this in a console: `require('@getstation/time-require').default()`~~  (disabled for now)
-- `STATION_DISABLE_ECX` if exists, `electron-chrome-extension` will not be loaded
 
 ## Migrations
 

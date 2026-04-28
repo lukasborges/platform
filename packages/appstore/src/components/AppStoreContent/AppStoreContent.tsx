@@ -6,7 +6,6 @@ import { AppStoreContext } from '@src/context';
 import { screenHash } from '@src/shared/constants/constants';
 import AppStoreMostPopularApps from '@src/components/AppStoreContent/AppStoreMostPopularApps/AppStoreMostPopularApps';
 import AppStoreAllApps from '@src/components/AppStoreContent/AppStoreAllApps/AppStoreAllApps';
-import AppStoreAllExtensions from '@src/components/AppStoreContent/AppStoreAllExtensions/AppStoreAllExtensions';
 import AppStoreBoostedApps from '@src/components/AppStoreContent/AppStoreBoostedApps/AppStoreBoostedApps';
 import AppStoreMyCustomApps from '@src/components/AppStoreContent/AppStoreMyCustomApps/AppStoreMyCustomApps';
 import withCustomAppRequestMode, { WithCustomAppRequestModeStatus } from '@src/HOC/withCustomAppRequestMode';
@@ -53,12 +52,6 @@ const AppStoreContent = (
             onAddApplication={onAddApplication}
             allCategories={allCategories}
             applicationsByCategory={applicationsByCategory}
-          />);
-      case screenHash.ALL_EXTENSIONS:
-        return (
-          <AppStoreAllExtensions
-            appStoreContext={appStoreContext}
-            onAddApplication={onAddApplication}
           />);
       case screenHash.BOOSTED_APPS:
         return (

@@ -37,7 +37,6 @@ export default function* root(bxApp: any) {
     spawn(createAsyncImport(bxApp), import('./plugins/sagas')),
     spawn(createAsyncImport(bxApp), import('./application-settings/sagas')),
     spawn(createAsyncImport(bxApp), import('./urlrouter/sagas')),
-    spawn(createAsyncImport(bxApp), import('./chrome-extensions/sagas')),
     spawn(createAsyncImport(bxApp), import('./abstract-application/sagas')),
   ]);
 }

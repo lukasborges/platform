@@ -18,7 +18,6 @@ export const UPDATE_APPLICATION_FROM_RECIPE = gql`
       themeColor
       iconURL
       startURL
-      isChromeExtension
     }
   }
 `;

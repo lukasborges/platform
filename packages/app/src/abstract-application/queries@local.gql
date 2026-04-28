@@ -11,7 +11,6 @@ query GetAbstractApplication($manifestURL: String) @live @local {
       bx_multi_instance_config {
         instance_wording
       }
-      cxExtensionId
     }
     settings {
       manifestURL
@@ -28,13 +27,6 @@ query GetAbstractApplication($manifestURL: String) @live @local {
         instanceId
         providerId
       }
-    }
-    extensions {
-      id
-      manifestURL
-      name
-      iconUrl
-      added
     }
   }
 }

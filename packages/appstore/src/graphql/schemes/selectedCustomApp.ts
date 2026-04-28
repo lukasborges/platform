@@ -11,7 +11,6 @@ export const GET_SELECTED_CUSTOM_APP = gql`
                 iconURL
                 startURL
                 id
-                isChromeExtension
                 name
                 themeColor
             }
@@ -34,7 +33,6 @@ export const SET_SELECTED_CUSTOM_APP = gql`
                 iconURL
                 startURL
                 id
-                isChromeExtension
                 name
                 previousServiceId
                 themeColor

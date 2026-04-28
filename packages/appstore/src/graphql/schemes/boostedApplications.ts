@@ -17,7 +17,6 @@ export const QUERY_GET_BOOSTED_APPLICATIONS = gql`
                 themeColor
                 iconURL
                 startURL
-                isChromeExtension
                 bxAppManifestURL
             }
         }
@@ -30,7 +29,6 @@ export const QUERY_GET_BOOSTED_APPLICATIONS = gql`
                 themeColor
                 iconURL
                 startURL
-                isChromeExtension
                 bxAppManifestURL
             }
         }
@@ -42,7 +40,6 @@ export const QUERY_GET_BOOSTED_APPLICATIONS = gql`
                 category { name }
                 themeColor
                 iconURL
-                isChromeExtension
                 bxAppManifestURL
             }
         }
