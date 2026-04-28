@@ -1,81 +1,110 @@
 name: Release
+
 on:
   push:
     branches:
-      - release
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
 jobs:
-  Linux:
+  release:
+    if: "!contains(github.event.head_commit.message, '[skip release]')"
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v4
         with:
-          node-version: "18"
-          cache: "yarn"
-      # See https://github.com/nodejs/node-gyp/blob/main/docs/Force-npm-to-use-global-node-gyp.md
-      # https://github.com/nodejs/node-gyp/blob/main/docs/Updating-npm-bundled-node-gyp.md
-      # - name: Update node-gyp
-      #   run: |
-      #     npm install --global node-gyp@8.x
-      #     npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Build and Release
-        run: yarn release
+          fetch-depth: 0
 
-  MacOs:
-    runs-on: macos-13
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-      CSC_LINK: ${{ secrets.CSC_LINK }}
-      AC_USERNAME: ${{ secrets.AC_USERNAME }}
-      AC_PASSWORD: ${{ secrets.AC_PASSWORD }}
-      AC_TEAM_ID: ${{ secrets.AC_TEAM_ID }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "20"
           cache: "yarn"
-      - name: Configure Node
-        run: |
-          # npm v9 doesn't allow custom config parameters (i.e. node_gyp) anymode, so we have to downgrade it to v8
-          npm install -g npm@8  
-          npm install -g node-gyp@latest
-          npm config set node_gyp $(npm prefix -g)/lib/node_modules/node-gyp/bin/node-gyp.js
-      - name: Install dependencies
-        run: yarn install --immutable
-      - name: Build and Release
-        run: yarn release
 
-  Windows:
-    runs-on: windows-2019
-    env:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      CSC_KEY_PASSWORD: ${{ secrets.CSC_KEY_PASSWORD }}
-      CSC_LINK: ${{ secrets.CSC_LINK }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-    steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
-        with:
-          node-version: "18"
-      - name: Configure Node
-        shell: powershell
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install system dependencies (build + RPM tooling)
         run: |
-          # npm v9 doesn't allow custom config parameters (i.e. node_gyp) anymode, so we have to downgrade it to v8
-          npm install -g npm@8  
-          npm install -g node-gyp@latest
-          npm prefix -g | % {npm config set node_gyp "$_\node_modules\node-gyp\bin\node-gyp.js"}
-      - name: Install dependencies
+          sudo apt-get update
+          sudo apt-get install -y \
+            graphicsmagick libxtst-dev libx11-dev \
+            rpm
+
+      - name: Install Wine (WineHQ stable, for Windows cross-build)
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo mkdir -pm755 /etc/apt/keyrings
+          sudo wget -qO /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+          codename=$(lsb_release -cs)
+          sudo wget -qNP /etc/apt/sources.list.d/ "https://dl.winehq.org/wine-builds/ubuntu/dists/${codename}/winehq-${codename}.sources"
+          sudo apt-get update
+          sudo apt-get install -y --install-recommends winehq-stable
+          wine --version
+
+      - name: Install Node dependencies
         run: yarn install --immutable
-      - name: Build and Release
-        run: yarn release
+
+      - name: Build workspaces
+        run: yarn build
+
+      - name: Compute next fork version
+        id: version
+        run: |
+          last_n=$(git tag --list 'v3.3.0-fork.*' | sed 's/.*\.//' | sort -n | tail -1)
+          next_n=$((${last_n:-0} + 1))
+          tag="v3.3.0-fork.${next_n}"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "Next release tag: ${tag}"
+
+      - name: Build Linux + Windows installers
+        working-directory: packages/app
+        env:
+          NODE_ENV: production
+        run: ../../node_modules/.bin/electron-builder --linux AppImage --linux deb --win
+
+      - name: Build RPM
+        run: bash scripts/build-rpm.sh
+
+      - name: Push tag
+        run: |
+          git tag "${{ steps.version.outputs.tag }}"
+          git push origin "${{ steps.version.outputs.tag }}"
+
+      - name: Create GitHub release
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          notes_file=$(mktemp)
+          {
+            printf 'Automated release from commit [`%s`](%s/%s/commit/%s).\n\n' \
+              "${GITHUB_SHA::7}" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_SHA"
+            printf '## Commit\n\n```\n'
+            printf '%s\n' "$COMMIT_MSG"
+            printf '```\n\n'
+            printf '## Artifacts\n\n'
+            printf '### Linux (x86_64)\n- `Station-x86_64.AppImage` — distro-agnostic\n- `Station-amd64.deb` — Debian / Ubuntu\n- `Station-x86_64.rpm` — Fedora / RHEL (built with `scripts/build-rpm.sh`)\n\n'
+            printf '### Windows (x86_64)\n- `Station-Setup.exe` — NSIS installer (cross-built from Linux via wine)\n- `Station-Setup.exe.blockmap` — auto-update delta metadata\n\n'
+            printf '### Auto-update metadata\n- `latest-linux.yml`, `latest.yml`\n\n'
+            printf 'macOS build is not included.\n'
+          } > "$notes_file"
+
+          gh release create "$TAG" \
+            --prerelease \
+            --title "$TAG" \
+            --notes-file "$notes_file" \
+            release/Station-x86_64.AppImage \
+            release/Station-amd64.deb \
+            release/Station-x86_64.rpm \
+            release/Station-Setup.exe \
+            release/Station-Setup.exe.blockmap \
+            release/latest-linux.yml \
+            release/latest.yml
