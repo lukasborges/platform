@@ -1,0 +1,7 @@
+{
+  "name": "DeepSeek",
+  "category": "AI & Assistants",
+  "start_url": "https://chat.deepseek.com/",
+  "theme_color": "#FFFFFF",
+  "scope": "https://chat.deepseek.com/"
+}

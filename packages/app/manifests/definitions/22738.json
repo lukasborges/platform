@@ -1,0 +1,7 @@
+{
+  "name": "Microsoft Copilot",
+  "category": "AI & Assistants",
+  "start_url": "https://copilot.microsoft.com/",
+  "theme_color": "#0078D4",
+  "scope": "https://copilot.microsoft.com/"
+}
