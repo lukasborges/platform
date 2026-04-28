@@ -27,7 +27,6 @@ export default function* root(bxApp: any) {
     spawn(createAsyncImport(bxApp), import('./subwindows/sagas')),
     spawn(createAsyncImport(bxApp), import('./dialogs/sagas')),
     spawn(createAsyncImport(bxApp), import('./notification-center/sagas')),
-    spawn(createAsyncImport(bxApp), import('./user-identities/sagas')),
     spawn(createAsyncImport(bxApp), import('./onboarding/sagas')),
     spawn(createAsyncImport(bxApp), import('./theme/sagas')),
     spawn(createAsyncImport(bxApp), import('./settings/applications/sagas')),

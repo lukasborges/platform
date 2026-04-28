@@ -28,7 +28,7 @@ interface Props {
   onDetachFavorite: () => any,
   onCloseTab: (tabId: string) => any,
   onOpenNewTab: () => void,
-  onClickAddNewInstance: (application: Application, identityNeeded?: boolean) => void,
+  onClickAddNewInstance: (application: Application) => void,
   openApplicationPreferences: (application: Application) => void,
   toggleNotifications: () => void,
   handleHideSubdock: () => void,

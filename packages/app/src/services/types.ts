@@ -7,8 +7,6 @@ import { CursorService } from './services/cursor/interface';
 import { DownloadService } from './services/download/interface';
 import { ChromeExtensionsService } from './services/ecx/interface';
 import { ElectronAppService } from './services/electron-app/interface';
-import { AuthenticationService } from './services/authentication/interface';
-import { ElectronGoogleOAuthService } from './services/electron-google-oauth/interface';
 import { ExtendedAppMetricsService } from './services/extendedAppMetrics/interface';
 import { ManifestService } from './services/manifest/interface';
 import { ContextMenuServiceManager, MenuService } from './services/menu/interface';
@@ -30,8 +28,6 @@ export type GlobalServices = {
   download: DownloadService,
   extendedAppMetrics: ExtendedAppMetricsService,
   autoUpdater: AutoUpdaterService,
-  electronGoogleOAuth: ElectronGoogleOAuthService,
-  authentication: AuthenticationService,
   browserWindow: BrowserWindowManagerService,
   defaultSession: SessionService,
   electronApp: ElectronAppService,

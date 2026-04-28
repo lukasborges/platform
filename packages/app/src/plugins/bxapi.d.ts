@@ -4,7 +4,6 @@ import { ApplicationConfigData } from '../applications/duck';
 import { MinimalApplication } from '../applications/graphql/withApplications';
 import { BxAppManifest } from '../applications/manifest-provider/bxAppManifest';
 import { PopularApps } from '../../manifests';
-import { AuthProviders } from '../user-identities/types';
 
 type AppManifest = Omit<BxAppManifest, 'icons'> & { id: string, icon: string };
 
@@ -152,8 +151,6 @@ declare module BxAPI {
   interface Identities {
     addIdentitiesChangeListener(listener: (event: IpcRendererEvent, identities: any[]) => void): void;
     removeIdentitiesChangeListener(listener: (event: IpcRendererEvent, identities: any[]) => void): void;
-    
-    requestLogin(provider: AuthProviders): Promise<any>,
   }
 }
 

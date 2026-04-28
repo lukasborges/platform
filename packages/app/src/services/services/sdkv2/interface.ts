@@ -7,7 +7,6 @@ export enum SDKv2Actions {
   UninstallApplication = 'UninstallApplication',
   UninstallApplications = 'UninstallApplications',
   SetApplicationConfigData = 'SetApplicationConfigData',
-  RequestLogin = 'RequestLogin',
   SearchApplication = 'SearchApplication',
   GetMostPopularApplication = 'GetMostPopularApplication',
   GetAllCategories = 'GetAllCategories',
