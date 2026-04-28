@@ -76,3 +76,8 @@ export const getWebcontentsAuthState = (webcontent: Immutable.Map<string, any>):
 
 export const getWebcontentsAuthInfo = (webcontent: Immutable.Map<string, any>): RecursiveImmutableMap<Electron.AuthInfo> =>
   webcontent && webcontent.get('basicAuthInfo');
+
+export const hasAnyMountedTab = createSelector(
+  getTabWebcontents,
+  (tabWebcontents) => tabWebcontents.some(twc => isWebcontentsMounted(twc))
+);
