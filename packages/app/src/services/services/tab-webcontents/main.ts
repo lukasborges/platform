@@ -339,6 +339,10 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
   async addLifeCycleObserver(webContentsId: number, obs: RPC.ObserverNode<TabWebContentsLifeCycleObserver>) {
     const wc = await getWebContentsFromIdOrThrow(webContentsId);
 
+    if (wc.getMaxListeners() < 100) {
+      wc.setMaxListeners(100);
+    }
+
     const sub = new ServiceSubscription([
       addOnDestroyedObserver(wc, obs),
       addOnDomReadyObserver(wc, obs),
@@ -357,6 +361,10 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
   async addNotificationsObserver(webContentsId: number, obs: RPC.ObserverNode<TabWebContentsNotificationsObserver>) {
     const wc = await getWebContentsFromIdOrThrow(webContentsId);
 
+    if (wc.getMaxListeners() < 100) {
+      wc.setMaxListeners(100);
+    }
+
     const sub = new ServiceSubscription([
       addOnNewNotificationObserver(wc, obs),
       addOnNotificationCloseObserver(wc, obs),
@@ -370,6 +378,10 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
   async addPrintObserver(webContentsId: number, obs: RPC.ObserverNode<TabWebContentsPrintObserver>) {
     const wc = await getWebContentsFromIdOrThrow(webContentsId);
     if (!wc) return ServiceSubscription.noop;
+
+    if (wc.getMaxListeners() < 100) {
+      wc.setMaxListeners(100);
+    }
 
     if (obs.onPrint) {
       const sub = new ServiceSubscription(
