@@ -33,18 +33,17 @@ const compatV1 = over(lensProp('bx_multi_instance_config'), (config: MultiInstan
 });
 
 // Drop google-account preset so Google apps log in via the normal accounts.google.com
-// page (corporate Workspaces often block third-party OAuth).
-const stripHandlebars = (s?: string) => (typeof s === 'string' ? s.replace(/\{\{[^}]*\}\}/g, '') : s);
-
+// page (corporate Workspaces often block third-party OAuth). Use the manifest's
+// `scope` as start_url — handlebars-stripping leaves orphan path segments that 404
+// (e.g. Calendar `.../calendar/{{...}}` -> `.../calendar/` is a 404).
 const dropGoogleAccountPreset = (manifest: any) => {
   const config: MultiInstanceConfig | undefined = manifest && manifest.bx_multi_instance_config;
   const presets = config && config.presets;
   if (!presets || !presets.includes('google-account')) return manifest;
 
+  const base = manifest.scope || manifest.start_url;
   const remaining = presets.filter(p => p !== 'google-account');
-  const next: any = { ...manifest };
-  next.start_url = stripHandlebars(manifest.start_url);
-  next.bx_new_page_url = stripHandlebars(manifest.bx_new_page_url);
+  const next: any = { ...manifest, start_url: base, bx_new_page_url: base };
 
   if (remaining.length === 0) {
     delete next.bx_multi_instance_config;
@@ -54,8 +53,8 @@ const dropGoogleAccountPreset = (manifest: any) => {
       ...rest,
       presets: remaining,
       preset: remaining[0],
-      start_url_tpl: stripHandlebars(rest.start_url_tpl),
-      new_page_url_tpl: stripHandlebars(rest.new_page_url_tpl),
+      start_url_tpl: base,
+      new_page_url_tpl: base,
     };
   }
   return next;
