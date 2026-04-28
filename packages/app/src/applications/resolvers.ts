@@ -213,7 +213,6 @@ const resolvers: Resolvers = {
       // @ts-ignore since not implemeted yet in manifest, `bxAppManifest.d.ts` does not have it yet
       return manifest.bx_not_use_native_window_open_on_host;
     },
-    cxExtensionId: () => undefined,
   },
 
   BxMultiInstanceConfig: {
