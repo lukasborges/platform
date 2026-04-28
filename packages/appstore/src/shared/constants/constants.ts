@@ -58,6 +58,10 @@ export const allAppsCategoriesList = [
     icon: '#i--nas',
   },
   {
+    title: 'AI & Assistants',
+    icon: '#i--ai',
+  },
+  {
     title: 'Blogging & Content Creation',
     icon: '#i--google-search',
   },
