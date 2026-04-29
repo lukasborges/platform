@@ -10,7 +10,6 @@ import {
 } from '../duck';
 import BangBottom from './BangBottom';
 import BangInput from './BangInput';
-import BangInsert from './BangInsert';
 import BangList from './BangList';
 
 interface Classes {
@@ -72,8 +71,6 @@ class BangPresenterImpl extends React.PureComponent<Props, {}> {
       shouldShowInsert,
       onSearchValueChange,
       onQuit,
-      isGDriveConnected,
-      onShowSettings,
       historyItems,
       items,
       highlightedItemId,
@@ -111,13 +108,6 @@ class BangPresenterImpl extends React.PureComponent<Props, {}> {
           onResetHighlightedItem={resetHighlightedItem}
           onCollapseSection={onCollapseSection}
         />
-
-        {shouldShowInsert && searchValue === '' && (
-          <BangInsert
-            onGDriveConnect={onShowSettings}
-            isGDriveConnected={isGDriveConnected}
-          />
-        )}
 
         <BangBottom onClickSettings={this.props.onShowSettings} />
       </div>
