@@ -8,7 +8,7 @@
       "platform": "browserx"
     }
   ],
-  "theme_color": "#FFFFFF",
+  "theme_color": "#000000",
   "scope": "https://chatgpt.com/",
   "bx_legacy_service_id": "chatgpt"
 }
