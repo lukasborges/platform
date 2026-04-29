@@ -52,9 +52,6 @@ jobs:
       - name: Install Node dependencies
         run: yarn install --immutable
 
-      - name: Build workspaces
-        run: yarn build
-
       - name: Compute next fork version
         id: version
         run: |
@@ -62,7 +59,14 @@ jobs:
           next_n=$((${last_n:-0} + 1))
           tag="v3.3.0-fork.${next_n}"
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
+          echo "next_n=${next_n}" >> "$GITHUB_OUTPUT"
           echo "Next release tag: ${tag}"
+
+      - name: Bump package.json version to match tag
+        run: bash scripts/bump-version.sh "${{ steps.version.outputs.next_n }}"
+
+      - name: Build workspaces
+        run: yarn build
 
       - name: Build Linux + Windows installers
         working-directory: packages/app
