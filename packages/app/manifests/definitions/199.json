@@ -10,5 +10,6 @@
   ],
   "theme_color": "#ED7D1A",
   "scope": "https://www.pivotaltracker.com",
-  "bx_legacy_service_id": "pivotal-tracker"
+  "bx_legacy_service_id": "pivotal-tracker",
+  "doNotList": true
 }

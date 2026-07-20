@@ -10,5 +10,6 @@
   ],
   "theme_color": "#2EB7C5",
   "scope": "https://app.salesforceiq.com",
-  "bx_legacy_service_id": "salesforceiq"
+  "bx_legacy_service_id": "salesforceiq",
+  "doNotList": true
 }

@@ -1,21 +1,23 @@
 {
-  "name": "Office 365",
+  "name": "Microsoft 365 Copilot",
   "category": "Communication & Collaboration",
-  "start_url": "https://login.microsoftonline.com/",
+  "start_url": "https://m365.cloud.microsoft/",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/sRnQbfbSlOee4OlIQfqt",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#C75B12",
-  "scope": "https://www.office.com",
+  "theme_color": "#0078D4",
+  "scope": "https://m365.cloud.microsoft",
   "bx_legacy_service_id": "office-365",
   "extended_scopes": [
     "https://office.live.com",
     "https://www.onenote.com",
     "https://outlook.live.com",
-    "https://www.microsoft365.com"
+    "https://www.microsoft365.com",
+    "https://www.office.com",
+    "https://login.microsoftonline.com"
   ],
   "recommendedPosition": "28"
 }

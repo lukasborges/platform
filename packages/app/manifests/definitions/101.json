@@ -23,5 +23,6 @@
     "subdomain_ui_help": "Enter your Desk account's domain.",
     "subdomain_ui_suffix": ".desk.com"
   },
-  "bx_use_default_session": true
+  "bx_use_default_session": true,
+  "doNotList": true
 }

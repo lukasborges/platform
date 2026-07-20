@@ -1,13 +1,16 @@
 {
-  "name": "Integromat",
+  "name": "Make",
   "category": "Miscellaneous",
-  "start_url": "https://www.integromat.com/en/login",
+  "start_url": "https://www.make.com/en/login",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/hi5wEaSXakBAM7hVrcwb",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#0390be",
-  "scope": "https://www.integromat.com"
+  "theme_color": "#6D00CC",
+  "scope": "https://www.make.com",
+  "extended_scopes": [
+    "https://www.integromat.com"
+  ]
 }

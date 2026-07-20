@@ -1,14 +1,17 @@
 {
-  "name": "CakeHR",
+  "name": "Sage HR",
   "category": "HR & Legal",
-  "start_url": "https://cake.hr/signin",
+  "start_url": "https://sage.hr/signin",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/ZmYxJnOQS9ya1vQKkjPU",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#E60062",
-  "scope": "https://cake.hr",
-  "bx_legacy_service_id": "cakehr"
+  "theme_color": "#00D639",
+  "scope": "https://sage.hr",
+  "bx_legacy_service_id": "cakehr",
+  "extended_scopes": [
+    "https://cake.hr"
+  ]
 }

@@ -10,5 +10,6 @@
   ],
   "theme_color": "#008BF3",
   "scope": "https://fabric.io",
-  "bx_legacy_service_id": "fabric-io"
+  "bx_legacy_service_id": "fabric-io",
+  "doNotList": true
 }

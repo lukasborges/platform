@@ -13,5 +13,6 @@
   ],
   "theme_color": "#fccc1b",
   "scope": "https://music.google.com",
-  "bx_legacy_service_id": "google-music"
+  "bx_legacy_service_id": "google-music",
+  "doNotList": true
 }

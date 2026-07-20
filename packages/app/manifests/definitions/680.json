@@ -1,7 +1,7 @@
 {
-  "name": "SendinBlue",
+  "name": "Brevo",
   "category": "Marketing & Analytics",
-  "start_url": "https://sendinblue.com/",
+  "start_url": "https://app.brevo.com/login",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/JM8TTJSSbWNKOSg0SPcx"
@@ -11,7 +11,10 @@
       "platform": "browserx"
     }
   ],
-  "theme_color": "#3494d4",
-  "scope": "https://sendinblue.com",
-  "bx_legacy_service_id": "sendinblue"
+  "theme_color": "#0B996E",
+  "scope": "https://app.brevo.com",
+  "bx_legacy_service_id": "sendinblue",
+  "extended_scopes": [
+    "https://sendinblue.com"
+  ]
 }

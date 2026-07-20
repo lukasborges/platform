@@ -1,5 +1,5 @@
 {
-  "name": "Hellosign",
+  "name": "Dropbox Sign",
   "category": "HR & Legal",
   "start_url": "https://app.hellosign.com/account/logIn",
   "icons": [
@@ -8,7 +8,7 @@
       "platform": "browserx"
     }
   ],
-  "theme_color": "#00B1E5",
+  "theme_color": "#0061FF",
   "scope": "https://app.hellosign.com",
   "bx_legacy_service_id": "hellosign"
 }

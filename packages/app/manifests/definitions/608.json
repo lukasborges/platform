@@ -13,5 +13,6 @@
   ],
   "theme_color": "#04a4a4",
   "scope": "https://mint.intuit.com",
-  "bx_legacy_service_id": "mint"
+  "bx_legacy_service_id": "mint",
+  "doNotList": true
 }

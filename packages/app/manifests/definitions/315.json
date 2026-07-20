@@ -1,14 +1,17 @@
 {
-  "name": "Twitter Ads",
+  "name": "X Ads",
   "category": "Social Media & Advertising",
-  "start_url": "https://ads.twitter.com",
+  "start_url": "https://ads.x.com",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/HHh3gnZS5KimnRmfGDCf",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#1DA1F2",
-  "scope": "https://ads.twitter.com",
-  "bx_legacy_service_id": "twitter-ads"
+  "theme_color": "#000000",
+  "scope": "https://ads.x.com",
+  "bx_legacy_service_id": "twitter-ads",
+  "extended_scopes": [
+    "https://ads.twitter.com"
+  ]
 }

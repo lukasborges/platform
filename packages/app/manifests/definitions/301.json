@@ -1,14 +1,17 @@
 {
-  "name": "Survey Gizmo",
+  "name": "Alchemer",
   "category": "User Support & Survey",
-  "start_url": "https://app.surveygizmo.com/login/v1",
+  "start_url": "https://app.alchemer.com/login",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/bmVanbiTQUantb3aang5",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#FFA100",
-  "scope": "https://app.surveygizmo.com",
-  "bx_legacy_service_id": "survey-gizmo"
+  "theme_color": "#F7941D",
+  "scope": "https://app.alchemer.com",
+  "bx_legacy_service_id": "survey-gizmo",
+  "extended_scopes": [
+    "https://app.surveygizmo.com"
+  ]
 }

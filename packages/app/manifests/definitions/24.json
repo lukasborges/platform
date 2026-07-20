@@ -14,5 +14,6 @@
   "extended_scopes": [
     "https://projects.invisionapp.com",
     "https://invis.io"
-  ]
+  ],
+  "doNotList": true
 }

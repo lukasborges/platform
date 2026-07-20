@@ -1,10 +1,13 @@
-import { IconSymbol, Size, ButtonIcon, Style } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
 
+import { AdwaitaPlusIcon } from './AdwaitaSymbolicIcons';
+
 type Classes = {
   container: string,
+  button: string,
+  icon: string,
 };
 
 type DefaultProps = {
@@ -19,8 +22,38 @@ type Props = DefaultProps & {
 
 @injectSheet(() => ({
   container: {
-    maxWidth: 300,
-    margin: [20, 0],
+    marginTop: 10,
+  },
+  button: {
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, .08)',
+    border: '1px solid rgba(255, 255, 255, .08)',
+    borderRadius: 8,
+    color: 'rgba(255, 255, 255, .88)',
+    cursor: 'default',
+    display: 'inline-flex',
+    fontSize: 13,
+    fontWeight: 600,
+    gap: 8,
+    height: 34,
+    outline: 0,
+    padding: [0, 13],
+    transition: 'background-color 140ms ease-out, border-color 140ms ease-out',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, .12)',
+      borderColor: 'rgba(255, 255, 255, .12)',
+    },
+    '&:active': {
+      backgroundColor: 'rgba(255, 255, 255, .16)',
+    },
+    '&:focus-visible': {
+      boxShadow: '0 0 0 2px #3584e4',
+    },
+  },
+  icon: {
+    fill: 'currentColor',
+    height: 16,
+    width: 16,
   },
 }))
 class AddNewInstance extends React.PureComponent<Props> {
@@ -45,13 +78,15 @@ class AddNewInstance extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <ButtonIcon
-          text={this.getWording()}
-          symbolId={IconSymbol.PLUS}
-          btnStyle={Style.SECONDARY}
-          btnSize={Size.XSMALL}
+        <button
+          aria-label={this.getWording()}
+          className={classes.button}
           onClick={onClick}
-        />
+          type="button"
+        >
+          <AdwaitaPlusIcon className={classes.icon} />
+          <span>{this.getWording()}</span>
+        </button>
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { Hint, IconSymbol, Size, Switcher, TEXT, ThemeTypes as Theme, Tooltip, ButtonIcon, Style } from '@getstation/theme';
+import { Hint, ThemeTypes as Theme, Tooltip } from '@getstation/theme';
 import * as classNames from 'classnames';
 import { Iterable, List } from 'immutable';
 import * as React from 'react';
@@ -6,21 +6,24 @@ import { compose } from 'react-apollo';
 // @ts-ignore no declaration file
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
+import { pure } from 'recompose';
 import { bindActionCreators } from 'redux';
 import { oc } from 'ts-optchain';
+
 import { uninstallAllInstances } from '../../abstract-application/duck';
 import { withCheckForUpdatesApplicationMutation, withGetAbstractApplication } from '../../abstract-application/queries@local.gql.generated';
 import { setAlwaysLoaded, setInstanceLogoInDock } from '../../application-settings/duck';
 import { changeSelectedApp, installApplication, uninstallApplication } from '../../applications/duck';
 import AppIcon from '../../dock/components/AppIcon';
+import { getApplicationsForDock } from '../../dock/selectors';
 import { removeLink } from '../../password-managers/duck';
 import { StationState } from '../../types';
 import AddNewInstance from '../applications/components/AddNewInstance';
+import { AdwaitaTrashIcon } from '../applications/components/AdwaitaSymbolicIcons';
 import ListInstances from '../applications/components/ListInstances';
-import { getApplicationsForDock } from '../../dock/selectors';
 import RemoveModalConfirmation from '../applications/components/RemoveModalConfirmation';
+
 import { Instance, Instances } from './types';
-import { pure } from 'recompose';
 
 interface Classes {
   item: string,
@@ -35,8 +38,13 @@ interface Classes {
   instancesContainer: string,
   addInstance: string,
   buttonRemoveAllContainer: string,
-  buttonRemoveAll: string,
+  destructiveButton: string,
   listInstances: string,
+  switchControl: string,
+  switchControlDisabled: string,
+  switchInput: string,
+  switchTrack: string,
+  switchThumb: string,
 }
 
 type DefaultProps = {
@@ -70,8 +78,8 @@ interface DispatchProps {
   onRemoveInstance: (instanceId: string) => any,
   onConfigureInstance: (instanceId: string) => any,
   onUnlinkPasswordManager: () => any,
-  onToggleInstanceLogoInDock: () => any,
-  onToogleAutoSleep: (event: React.FormEvent<HTMLInputElement>) => any,
+  onToggleInstanceLogoInDock: (event: React.ChangeEvent<HTMLInputElement>) => any,
+  onToogleAutoSleep: (event: React.ChangeEvent<HTMLInputElement>) => any,
 }
 
 type Props = OwnProps & DispatchProps;
@@ -82,6 +90,41 @@ interface State {
   lastInstance: boolean,
   removeAction: () => any
 }
+
+interface AdwaitaSwitchProps {
+  checked: boolean,
+  classes: Classes,
+  disabled?: boolean,
+  disabledHint?: string,
+  label: string,
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => any,
+}
+
+const AdwaitaSwitch = ({
+  checked,
+  classes,
+  disabled = false,
+  disabledHint = '',
+  label,
+  onChange,
+}: AdwaitaSwitchProps) => (
+  <label
+    className={classNames(classes.switchControl, { [classes.switchControlDisabled]: disabled })}
+    title={disabled && disabledHint ? disabledHint : label}
+  >
+    <input
+      aria-label={label}
+      checked={checked}
+      className={classes.switchInput}
+      disabled={disabled}
+      onChange={onChange}
+      type="checkbox"
+    />
+    <span aria-hidden="true" className={classes.switchTrack}>
+      <span className={classes.switchThumb} />
+    </span>
+  </label>
+);
 
 @injectSheet((theme: Theme) => ({
   item: {
@@ -139,11 +182,93 @@ interface State {
   buttonRemoveAllContainer: {
     marginLeft: 'auto',
   },
-  buttonRemoveAll: {
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  destructiveButton: {
+    alignItems: 'center',
+    background: 'transparent',
+    border: 0,
+    borderRadius: 8,
+    color: 'rgba(255, 255, 255, .72)',
+    cursor: 'default',
+    display: 'inline-flex',
+    height: 34,
+    justifyContent: 'center',
+    outline: 0,
+    padding: 0,
+    transition: 'background-color 140ms ease-out, color 140ms ease-out',
+    width: 34,
+    '& svg': {
+      fill: 'currentColor',
+      height: 16,
+      width: 16,
+    },
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, .08)',
+      color: '#ff7b63',
+    },
+    '&:active': {
+      backgroundColor: 'rgba(255, 255, 255, .13)',
+    },
+    '&:focus-visible': {
+      boxShadow: '0 0 0 2px #3584e4',
+    },
   },
   listInstances: {
     marginBottom: '20px',
+  },
+  switchControl: {
+    alignItems: 'center',
+    cursor: 'default',
+    display: 'inline-flex',
+    flexShrink: 0,
+    height: 26,
+    position: 'relative',
+    '&:hover $switchTrack': {
+      backgroundColor: '#56575c',
+    },
+    '&:focus-within $switchTrack': {
+      boxShadow: '0 0 0 2px rgba(53, 132, 228, .6)',
+    },
+  },
+  switchControlDisabled: {
+    cursor: 'not-allowed',
+    opacity: .55,
+  },
+  switchInput: {
+    height: 1,
+    opacity: 0,
+    overflow: 'hidden',
+    position: 'absolute',
+    width: 1,
+    '&:checked + $switchTrack': {
+      backgroundColor: '#3584e4',
+      borderColor: '#3584e4',
+    },
+    '&:checked + $switchTrack $switchThumb': {
+      transform: 'translateX(18px)',
+    },
+    '&:disabled + $switchTrack': {
+      boxShadow: 'none',
+    },
+  },
+  switchTrack: {
+    backgroundColor: '#4a4b50',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 999,
+    boxSizing: 'border-box',
+    display: 'inline-flex',
+    height: 24,
+    padding: 2,
+    transition: 'background-color 140ms ease-out, border-color 140ms ease-out, box-shadow 140ms ease-out',
+    width: 42,
+  },
+  switchThumb: {
+    backgroundColor: '#fff',
+    borderRadius: '50%',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, .45)',
+    display: 'block',
+    height: 18,
+    transition: 'transform 160ms ease-out',
+    width: 18,
   },
 }))
 class AppImpl extends React.PureComponent<Props, State> {
@@ -174,7 +299,7 @@ class AppImpl extends React.PureComponent<Props, State> {
   }
 
   onToggleAutoSleep = (
-    event: React.FormEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     this.props.onToogleAutoSleep(event);
   }
@@ -261,14 +386,15 @@ class AppImpl extends React.PureComponent<Props, State> {
             offset="-2, 12"
             placement={'left'}
           >
-            <ButtonIcon
-              className={classes!.buttonRemoveAll}
-              iconColor="white"
-              btnStyle={Style.SECONDARY}
-              symbolId={IconSymbol.TRASH}
-              btnSize={Size.SMALL}
+            <button
+              aria-label="Remove app"
+              className={classes!.destructiveButton}
               onClick={this.onConfirmRemoveApplication}
-            />
+              title="Remove app"
+              type="button"
+            >
+              <AdwaitaTrashIcon />
+            </button>
           </Tooltip>
         </div>
 
@@ -301,10 +427,11 @@ class AppImpl extends React.PureComponent<Props, State> {
             When available, use {instanceWording} logo in the dock
           </div>
 
-          <Switcher
+          <AdwaitaSwitch
             checked={useInstanceLogoInDock}
+            classes={classes!}
+            label={`Use ${instanceWording} logo in the dock`}
             onChange={onToggleInstanceLogoInDock}
-            text={TEXT.YES_NO}
           />
         </div>
 
@@ -319,12 +446,13 @@ class AppImpl extends React.PureComponent<Props, State> {
             Keep {applicationName} active in background to receive calls and notifications.
           </div>
           <div>
-            <Switcher
+            <AdwaitaSwitch
               checked={alwaysLoadedByDefault ? true : alwaysLoaded}
+              classes={classes!}
               disabled={alwaysLoadedByDefault}
               disabledHint={`${applicationName} is always kept active in background`}
+              label={`Keep ${applicationName} active in background`}
               onChange={this.onToggleAutoSleep}
-              text={TEXT.YES_NO}
             />
           </div>
         </div>
@@ -400,14 +528,12 @@ const App = compose(
             return changeSelectedApp(id);
           },
           onUnlinkPasswordManager: (applicationId: string) => removeLink({ applicationId }),
-          onToggleInstanceLogoInDock: (event: React.FormEvent<HTMLInputElement>) => {
-            // @ts-ignore checked exists
+          onToggleInstanceLogoInDock: (event: React.ChangeEvent<HTMLInputElement>) => {
             const checked = event.target.checked;
 
             return setInstanceLogoInDock(manifestURL, checked);
           },
-          onToogleAutoSleep: (event: React.FormEvent<HTMLInputElement>) => {
-            // @ts-ignore checked exists
+          onToogleAutoSleep: (event: React.ChangeEvent<HTMLInputElement>) => {
             const checked = event.target.checked;
             return setAlwaysLoaded(manifestURL, checked);
           },

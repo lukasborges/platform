@@ -1,14 +1,17 @@
 {
-  "name": "Clubhouse",
+  "name": "Shortcut",
   "category": "Task & Project Management",
-  "start_url": "https://app.clubhouse.io",
+  "start_url": "https://app.shortcut.com/login",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/1LyAiJSeSXmVYGuTozkU",
       "platform": "browserx"
     }
   ],
-  "theme_color": "#6514DD",
-  "scope": "https://app.clubhouse.io",
-  "bx_legacy_service_id": "clubhouse"
+  "theme_color": "#494BCB",
+  "scope": "https://app.shortcut.com",
+  "bx_legacy_service_id": "clubhouse",
+  "extended_scopes": [
+    "https://app.clubhouse.io"
+  ]
 }

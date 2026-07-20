@@ -1,7 +1,7 @@
 {
-  "name": "AngelList",
+  "name": "Wellfound",
   "category": "HR & Legal",
-  "start_url": "https://angel.co/login",
+  "start_url": "https://wellfound.com/login",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/cvG0s4deQGOth8RJjcwF",
@@ -9,6 +9,9 @@
     }
   ],
   "theme_color": "#000000",
-  "scope": "https://angel.co",
-  "bx_legacy_service_id": "angel-list"
+  "scope": "https://wellfound.com",
+  "bx_legacy_service_id": "angel-list",
+  "extended_scopes": [
+    "https://angel.co"
+  ]
 }
