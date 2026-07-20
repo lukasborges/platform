@@ -33,6 +33,7 @@ import {
   WebContentsOverrideProviderService,
 } from './interface';
 import { DEFAULT_BROWSER, DEFAULT_BROWSER_BACKGROUND, NEW_WINDOW } from '../../../urlrouter/constants';
+import { isGoogleAccountsUrl } from '../../../utils/userAgent';
 
 export class TabWebContentsServiceImpl extends TabWebContentsService implements RPC.Interface<TabWebContentsService> {
   protected webviews: Subject<Electron.WebContents>;
@@ -219,7 +220,7 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
   isNewWindowForUserRequest(details: HandlerDetails): boolean {
 
     if (details.url.startsWith('about:blank')
-        || details.url.startsWith('https://accounts.google.com/o/oauth2/')) {
+        || details.url.startsWith('https://accounts.google.com/')) {
       return true;
     }
 
@@ -272,7 +273,7 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
         // is sent to the OS default browser instead of opening inside Station.
         // Two narrow exceptions stay inside Electron:
         //   1. OAuth flows / popup-window patterns initiated by a webview
-        //      (about:blank, accounts.google.com/o/oauth2/, popup features,
+        //      (about:blank, accounts.google.com, popup features,
         //      named frame targets - see isNewWindowForUserRequest). These
         //      need to complete in the same Electron context so the redirect
         //      reaches the originating webview; sending them to the OS
@@ -281,7 +282,14 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
         //   2. The download hack - Gmail/Google attachments rely on a hidden
         //      window to receive the download.
 
-        if (details.disposition === 'new-window' && this.isNewWindowForUserRequest(details)) {
+        if (isGoogleAccountsUrl(details.url)) {
+          wc.loadURL(details.url).catch(error => {
+            log.error('Unable to open Google authentication in service webview', error);
+          });
+          return { action: 'deny' };
+        }
+
+        if (this.isNewWindowForUserRequest(details)) {
           return { action: 'allow' };
         }
 

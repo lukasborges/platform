@@ -21,7 +21,7 @@ trap 'rm -rf "$work"' EXIT
 
 mkdir -p "$work/SOURCES" "$work/SPECS" "$work/BUILD" "$work/RPMS" "$work/SRPMS" "$work/BUILDROOT"
 
-cat > "$work/SOURCES/Station.desktop" <<'EOF'
+cat > "$work/SOURCES/station-desktop-app.desktop" <<'EOF'
 [Desktop Entry]
 Name=Station
 Comment=A smarter web browser for busy people
@@ -29,7 +29,7 @@ Exec=/opt/Station/station-desktop-app %U
 Terminal=false
 Type=Application
 Icon=station-desktop-app
-StartupWMClass=Station
+StartupWMClass=station-desktop-app
 Categories=Network;
 MimeType=x-scheme-handler/station;
 EOF
@@ -45,7 +45,7 @@ Summary:        Station — a smarter web browser for busy people
 License:        ASL 2.0
 URL:            https://getstation.com
 Source0:        station-linux-unpacked.tar.gz
-Source1:        Station.desktop
+Source1:        station-desktop-app.desktop
 Source2:        station-desktop-app.png
 BuildArch:      x86_64
 AutoReqProv:    no
@@ -71,7 +71,7 @@ cp -a . %{buildroot}/opt/Station/
 mkdir -p %{buildroot}%{_bindir}
 ln -s ../../opt/Station/station-desktop-app %{buildroot}%{_bindir}/station-desktop-app
 mkdir -p %{buildroot}%{_datadir}/applications
-install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/Station.desktop
+install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/station-desktop-app.desktop
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/512x512/apps
 install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/station-desktop-app.png
 
@@ -79,7 +79,7 @@ install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/sta
 /opt/Station
 %attr(4755, root, root) /opt/Station/chrome-sandbox
 %{_bindir}/station-desktop-app
-%{_datadir}/applications/Station.desktop
+%{_datadir}/applications/station-desktop-app.desktop
 %{_datadir}/icons/hicolor/512x512/apps/station-desktop-app.png
 
 %post

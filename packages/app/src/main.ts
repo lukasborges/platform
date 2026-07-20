@@ -13,6 +13,10 @@ import { getUrlToLoad } from './utils/dev';
 import { isPackaged } from './utils/env';
 import * as remoteMain from '@electron/remote/main';
 
+if (process.platform === 'linux') {
+  app.setDesktopName('station-desktop-app.desktop');
+}
+
 bootServices(); // all side effects related to services (in main process)
 
 remoteMain.initialize();

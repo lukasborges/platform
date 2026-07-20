@@ -46,6 +46,12 @@ import { getTabId, getTabLoadingState } from '../tabs/get';
 import { StationTabImmutable } from '../tabs/types';
 import { RecursiveImmutableMap, StationState } from '../types';
 import { isPackaged } from '../utils/env';
+import {
+  GMAIL_ACCOUNT_CHOOSER_URL,
+  isGmailLandingPage,
+  isGoogleAccountsUrl,
+  withoutChromeVersion,
+} from '../utils/userAgent';
 import ApplicationContainer from './components/ApplicationContainer';
 import { navigateToApplicationTab, setConfigData, uninstallApplication, updateApplicationIcon } from './duck';
 import LazyWebview from './LazyWebview';
@@ -170,6 +176,7 @@ class ApplicationImpl extends React.PureComponent {
   public props: Props;
   public state: ApplicationImplState;
   private webView: ElectronWebview;
+  private defaultUserAgent: string | null = null;
   private busSubscription: Subscription | null = null;
 
   constructor(props: Props) {
@@ -325,6 +332,25 @@ class ApplicationImpl extends React.PureComponent {
     * i.e. window.location mutation, etc...
     */
     this.props.onURLUpdated(e.url);
+
+    if (isGmailLandingPage(e.url)) {
+      this.webView.loadURL(GMAIL_ACCOUNT_CHOOSER_URL);
+      return;
+    }
+
+    const currentUserAgent = this.webView.getUserAgent();
+    if (!this.defaultUserAgent && /Chrome\/[\d.]+/.test(currentUserAgent)) {
+      this.defaultUserAgent = currentUserAgent;
+    }
+
+    const defaultUserAgent = this.defaultUserAgent || currentUserAgent;
+    const nextUserAgent = isGoogleAccountsUrl(e.url)
+      ? withoutChromeVersion(defaultUserAgent)
+      : defaultUserAgent;
+
+    if (currentUserAgent !== nextUserAgent) {
+      this.webView.setUserAgent(nextUserAgent);
+    }
   }
 
   handleDidFailLoad(e: any) {
@@ -477,7 +503,7 @@ class ApplicationImpl extends React.PureComponent {
           onDidFailLoad={this.handleDidFailLoad}
           onDomReady={this.handleDomReady}
           onCrashed={this.handleWebcontentsCrashed}
-          webpreferences={`allowRunningInsecureContent=true,nativeWindowOpen=${useNativeWindowOpen},contextIsolation=true,nodeIntegration=true`}
+          webpreferences={`allowRunningInsecureContent=true,nativeWindowOpen=${useNativeWindowOpen},contextIsolation=true,nodeIntegration=false,sandbox=false`}
         />
 
       </div>

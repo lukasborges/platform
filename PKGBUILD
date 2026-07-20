@@ -1,6 +1,6 @@
 pkgname=station-desktop-app
 pkgver=3.3.0.b1
-pkgrel=1
+pkgrel=4
 pkgdesc='Station desktop application'
 arch=('x86_64')
 url='https://github.com/lukasborges/desktop-app'
@@ -46,6 +46,6 @@ Type=Application
 Icon=station-desktop-app
 Categories=Network;
 MimeType=x-scheme-handler/station;
-StartupWMClass=Station
+StartupWMClass=station-desktop-app
 DESKTOP
 }

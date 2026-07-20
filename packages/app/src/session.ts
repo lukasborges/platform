@@ -1,6 +1,8 @@
 import { Session, OnBeforeSendHeadersListenerDetails, BeforeSendResponse, OnHeadersReceivedListenerDetails, HeadersReceivedResponse } from 'electron';
 import enhanceWebRequest from 'electron-better-web-request';
 
+import { isGoogleAccountsUrl, withoutChromeVersion } from './utils/userAgent';
+
 const orderListeners = (listeners: any) => {
   const orderableOrigins = [
     'ecx-cors', // warning(hugo) minify all keys
@@ -65,11 +67,27 @@ These applications are sensitive to the User-Agent header and have to be recheck
 it's better to remove bx_override_user_agent attribute from manifest before the check to be sure that it's still necessary.
 */
 const chromeVersion = process.versions.chrome || '129.0.0.0';
-const defaultUserAgent = `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVersion} Safari/537.36`;
+const userAgentPlatform = (() => {
+  switch (process.platform) {
+    case 'darwin':
+      return 'Macintosh; Intel Mac OS X 10_15_7';
+    case 'win32':
+      return 'Windows NT 10.0; Win64; x64';
+    default:
+      return 'X11; Linux x86_64';
+  }
+})();
+const defaultUserAgent = `Mozilla/5.0 (${userAgentPlatform}) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeVersion} Safari/537.36`;
 
 export const getUserAgentForApp = (url: string, currentUserAgent: string): string => {
 
   if (url.startsWith('file://') || url.startsWith('http://localhost')) {
+    return currentUserAgent;
+  }
+
+  if (isGoogleAccountsUrl(url)
+    && /\bChrome(?:\s|$)/.test(currentUserAgent)
+    && currentUserAgent === withoutChromeVersion(currentUserAgent)) {
     return currentUserAgent;
   }
 
@@ -120,7 +138,8 @@ export const enhanceSession = (session: Session) => {
 
   session.webRequest.onBeforeSendHeaders(
       (details: OnBeforeSendHeadersListenerDetails, callback: (beforeSendResponse: BeforeSendResponse) => void) => {
-        details.requestHeaders['User-Agent'] = getUserAgentForApp(details.url, session.getUserAgent());
+        const requestUserAgent = details.requestHeaders['User-Agent'] || session.getUserAgent();
+        details.requestHeaders['User-Agent'] = getUserAgentForApp(details.url, requestUserAgent);
         details.referrer = getRefererForApp(details.referrer);
         details.requestHeaders['Referer'] = details.referrer;
 
