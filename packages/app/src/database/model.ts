@@ -20,10 +20,6 @@ export const App = db.define(
       type: Sequelize.BOOLEAN,
       defaultValue: false,
     },
-    minimizeToTray: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
     downloadFolder: {
       type: Sequelize.STRING,
     },

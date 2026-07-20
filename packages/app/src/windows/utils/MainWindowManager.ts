@@ -1,4 +1,3 @@
-import services from '../../services/servicesManager';
 import { getUrlToLoad } from '../../utils/dev';
 import { getResourceIconPath } from '../../utils/resources';
 // @ts-ignore: no declaration file
@@ -27,13 +26,6 @@ export default class MainWindowManager extends GenericWindowManager {
       icon: getResourceIconPath(),
       acceptFirstMouse: true,
       savePosition: 'main-window',
-    });
-
-    this.on('minimize', async () => {
-      const trayIconVisible = await services.electronApp.trayIconVisible();
-      if (trayIconVisible) {
-        services.browserWindow.hideAllWindows();
-      }
     });
 
     await super.load();

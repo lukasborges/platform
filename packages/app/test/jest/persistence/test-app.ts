@@ -7,7 +7,6 @@ const appData = Immutable.Map({
   version: 1,
   autoLaunchEnabled: true,
   hideMainMenu: true,
-  minimizeToTray: false,
   downloadFolder: '/any/path',
   promptDownload: false
 });
@@ -16,7 +15,6 @@ const appData2 = Immutable.Map({
   version: 2,
   autoLaunchEnabled: true,
   hideMainMenu: true,
-  minimizeToTray: false,
   downloadFolder: '/any/path',
   promptDownload: true
 });
@@ -26,7 +24,7 @@ const wrongData = Immutable.Map({
   unaivalableProp: true,
   autoLaunchEnabled: true,
   hideMainMenu: true,
-  minimizeToTray: false,
+  minimizeToTray: true,
   downloadFolder: '/any/path',
   promptDownload: false
 });
@@ -39,7 +37,6 @@ const correctedData = {
   version: 1,
   autoLaunchEnabled: true,
   hideMainMenu: true,
-  minimizeToTray: false,
   downloadFolder: '/any/path',
   promptDownload: false
 };

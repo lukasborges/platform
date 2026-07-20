@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { parse } from 'url';
-import { app, webContents, BrowserWindow, Menu, Tray, nativeImage } from 'electron';
+import { app, webContents } from 'electron';
 import log from 'electron-log';
 
 import services from './services/servicesManager';

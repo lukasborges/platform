@@ -26,7 +26,6 @@ import {
   CHANGE_APP_FOCUS_STATE,
   ENABLE_AUTO_LAUNCH, enableAutoLaunch,
   HIDE_MAIN_MENU, hideMainMenu,
-  MINIMIZE_TO_TRAY, minimizeToTray,
   INCLUDE_BETA_IN_UPDATES,
   keyboardLayoutChanged,
   OPEN_PROCESS_MANAGER,
@@ -45,7 +44,6 @@ import { getWindowCurrentTabId } from '../windows/get';
 import { getWindow } from '../windows/selectors';
 import {
   getAppHideMainMenuStatus,
-  getAppMinimizeToTrayStatus,
   getPromptDownloadEnabled,
   isFullyReady,
   isKbdShortcutsOverlayVisible
@@ -96,24 +94,6 @@ function* sagaSyncHideMainMenu() {
 
 function* sagaHideMainMenu({ hide }) {
   yield call([services.browserWindow, services.browserWindow.hideMainMenu], hide);
-}
-
-function* sagaSyncMinimizeToTray() {
-  let isEnabled = yield select(getAppMinimizeToTrayStatus);
-  if (typeof isEnabled === 'undefined') {
-    isEnabled = false;
-  }
-
-  yield put(minimizeToTray(isEnabled));
-}
-
-function* sagaMinimizeToTray({ enable }) {
-  if (enable) {
-    yield call([services.electronApp, services.electronApp.showTrayIcon]);
-  }
-  else {
-    yield call([services.electronApp, services.electronApp.hideTrayIcon]);
-  }
 }
 
 function* sagaTogglePromptDownload({ promptDownload }) {
@@ -298,11 +278,9 @@ export default function* main(bxApp) {
     takeEveryWitness(READY, sagaPrepareQuit, bxApp),
     takeEveryWitness(REHYDRATION_COMPLETE, sagaSyncAutoLaunch),
     takeEveryWitness(REHYDRATION_COMPLETE, sagaSyncHideMainMenu),
-    takeEveryWitness(REHYDRATION_COMPLETE, sagaSyncMinimizeToTray),
     takeEveryWitness(REHYDRATION_COMPLETE, sagaSyncPromptDownload),
     takeEveryWitness(ENABLE_AUTO_LAUNCH, sagaEnableAutoLaunch),
     takeEveryWitness(HIDE_MAIN_MENU, sagaHideMainMenu),
-    takeEveryWitness(MINIMIZE_TO_TRAY, sagaMinimizeToTray),
     takeEveryWitness(TOGGLE_PROMPT_DOWNLOAD, sagaTogglePromptDownload),
     takeEveryWitness(INCLUDE_BETA_IN_UPDATES, sagaIncludeBetaInUpdates),
     takeEveryWitness(TOGGLE_MAXIMIZE, sagaSendToggleMaximize),

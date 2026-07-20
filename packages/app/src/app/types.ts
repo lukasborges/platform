@@ -7,7 +7,6 @@ export type StationApp = {
   includesBetaInUpdates: boolean,
   autoLaunchEnabled: boolean,
   hideMainMenu: boolean,
-  minimizeToTray: boolean,
   isFullScreen: boolean,
   defaultDownloadFolder: string,
   downloadFolder: string,

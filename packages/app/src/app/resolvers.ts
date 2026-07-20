@@ -5,9 +5,9 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 import { subscribeStore } from '../utils/observable';
 import { Resolvers } from '../graphql/resolvers-types.generated';
 
-import { getAppAutoLaunchEnabledStatus, getAppHideMainMenuStatus, getAppMinimizeToTrayStatus, getPromptDownloadEnabled } from './selectors';
+import { getAppAutoLaunchEnabledStatus, getAppHideMainMenuStatus, getPromptDownloadEnabled } from './selectors';
 import { getStationStatus } from '../app/selectors';
-import { enableAutoLaunch, hideMainMenu, minimizeToTray, togglePromptDownload } from './duck';
+import { enableAutoLaunch, hideMainMenu, togglePromptDownload } from './duck';
 
 const resolvers: Resolvers = {
   Query: {
@@ -17,10 +17,6 @@ const resolvers: Resolvers = {
     },
     hideMainMenu: (_obj, _args, context) => {
       return subscribeStore(context.store, getAppHideMainMenuStatus)
-        .pipe(map(Boolean), distinctUntilChanged());
-    },
-    minimizeToTray: (_obj, _args, context) => {
-      return subscribeStore(context.store, getAppMinimizeToTrayStatus)
         .pipe(map(Boolean), distinctUntilChanged());
     },
     promptDownloadEnabled: (_obj, _args, context) => {
@@ -42,10 +38,6 @@ const resolvers: Resolvers = {
     },
     setHideMainMenu: (_obj, args, context) => {
       context.store.dispatch(hideMainMenu(args.hide));
-      return true;
-    },
-    setMinimizeToTray: (_obj, args, context) => {
-      context.store.dispatch(minimizeToTray(args.enabled));
       return true;
     },
     setPromptDownload: (_obj, args, context) => {

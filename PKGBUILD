@@ -17,7 +17,6 @@ depends=(
   'nss'
   'xdg-utils'
 )
-optdepends=('libappindicator-gtk3: system tray integration')
 options=('!strip')
 
 package() {

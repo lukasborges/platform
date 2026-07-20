@@ -1,6 +1,5 @@
 import { app, BrowserWindow, shell, WebContents, HandlerDetails } from 'electron';
 
-import { isDarwin } from '../../../utils/process';
 import { RPC } from '../../lib/types';
 import { BrowserWindowManagerService, BrowserWindowServiceConstructorOptions, BrowserWindowManagerProviderService } from './interface';
 import { BrowserWindowServiceImpl } from './main';
@@ -12,7 +11,7 @@ const areAllWindowsClosed = () => {
 };
 
 const closeAppIfAllWindowsClosed = () => {
-  if (isDarwin || !areAllWindowsClosed()) return;
+  if (!areAllWindowsClosed()) return;
   app.quit();
 };
 

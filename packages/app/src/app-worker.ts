@@ -58,7 +58,6 @@ import MainWindowManager from './windows/utils/MainWindowManager';
 import URLRouter from './urlrouter/URLRouter';
 import { closeCurrentTab } from './tabs/duck';
 import { BrowserWindowManagerProviderServiceImpl } from './services/services/browser-window/worker';
-import { ElectronAppServiceProviderServiceImpl } from './services/services/electron-app/worker';
 
 export class BrowserXAppWorker {
   public store: StationStoreWorker;
@@ -339,7 +338,6 @@ export class BrowserXAppWorker {
   }
 
   private async initAppLifeCycle() {
-    services.electronApp.setProvider(new ElectronAppServiceProviderServiceImpl(this.store))
     // Don't wrap this in this.store.ready()
     // because we want the window to be created as soon as possible
     await this.mainWindowManager.create();
