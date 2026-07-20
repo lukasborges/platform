@@ -23,7 +23,8 @@ import ConfirmResetApplication from '../applications/components/ConfirmResetAppl
 
 const styles = () => ({
   container: {
-    backgroundImage: props => props.themeGradient,
+    backgroundColor: '#16171a',
+    backgroundImage: 'none',
   }
 });
 

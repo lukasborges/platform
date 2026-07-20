@@ -1,8 +1,6 @@
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
-import TrafficLightsContainer from './TrafficLightsContainer';
-import DockNavigation from '../../dock-navigation/DockNavigationContainer';
 import SearchWrapper from '../../bang/BangContainer';
 import RecentDockContainer from './RecentDockContainer';
 import {
@@ -20,8 +18,6 @@ interface Classes {
 
 interface Props {
   classes?: Classes,
-  isDarwin: boolean,
-  onClose: () => any,
   handleBangWillUnmount: () => any,
   handleBangDidMount: () => any,
   handleRecentDockDidMount: () => any,
@@ -50,20 +46,14 @@ const styles = () => ({
 export default class DockTopSection extends React.PureComponent<Props, {}> {
   render() {
     const {
-      classes, isDarwin, onClose, cyclingStep,
+      classes, cyclingStep,
       ctrlTabCycling, handlePaneEscape, stopCycling, recentApplications, selectItem,
       handleRecentDockDidMount, handleRecentDockWillUnmount, highlightedRecentSubdockItemId,
       setHighlightedRecentSubdockItemId, isRecentSubdockVisible, showRecentSubdock, hideRecentSubdock,
     } = this.props;
 
     return (
-      <div className={classes!.container}>
-        {isDarwin &&
-          <TrafficLightsContainer onClose={onClose} />
-        }
-
-        <DockNavigation />
-
+      <div className={`${classes!.container} station-dock-top`}>
         <SearchWrapper
           onQuit={() => handlePaneEscape('center-modal')}
         />

@@ -46,9 +46,11 @@ const styles = (theme: ThemeTypes) => ({
   recentSubdock: {
     width: 270,
     height: 390,
-    backgroundImage: (props: Props) => props.themeGradient,
-    backgroundAttachment: 'fixed',
-    borderRadius: 5,
+    backgroundColor: '#202124',
+    backgroundImage: 'none',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 12,
+    boxShadow: '0 16px 48px rgba(0, 0, 0, .48)',
     overflow: 'hidden',
   },
   recentSubdockContent: {
@@ -56,9 +58,9 @@ const styles = (theme: ThemeTypes) => ({
     overflow: 'hidden',
   },
   recentSubdockTitle: {
-    padding: 15,
+    padding: [12, 14],
     color: 'rgba(255, 255, 255, .4)',
-    backgroundColor: 'rgba(255, 255, 255, .1)',
+    backgroundColor: '#25262a',
     ...theme.fontMixin(9, 600),
     display: 'flex',
     justifyContent: 'space-between',
@@ -77,7 +79,7 @@ const styles = (theme: ThemeTypes) => ({
   recentSubdockItems: {
     height: 'calc(100% - 39px)',
     overflowY: 'auto',
-    borderTop: '1px solid rgba(255, 255, 255, .1)',
+    borderTop: '1px solid rgba(255, 255, 255, .08)',
   },
 });
 

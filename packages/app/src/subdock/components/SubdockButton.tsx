@@ -22,13 +22,16 @@ export type Props = {
 
 const styles = () => ({
   iconWrapper: {
+    alignItems: 'center',
+    borderRadius: 7,
     display: 'flex',
+    justifyContent: 'center',
     height: 24,
     width: 24,
-    opacity: 0.5,
+    opacity: 0.62,
     marginLeft: 5,
     '&:hover': {
-      ...roundedBackground('rgba(255,255,255,0.2)'),
+      ...roundedBackground('rgba(255,255,255,0.1)'),
       opacity: 1,
     },
   },

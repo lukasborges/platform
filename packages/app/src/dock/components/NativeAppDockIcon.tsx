@@ -176,7 +176,7 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
   renderSvg() {
     const {
       classes, onMouseEnter, onMouseLeave, iconSymbolId, active, disabled, onClick, imageURL,
-      fallbackImageURL, size,
+      fallbackImageURL, size, className: customClassName,
     } = this.props;
     const { canRenderImage } = this.state;
 
@@ -188,6 +188,7 @@ export default class NativeAppDockIcon extends React.PureComponent<Props, State>
 
     const className = classNames(
       classes!.dockIcon,
+      customClassName,
       sizeClassNames[size!],
       { [classes!.disabled]: disabled }
     );

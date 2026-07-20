@@ -87,14 +87,16 @@ interface State {
   item: {
     marginBottom: 20,
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.10)',
-    borderRadius: 6,
+    backgroundColor: '#222327',
+    border: '1px solid rgba(255, 255, 255, .08)',
+    borderRadius: 12,
     transition: [
       ['background-color', '300ms', 'ease-in'],
     ],
   },
   highlightedItem: {
-    backgroundColor: 'rgba(255, 255, 255, 0.50)',
+    backgroundColor: 'rgba(255, 255, 255, .1)',
+    borderColor: 'rgba(255, 255, 255, .16)',
     transition: [
       ['background-color', '300ms', 'ease-out'],
     ],
@@ -231,7 +233,7 @@ class AppImpl extends React.PureComponent<Props, State> {
       <div
         ref={attachAppRef}
         key={manifestURL}
-        className={classNames(classes!.item, { [classes!.highlightedItem]: highlighted })}
+        className={classNames(classes!.item, 'station-settings__app-card', { [classes!.highlightedItem]: highlighted })}
       >
         {(removeApplication || instancesToRemove.count() > 0) &&
           <RemoveModalConfirmation

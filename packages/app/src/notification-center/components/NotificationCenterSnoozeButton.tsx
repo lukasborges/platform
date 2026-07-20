@@ -62,7 +62,7 @@ const styles = () => ({
     height: 0,
     borderLeft: '5px solid transparent',
     borderRight: '5px solid transparent',
-    borderBottom: '5px solid white',
+    borderBottom: '5px solid #25262a',
   },
 });
 

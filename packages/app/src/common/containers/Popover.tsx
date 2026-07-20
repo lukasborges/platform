@@ -21,10 +21,12 @@ export interface StateToProps {
 const styles = (_theme: Theme) => ({
   container: {
     width: 250,
-    borderRadius: 5,
-    boxShadow: '0px 0px 60px -5px rgba(0,0,0,0.75)',
-    backgroundImage: (props: StateToProps & OwnProps) => props.themeGradient,
-    backgroundAttachment: 'fixed',
+    backgroundColor: '#202124',
+    backgroundImage: 'none',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 10,
+    boxShadow: '0 14px 42px rgba(0, 0, 0, .46)',
+    overflow: 'hidden',
   },
 });
 

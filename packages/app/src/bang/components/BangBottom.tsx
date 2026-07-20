@@ -21,14 +21,14 @@ export interface Props {
 
 const styles = {
   container: {
-    height: ({ smallSize }: Props) => smallSize ? 28 : 35,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
-    padding: [2, 5, 5, 10],
+    minHeight: ({ smallSize }: Props) => smallSize ? 32 : 40,
+    backgroundColor: '#25262a',
+    padding: [4, 8, 4, 12],
     color: 'rgba(255, 255, 255, .8)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderTop: '1px solid rgba(255,255,255,0.3)',
+    borderTop: '1px solid rgba(255, 255, 255, .08)',
   },
   navigationWrapper: {
     display: 'flex',
@@ -42,8 +42,9 @@ const styles = {
     marginRight: 4,
     padding: [2, 4],
     color: 'white',
-    background: 'rgba(255, 255, 255, .2)',
-    borderRadius: 2,
+    background: 'rgba(255, 255, 255, .1)',
+    border: '1px solid rgba(255, 255, 255, .08)',
+    borderRadius: 4,
   },
   settings: {
     marginTop: 2,
@@ -51,7 +52,8 @@ const styles = {
     opacity: .6,
     cursor: 'default',
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, .2)',
+      backgroundColor: 'rgba(255, 255, 255, .08)',
+      borderRadius: 6,
     },
   },
 };

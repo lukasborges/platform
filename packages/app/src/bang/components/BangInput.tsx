@@ -34,10 +34,11 @@ export interface Props {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    minHeight: '52px',
+    minHeight: 60,
     cursor: 'text',
-    padding: 20,
-    borderBottom: '2px solid rgba(255,255,255,0.1)',
+    padding: [0, 18],
+    backgroundColor: '#25262a',
+    borderBottom: '1px solid rgba(255, 255, 255, .08)',
   },
   label: {
     cursor: 'inherit',
@@ -49,14 +50,13 @@ export interface Props {
     appearance: 'none',
     border: 'none',
     backgroundColor: 'transparent',
-    color: 'rgba(255, 255, 255, 0.8)',
-    ...theme.fontMixin(16, 600),
-    caretColor: 'rgba(255, 255, 255, 0.8)',
+    color: 'rgba(255, 255, 255, .92)',
+    ...theme.fontMixin(15, 500),
+    caretColor: '#62a0ea',
     '&::placeholder': {
       ...theme.fontMixin(14),
-      color: 'rgba(255, 255, 255, 0.6)',
-      fontStyle: 'italic',
-      paddingLeft: 10,
+      color: 'rgba(255, 255, 255, .48)',
+      fontStyle: 'normal',
     },
     '&:hover': {
       '&::placeholder': {
@@ -78,8 +78,9 @@ export interface Props {
   navigationIcon: {
     marginRight: 4,
     padding: [2, 4],
-    background: 'rgba(255, 255, 255, .2)',
-    borderRadius: 2,
+    background: 'rgba(255, 255, 255, .1)',
+    border: '1px solid rgba(255, 255, 255, .08)',
+    borderRadius: 4,
     fontSize: 10,
   },
 }))

@@ -73,20 +73,37 @@ const itemIsCollapsed = (
   list: {
     flex: 1,
     overflowY: 'auto',
+    padding: [4, 12, 8],
+    scrollbarColor: 'rgba(255, 255, 255, .24) transparent',
+    scrollbarWidth: 'thin',
+    '&::-webkit-scrollbar': {
+      width: 8,
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(255, 255, 255, .24)',
+      borderRadius: 4,
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: 'rgba(255, 255, 255, .34)',
+    },
   },
   lastOpened: {
-    margin: [15, 20, 10],
-    color: 'rgba(255, 255, 255, .4)',
+    margin: [14, 6, 7],
+    color: 'rgba(255, 255, 255, .42)',
+    letterSpacing: '.08em',
     ...theme.fontMixin(11, 600),
   },
   section: {
     marginBottom: 12,
     '&.withResults': {
-      backgroundColor: 'rgba(0,0,0,0.15)',
+      backgroundColor: 'transparent',
     },
   },
   category: {
-    padding: [6, 20],
+    padding: [7, 6],
     color: 'rgba(255,255,255,0.5)',
     textTransform: 'uppercase',
     fontSize: '.8em',
@@ -99,7 +116,7 @@ const itemIsCollapsed = (
     },
   },
   results: {
-    marginTop: 15,
+    marginTop: 4,
     '&.collapsed': {
       height: 0,
       overflow: 'hidden',

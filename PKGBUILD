@@ -1,6 +1,6 @@
 pkgname=station-desktop-app
 pkgver=3.3.0.b1
-pkgrel=4
+pkgrel=8
 pkgdesc='Station desktop application'
 arch=('x86_64')
 url='https://github.com/lukasborges/desktop-app'

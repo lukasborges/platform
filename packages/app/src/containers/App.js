@@ -12,11 +12,11 @@ import ShortcutsOverlay from '../app/components/ShortcutsOverlay';
 import LoadingScreen from '../app/containers/LoadingScreen';
 import { mainAppReady, setKbdShortcutsVisibility, toggleMaximize } from '../app/duck';
 import ApplicationScene from '../applications/ApplicationScene';
-import TransparentTitleBar from '../components/TransparentTitleBar';
 import Dialogs from '../dialogs/Dialogs';
 import DownloadToaster from '../dl-toaster/DownloadToaster';
 import Dock from '../dock/Dock';
 import Onboarding from '../onboarding/Onboarding';
+import MainHeader from '../os-bar/MainHeader';
 import { isVisible } from '../onboarding/selectors';
 import { getCursorIcon, getUISettingsActiveTabTitle, getUISettingsIsVisible } from '../ui/selectors';
 import SettingsOverlay from '../settings/Container';
@@ -89,8 +89,8 @@ export default class App extends React.PureComponent {
     const { fullScreen, isOnboardingVisible, cursorIcon } = this.props;
 
     return (
-      <div className={classNames('l-container', `cursor-${cursorIcon}`, { 'l-fullscreen': fullScreen })}>
-        <TransparentTitleBar onDoubleClick={this.props.onToggleMaximize} />
+      <div className={classNames('l-container', 'l-container--syltr-shell', `cursor-${cursorIcon}`, { 'l-fullscreen': fullScreen })}>
+        <MainHeader onDoubleClick={this.props.onToggleMaximize} />
         <div className="l-appcontainer">
           <Dock />
           <ApplicationScene />

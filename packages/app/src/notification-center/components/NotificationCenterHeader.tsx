@@ -1,4 +1,4 @@
-import { ThemeTypes as Theme, ButtonIcon, IconSymbol, Size, Style } from '@getstation/theme';
+import { ButtonIcon, IconSymbol, Size, Style } from '@getstation/theme';
 import * as moment from 'moment';
 import * as React from 'react';
 import injectSheet from 'react-jss';
@@ -26,11 +26,11 @@ export interface Props {
   markAllRead: () => any,
 }
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
   container: {
-    padding: [10, 20],
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderBottom: '1px solid rgba(255, 255, 255, .1)',
+    padding: [10, 14],
+    backgroundColor: '#25262a',
+    borderBottom: '1px solid rgba(255, 255, 255, .08)',
     fontSize: 12,
     // to make sure alignement with dock
     paddingBottom: '13px',

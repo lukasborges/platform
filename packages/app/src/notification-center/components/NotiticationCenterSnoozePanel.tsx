@@ -14,17 +14,18 @@ export interface Props {
   handleSnooze: (duration: string) => any,
 }
 
-const styles = (theme: any) => ({
+const styles = () => ({
   container: {
-    backgroundColor: 'white',
-    borderRadius: 4,
-    boxShadow: '1px 1px 5px 0px rgba(50, 50, 50, 0.75)',
-    padding: [6, 10],
+    backgroundColor: '#25262a',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 10,
+    boxShadow: '0 12px 36px rgba(0, 0, 0, .45)',
+    padding: [8, 10],
     minWidth: '100px',
     marginTop: 5,
   },
   title: {
-    color: theme.colors.gray.dark,
+    color: 'rgba(255, 255, 255, .86)',
     fontWeight: 700,
   },
   list: {

@@ -1,4 +1,3 @@
-import { roundedBackground } from '@getstation/theme';
 import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
@@ -20,16 +19,25 @@ export interface Props {
 
 const styles = () => ({
   tab: {
-    lineHeight: '24px',
-    marginBottom: 5,
-    padding: [0, 10],
+    alignItems: 'center',
+    borderRadius: 7,
+    color: 'rgba(255, 255, 255, .68)',
+    display: 'flex',
+    lineHeight: '38px',
+    margin: [0, 14, 4, 0],
+    padding: [0, 14],
     boxSizing: 'border-box',
     cursor: 'pointer',
     userSelect: 'none',
     backgroundColor: 'none',
-    transition: '300ms',
-    '&.active, &:hover': {
-      ...roundedBackground('rgba(255, 255, 255, .1)'),
+    transition: 'background-color 150ms ease-out, color 150ms ease-out',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, .055)',
+      color: 'rgba(255, 255, 255, .9)',
+    },
+    '&.active': {
+      backgroundColor: 'rgba(255, 255, 255, .1)',
+      color: '#fff',
     },
   },
 });
@@ -39,7 +47,7 @@ export default class Tab extends React.PureComponent<Props, {}> {
   render() {
     const { title, classes, isActive } = this.props;
     return (
-      <li className={classNames(classes!.tab, { active: isActive })}>
+      <li className={classNames(classes!.tab, 'station-settings__tab', { active: isActive })}>
         <a onClick={this.props.onClick}>
           {title}
         </a>

@@ -1,10 +1,10 @@
+import services from '../../services/servicesManager';
 import { getUrlToLoad } from '../../utils/dev';
-import { isDarwin } from '../../utils/process';
 import { getResourceIconPath } from '../../utils/resources';
 // @ts-ignore: no declaration file
 import { windowCreated } from '../duck';
+
 import GenericWindowManager from './GenericWindowManager';
-import services from '../../services/servicesManager';
 
 export default class MainWindowManager extends GenericWindowManager {
 
@@ -23,14 +23,14 @@ export default class MainWindowManager extends GenericWindowManager {
 
     await super.create({
       show: true,
-      frame: !isDarwin,
+      frame: false,
       icon: getResourceIconPath(),
       acceptFirstMouse: true,
       savePosition: 'main-window',
     });
 
     this.on('minimize', async () => {
-      const trayIconVisible = await services.electronApp.trayIconVisible()
+      const trayIconVisible = await services.electronApp.trayIconVisible();
       if (trayIconVisible) {
         services.browserWindow.hideAllWindows();
       }

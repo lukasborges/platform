@@ -20,14 +20,13 @@ interface Props {
 
 @injectSheet(() => ({
   container: {
-    margin: '0 0 20px 20px',
-    paddingTop: 20,
-    left: 10,
+    margin: [8, 12, 14],
+    paddingTop: 4,
     textAlign: 'center',
   },
   button: {
-    marginRight: 20,
-    width: 'calc(100% - 20px)',
+    borderRadius: '999px !important',
+    width: '100%',
   },
 }))
 export default class AddApplicationButton extends React.PureComponent<Props, {}> {

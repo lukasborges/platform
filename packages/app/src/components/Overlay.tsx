@@ -34,6 +34,7 @@ type HocProps = {
 };
 
 export type Props = HocProps & DefaultProps & {
+  className?: string,
   title?: string,
   onClose: (via: string) => void,
   children: React.ReactNode,
@@ -46,42 +47,51 @@ const styles = () => ({
     position: 'fixed',
     display: 'flex',
     flexDirection: 'column',
-    top: 0,
+    top: 54,
     bottom: 0,
-    left: 50,
+    left: 68,
     right: 0,
     overflow: 'auto',
     zIndex: 100,
-    backgroundImage: (props: Props) => props.themeGradient,
+    backgroundColor: '#16171a',
+    backgroundImage: 'none',
     opacity: 1.00,
     color: 'white',
-    borderLeft: '2px solid rgba(255, 255, 255, .4)',
-    padding: '100px 40px 40px',
+    borderLeft: '1px solid rgba(255, 255, 255, .08)',
+    padding: '26px 32px 32px',
   },
   content: {
     flexGrow: 1,
-    maxWidth: '1000px',
-    alignSelf: 'center',
+    maxWidth: 'none',
+    alignSelf: 'stretch',
     '&>div': {
       display: 'inherit',
       width: '100%',
     },
   },
   head: {
-    paddingBottom: '80px',
+    alignItems: 'center',
+    borderBottom: '1px solid rgba(255, 255, 255, .08)',
+    marginBottom: 24,
+    minHeight: 40,
+    padding: '0 0 20px 52px',
     fontSize: '14px',
-    maxWidth: '1000px',
+    maxWidth: 'none',
     width: '100%',
     display: 'flex',
     alignSelf: 'center',
   },
   titleText: {
     flexGrow: 1,
+    fontSize: 22,
+    fontWeight: 600,
+    letterSpacing: '-.01em',
+    margin: 0,
   },
   closeButton: {
     position: 'absolute !important',
-    top: 40,
-    left: 40,
+    top: 22,
+    left: 26,
   },
 });
 
@@ -103,10 +113,10 @@ class Overlay extends React.PureComponent<Props & HocProps> {
   }
 
   render() {
-    const { classes, contentClassName, headClassName, title, onClose, withClickOutside } = this.props;
+    const { classes, className, contentClassName, headClassName, title, onClose, withClickOutside } = this.props;
 
     return (
-      <div className={classes!.container}>
+      <div className={classNames(classes!.container, 'station-content-overlay', className)}>
         <KeyHandler
           keyEventName={KEYDOWN}
           keyValue="Escape"
@@ -116,15 +126,15 @@ class Overlay extends React.PureComponent<Props & HocProps> {
           onClick={withClickOutside ? noop : () => onClose('click')}
           symbolId={IconSymbol.CROSS}
           btnStyle={Style.SECONDARY}
-          className={classes!.closeButton}
+          className={classNames(classes!.closeButton, 'station-content-overlay__close')}
           type="button"
         />
         { title &&
-        <div className={classNames(classes!.head, headClassName)}>
+        <div className={classNames(classes!.head, 'station-content-overlay__head', headClassName)}>
           <h1 className={classes!.titleText}>{title}</h1>
         </div>
         }
-        <div className={classNames(classes!.content, contentClassName)}>
+        <div className={classNames(classes!.content, 'station-content-overlay__content', contentClassName)}>
           {this.renderChildren()}
         </div>
       </div>

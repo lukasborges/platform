@@ -38,11 +38,14 @@ interface Props {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    width: 280,
+    width: 300,
     zIndex: 4,
-    borderRadius: 4,
-    maxHeight: '98vh',
-    backgroundColor: '#254969',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 12,
+    boxShadow: '0 16px 48px rgba(0, 0, 0, .48)',
+    maxHeight: 'calc(100vh - 76px)',
+    overflow: 'hidden',
+    backgroundColor: '#202124',
     backgroundAttachment: 'fixed',
   },
   panels: {
@@ -67,7 +70,7 @@ export default class Subdock extends React.PureComponent<Props, {}> {
     const onMouseLeave = () => onOverStateChange(false);
 
     return (
-      <div className={classes!.container} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+      <div className={`${classes!.container} station-subdock`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         <SubdockHead
           application={application}
           notificationsEnabled={notificationsEnabled}

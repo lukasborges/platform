@@ -1,5 +1,4 @@
 import {
-  getHighlightGradient,
   Icon,
   IconSymbol,
   ThemeTypes as Theme,
@@ -56,14 +55,20 @@ interface State {
   return ({
     item: {
       display: 'flex',
-      height: ({ smallSize }: OwnProps) => smallSize ? 50 : 60,
+      height: ({ smallSize }: OwnProps) => smallSize ? 46 : 54,
       alignItems: 'center',
-      padding: 20,
+      boxSizing: 'border-box',
+      border: '1px solid transparent',
+      borderRadius: 8,
+      margin: [3, 0],
+      padding: [0, 12],
+      transition: 'background-color 120ms ease-out, border-color 120ms ease-out',
       '&.highlighted': {
-        backgroundImage: getHighlightGradient(undefined, .50),
+        backgroundColor: 'rgba(255, 255, 255, .1)',
+        borderColor: 'rgba(255, 255, 255, .18)',
       },
       '&.mediumlighted': {
-        backgroundImage: getHighlightGradient(undefined, .30),
+        backgroundColor: 'rgba(255, 255, 255, .055)',
       },
       '& $shortcutsButton': {
         display: 'none',
@@ -76,11 +81,11 @@ interface State {
       display: 'flex',
       alignItems: 'center',
       width: '92%',
-      marginLeft: 10,
+      marginLeft: 11,
       color: 'white',
     },
     labelWrapper: {
-      width: '91%',
+      width: 'calc(100% - 30px)',
     },
     label: {
       ...theme.fontMixin(labelSize, 600),

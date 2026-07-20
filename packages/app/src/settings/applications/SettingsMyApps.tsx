@@ -152,8 +152,8 @@ class SettingsMyAppsImpl extends React.PureComponent<Props, State> {
     ));
 
     return (
-      <div className={classes!.container}>
-        <div className={classes!.title}>My Apps</div>
+      <div className={`${classes!.container} station-settings__my-apps`}>
+        <div className={`${classes!.title} station-settings__section-title`}>My Apps</div>
 
         <div>
           {items}

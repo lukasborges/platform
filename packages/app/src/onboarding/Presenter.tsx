@@ -67,6 +67,7 @@ const styles = (theme: ThemeTypes) => ({
     left: 0,
     ...theme.mixins.size('100%'),
     zIndex: 101,
+    backgroundColor: '#16171a',
   },
   section: {
     display: 'flex',
@@ -75,7 +76,8 @@ const styles = (theme: ThemeTypes) => ({
     flexDirection: 'column',
     width: 490,
     height: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#f4f4f5',
+    borderRight: '1px solid rgba(255, 255, 255, .08)',
   },
   sectionHeader: {
     padding: [60, 60, 0, 60],
@@ -88,15 +90,16 @@ const styles = (theme: ThemeTypes) => ({
   },
   illustration: {
     flex: 1,
-    backgroundImage: (props: Props) =>
-      `url("static/illustrations/illustration--onboarding@2x.png"), ${props.themeGradient}`,
+    backgroundColor: '#16171a',
+    backgroundImage: 'url("static/illustrations/illustration--onboarding@2x.png")',
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
   },
   onboardingDock: {
     width: 60,
     height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, .8)',
+    backgroundColor: '#2b2c31',
+    borderLeft: '1px solid rgba(255, 255, 255, .08)',
     padding: [60, 15, 20],
     transition: '300ms ease-in-out',
   },

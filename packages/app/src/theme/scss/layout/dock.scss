@@ -165,7 +165,7 @@ $app-dot-size: 18px;
 
   //== Variants
   &.active {
-    background-color: #3254e7;
+    background-color: rgba(#fff, 0.1);
   }
   &.active .isvg path,
   &.active:hover .isvg path {

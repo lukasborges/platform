@@ -20,7 +20,8 @@ export interface Props {
 
 const styles = () => ({
   titlesContainer: {
-    width: 130,
+    flex: '0 0 170px',
+    width: 170,
   },
   titles: {
     listStyle: 'none',
@@ -30,9 +31,9 @@ const styles = () => ({
   panel: {
     flex: 1,
     height: '100%',
-    marginLeft: 20,
-    padding: [0, 20],
-    borderLeft: '1px solid rgba(255, 255, 255, .20)',
+    marginLeft: 0,
+    padding: [0, 8, 32, 32],
+    borderLeft: '1px solid rgba(255, 255, 255, .08)',
     overflowY: 'auto',
   },
 });
@@ -70,14 +71,14 @@ export default class Tabs extends React.PureComponent<Props, {}> {
     return (
       [
         (
-          <div key="tabs-title" className={classes!.titlesContainer}>
-            <ul className={classes!.titles}>
+          <div key="tabs-title" className={`${classes!.titlesContainer} station-settings__nav`}>
+            <ul className={`${classes!.titles} station-settings__nav-list`}>
               {this.renderChildren()}
             </ul>
           </div>
         ),
         (
-          <div key="tabs-panel" className={classes!.panel}>
+          <div key="tabs-panel" className={`${classes!.panel} station-settings__panel`}>
             {this.renderActiveTabContent()}
           </div>
         ),

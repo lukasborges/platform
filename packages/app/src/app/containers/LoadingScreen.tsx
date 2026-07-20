@@ -1,10 +1,9 @@
-import { GradientType, InjectedProps as withGradientProps, withGradient } from '@getstation/theme';
 import * as React from 'react';
-import { compose } from 'react-apollo';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
+
 import { StationState } from '../../types';
 import { isLoadingScreenVisible } from '../selectors';
 
@@ -19,22 +18,26 @@ interface JSSProps {
     container: string
     container2: string,
     cartouche: string,
-    illustration: string,
+    mark: string,
+    brand: string,
     salutations: string,
     announcement: string,
+    progress: string,
+    progressBar: string,
   },
 }
 
 @injectSheet({
   container: {
     position: 'fixed',
-    top: 0,
+    top: 54,
     bottom: 0,
-    left: 50,
+    left: 68,
     right: 0,
     zIndex: 100,
-    backgroundImage: (props: withGradientProps) => props.themeGradient,
-    padding: '10px',
+    backgroundColor: '#16171a',
+    borderLeft: '1px solid rgba(255, 255, 255, .08)',
+    padding: 24,
   },
   container2: {
     display: 'flex',
@@ -42,24 +45,88 @@ interface JSSProps {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(255,255,255, 0.1)',
-    borderRadius: '3px',
     height: '100%',
     color: 'white',
-    fontSize: '16px',
     textAlign: 'center',
   },
+  cartouche: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: 22,
+  },
+  mark: {
+    alignItems: 'center',
+    backgroundColor: '#2b2c31',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 12,
+    boxShadow: '0 10px 30px rgba(0, 0, 0, .24)',
+    display: 'flex',
+    height: 48,
+    justifyContent: 'center',
+    marginBottom: 14,
+    width: 48,
+    '&::before': {
+      border: '2px solid rgba(255, 255, 255, .22)',
+      borderRadius: '50%',
+      content: '""',
+      height: 16,
+      position: 'absolute',
+      top: 11,
+      width: 16,
+    },
+    '&::after': {
+      backgroundColor: 'rgba(255, 255, 255, .22)',
+      borderRadius: 2,
+      bottom: 10,
+      content: '""',
+      height: 2,
+      position: 'absolute',
+      width: 19,
+    },
+    position: 'relative',
+  },
+  brand: {
+    color: 'rgba(255, 255, 255, .94)',
+    fontSize: 18,
+    fontWeight: 600,
+    letterSpacing: '.01em',
+  },
   salutations: {
-    fontSize: '16px',
+    color: 'rgba(255, 255, 255, .58)',
+    fontSize: 13,
+    marginBottom: 18,
+    '& p': {
+      margin: 0,
+    },
   },
   announcement: {
-    marginTop: '30px',
-    color: 'rgba(255,255,255, 0.8)',
-    fontSize: '14px',
+    color: 'rgba(255, 255, 255, .58)',
+    fontSize: 13,
     maxWidth: '420px',
   },
-  cartouche: {
-    marginBottom: '34px',
+  progress: {
+    backgroundColor: 'rgba(255, 255, 255, .1)',
+    borderRadius: 999,
+    height: 3,
+    overflow: 'hidden',
+    position: 'relative',
+    width: 120,
+  },
+  progressBar: {
+    animation: 'stationLoading 1.25s ease-in-out infinite',
+    backgroundColor: '#62a0ea',
+    borderRadius: 999,
+    height: '100%',
+    left: 0,
+    position: 'absolute',
+    top: 0,
+    width: '42%',
+  },
+  '@keyframes stationLoading': {
+    '0%': { transform: 'translateX(-110%)' },
+    '50%': { transform: 'translateX(80%)' },
+    '100%': { transform: 'translateX(245%)' },
   },
   '@global': {
     '.fade-exit': {
@@ -94,10 +161,17 @@ class LoadingScreenImpl extends React.PureComponent<StateProps & JSSProps, {}> {
     return (
       <div className={classes.container}>
         <div className={classes.container2}>
+          <div className={classes.cartouche}>
+            <div className={classes.mark} aria-hidden="true" />
+            <div className={classes.brand}>Station</div>
+          </div>
           <div className={classes.salutations}>
             <p>
-              Your Station will be ready soon...
+              Preparing your workspace…
             </p>
+          </div>
+          <div className={classes.progress} role="progressbar" aria-label="Loading Station">
+            <div className={classes.progressBar} />
           </div>
           <div className={classes.announcement} dangerouslySetInnerHTML={{ __html: announcementHTML }}/>
         </div>
@@ -106,10 +180,8 @@ class LoadingScreenImpl extends React.PureComponent<StateProps & JSSProps, {}> {
   }
 }
 
-export default compose(
-  connect<StateProps, {}, {}>(
-    (state: StationState) => ({
-      visible: isLoadingScreenVisible(state) as boolean,
-    })),
-  withGradient(GradientType.normal)
+export default connect<StateProps, {}, {}>(
+  (state: StationState) => ({
+    visible: isLoadingScreenVisible(state) as boolean,
+  }),
 )(LoadingScreenImpl);

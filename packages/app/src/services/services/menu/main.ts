@@ -2,6 +2,7 @@ import { app, BrowserWindow, globalShortcut } from 'electron';
 import { share } from 'rxjs/operators';
 import { fromEvent, fromEventPattern, Observable, Subject, Subscription } from 'rxjs';
 
+import AutofillContextMenu from '../../../context-menus/autofill-menu';
 import ContextMenu, { ContextMenuContext } from '../../../context-menu';
 import { SHORTCUTS } from '../../../keyboard-shortcuts';
 import { handleError, subscribeToEvent, subscribeToIPCMessage } from '../../api/helpers';
@@ -18,13 +19,12 @@ import {
   MenuServiceObserver,
 } from './interface';
 import { BrowserXMenuManager } from './menuManager';
-import AutofillContextMenu from '../../../context-menus/autofill-menu';
 
 export class MenuServiceImpl extends MenuService implements RPC.Node<MenuService> {
 
   protected menuManager: BrowserXMenuManager;
   protected globalShortcutsObservable: Observable<unknown>;
-  
+
   constructor(uuid?: string) {
     super(uuid, { ready: false });
     this.menuManager = new BrowserXMenuManager();
@@ -137,9 +137,9 @@ export class ContextMenuServiceImpl extends ContextMenuService implements RPC.No
     autofill.popup({
       window: BrowserWindow.fromWebContents(wc.hostWebContents),
       // The rect we receive is given without our own UI elements
-      // Hence the added offset value which correspond to dock (50) & top rack (38)
-      x: Math.floor(rect.left + 50),
-      y: Math.floor(rect.bottom + 38 + 5), // add 5 for padding
+      // The rect is relative to the webview, so account for Station's custom shell.
+      x: Math.floor(rect.left + 68),
+      y: Math.floor(rect.bottom + 54 + 5), // add 5 for padding
     });
   }
 

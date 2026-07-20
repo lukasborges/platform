@@ -7,10 +7,9 @@ import * as shortid from 'shortid';
 interface Classes {
   anchor: string,
   appDockIcon: string,
-  imageLowOpacity: string,
-  SVGIcon: string,
   appDockIconActive: string,
-  iconBg: string,
+  tile: string,
+  logo: string,
   scaleUpAnimation: string,
 }
 
@@ -43,45 +42,28 @@ type Props = OwnProps & GraphQLProps;
 
 @injectSheet({
   anchor: {
-    display: 'block',
-    marginLeft: '2px',
+    alignItems: 'center',
     cursor: 'default',
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    margin: 0,
+    width: '100%',
   },
   appDockIcon: {
     display: 'block',
-    '&:hover:not($appDockIconActive)': {
-      '& $iconBg': { fillOpacity: 0.2 },
-    },
-    '&:hover': {
-      '& $SVGIcon': { fillOpacity: 1 },
-    },
-    '&$appDockIconActive': {
-      '& $iconBg': { fillOpacity: 1 },
-      '& $SVGIcon': { fillOpacity: 1 },
-    },
-    paddingTop: '8px',
+    opacity: .82,
+    transition: 'opacity 180ms ease-out, transform 180ms ease-out',
+    '&:hover': { opacity: 1 },
+    '&$appDockIconActive': { opacity: 1 },
     '&$scaleUpAnimation': {
       animation: 'app-dock-icon-scale-up .5s cubic-bezier(0.2, 0, 0, 1)',
     },
   },
-  imageLowOpacity: {
-    opacity: 0.4,
-  },
-  SVGIcon: {
-    fill: '#fff',
-    fillOpacity: 0.6,
-    transition: 'all 250ms ease-out',
-    transform: 'scale(0.7)',
-  },
   appDockIconActive: {},
   scaleUpAnimation: {},
-  iconBg: {
-    fill: '#fff',
-    fillOpacity: 0.1,
-    '&:not($appDockIconActive)': {
-      transition: 'all 250ms ease-out',
-    },
-  },
+  tile: { fill: 'rgba(255, 255, 255, .09)' },
+  logo: { opacity: .96 },
   '@keyframes app-dock-icon-scale-up': {
     '0%': { transform: 'scale(0)' },
     '90%': { transform: 'scale(1.1)' },
@@ -95,12 +77,12 @@ export class AppDockIcon extends React.PureComponent<Props> {
     onOverStateChange: () => { },
   };
 
-  private readonly primaryLogo: string;
-  private readonly secondaryLogo: string;
+  private readonly primaryClip: string;
+  private readonly secondaryClip: string;
   constructor(props: Props) {
     super(props);
-    this.primaryLogo = `logo-primary-${shortid.generate()}`;
-    this.secondaryLogo = `logo-secondary-${shortid.generate()}`;
+    this.primaryClip = `logo-primary-clip-${shortid.generate()}`;
+    this.secondaryClip = `logo-secondary-clip-${shortid.generate()}`;
   }
 
   handleMouseEnter = () => this.props.onOverStateChange!(true);
@@ -108,9 +90,12 @@ export class AppDockIcon extends React.PureComponent<Props> {
   handleMouseLeave = () => this.props.onOverStateChange!(false);
 
   renderSurroundingLink(element: JSX.Element): JSX.Element {
-    const { classes, onClick, onRightClick, iconRef } = this.props;
+    const { active, classes, onClick, onRightClick, iconRef } = this.props;
     return (
-      <div ref={iconRef}>
+      <div
+        className={classNames('station-dock-item', { 'station-dock-item--active': active })}
+        ref={iconRef}
+      >
         <a
           className={classes!.anchor}
           onClick={onClick}
@@ -125,109 +110,52 @@ export class AppDockIcon extends React.PureComponent<Props> {
   }
 
   renderDefs() {
-    const { active, classes, logoURL, isInstanceLogoInDockIcon, iconURL } = this.props;
     return (
       <defs>
-        <filter id="grayscale">
-          <feColorMatrix type="matrix" values="0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0" />
-        </filter>
-        {
-          iconURL &&
-          <pattern id={this.primaryLogo} width="100%" height="100%" x="0%">
-            <image
-              className={(active || isInstanceLogoInDockIcon) ? '' : classes!.imageLowOpacity}
-              filter={(active || isInstanceLogoInDockIcon) ? '' : 'url(#grayscale)'}
-              href={iconURL}
-              width={isInstanceLogoInDockIcon ? '12' : '30'}
-              height={isInstanceLogoInDockIcon ? '12' : '30'}
-            />
-          </pattern>
-        }
-        {
-          logoURL &&
-          <pattern id={this.secondaryLogo} width="100%" height="100%" x="0%">
-            <image
-              className={(active || !isInstanceLogoInDockIcon) ? '' : classes!.imageLowOpacity}
-              filter={(active || !isInstanceLogoInDockIcon) ? '' : 'url(#grayscale)'}
-              href={logoURL}
-              width={isInstanceLogoInDockIcon ? '30' : '12'}
-              height={isInstanceLogoInDockIcon ? '30' : '12'}
-            />
-          </pattern>
-        }
+        <clipPath id={this.primaryClip}>
+          <rect width="26" height="26" x="7" y="7" rx="7" />
+        </clipPath>
+        <clipPath id={this.secondaryClip}>
+          <circle cx="32" cy="32" r="6" />
+        </clipPath>
       </defs>
     );
   }
 
-  renderIconsBackground() {
-    const { classes, isInstanceLogoInDockIcon, logoURL } = this.props;
-    const position = {
-      x: isInstanceLogoInDockIcon ? 2 : 27,
-      y: isInstanceLogoInDockIcon ? -2 : 21,
-    };
+  renderLogos() {
+    const { classes, iconURL, isInstanceLogoInDockIcon, logoURL } = this.props;
+    const primaryURL = isInstanceLogoInDockIcon && logoURL ? logoURL : iconURL;
+    const secondaryURL = isInstanceLogoInDockIcon ? iconURL : logoURL;
+
     return (
-      <g className={classes!.iconBg}>
-        <rect width="34" height="34" x="6" y="0" rx="17" />
-        {logoURL && <rect width="16" height="16" {...position} rx="8" fill="#fff" />}
+      <g className={classes!.logo}>
+        {primaryURL &&
+          <image
+            clipPath={`url(#${this.primaryClip})`}
+            height="26"
+            href={primaryURL}
+            preserveAspectRatio="xMidYMid meet"
+            width="26"
+            x="7"
+            y="7"
+          />
+        }
+        {secondaryURL &&
+          <>
+            <circle cx="32" cy="32" r="7" fill="#f4f4f5" />
+            <image
+              clipPath={`url(#${this.secondaryClip})`}
+              height="12"
+              href={secondaryURL}
+              preserveAspectRatio="xMidYMid meet"
+              width="12"
+              x="26"
+              y="26"
+            />
+          </>
+        }
       </g>
     );
-  }
-
-  renderPrimaryIcon() {
-    const { loading, active, isInstanceLogoInDockIcon, themeColor, iconURL } = this.props;
-
-    if (loading) return;
-
-    if (isInstanceLogoInDockIcon) {
-      return (
-        <g>
-          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : '#00000000'} />
-          <circle cx="23" cy="17" r="15" fill={`url(#${this.secondaryLogo})`} />
-        </g>
-      );
-    }
-
-    if (iconURL) {
-      return (
-        <g>
-          <rect width="30" height="30" x="8" y="2" rx="15" fill={active ? themeColor : '#00000000'} />
-          <circle cx="23" cy="17" r="15" fill={`url(#${this.primaryLogo})`} />
-        </g>
-      );
-    }
-    return null;
-  }
-
-  renderSecondaryIcon() {
-    const { active, themeColor, isInstanceLogoInDockIcon, logoURL } = this.props;
-
-    if (!themeColor) return;
-
-    if (isInstanceLogoInDockIcon) {
-      return (
-        <>
-          {active &&
-            <g>
-            <rect width="13" height="13" x={3.5} y={-0.5} rx="15" fill={themeColor} />
-            </g>
-          }
-
-          <circle width="20" height="20" cx="10" cy="6" r="6" fill={`url(#${this.primaryLogo})`} />
-        </>
-      );
-    }
-
-    if (logoURL) {
-      const position = {
-        cx: isInstanceLogoInDockIcon ? 10 : 35,
-        cy: isInstanceLogoInDockIcon ? 6 : 29,
-      };
-      return (
-        <circle {...position} r="6" fill={`url(#${this.secondaryLogo})`} />
-      );
-    }
-
-    return null;
   }
 
   renderBadge() {
@@ -236,8 +164,8 @@ export class AppDockIcon extends React.PureComponent<Props> {
     if (badge && !snoozed) {
       return (
         <g>
-          {active && <circle r="3" cx="36" cy="6" fill="#fff" />}
-          <circle r="2" cx="36" cy="6" fill="#EF5757" />
+          {active && <circle r="3.5" cx="35" cy="5" fill="#fff" />}
+          <circle r="2.3" cx="35" cy="5" fill="#EF5757" />
         </g>
       );
     }
@@ -254,12 +182,11 @@ export class AppDockIcon extends React.PureComponent<Props> {
     if (loading) return null;
 
     const svgElement = (
-      <svg className={svgClassName} xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 46 38">
+      <svg className={svgClassName} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
         <g fill="none" fillRule="evenodd">
           {this.renderDefs()}
-          {this.renderIconsBackground()}
-          {this.renderPrimaryIcon()}
-          {this.renderSecondaryIcon()}
+          <rect className={classes!.tile} width="40" height="40" rx="11" />
+          {this.renderLogos()}
           {this.renderBadge()}
         </g>
       </svg>

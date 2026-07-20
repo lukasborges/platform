@@ -12,11 +12,11 @@
 .l-notification-center {
   display: flex;
   flex-direction: column;
-  width: 280px;
+  width: 300px;
   color: white;
   @include coverer-fixed(0, $app-size, 0, 0);
   z-index: $zindex-large;
-  transform: translateX(-280px);
+  transform: translateX(-300px);
   transition: 600ms cubic-bezier(0.36, 0.26, 0, 1.01);
 }
 
@@ -55,8 +55,10 @@
   left: 130px;
   top: 60px;
   padding: 0;
-  background-color: rgb(1, 29, 53);
-  border-radius: 5px;
+  background-color: #25262a;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 10px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, .45);
   z-index: $zindex-small;
 }
 
@@ -112,7 +114,7 @@
 // —————————————————————————————————
 
 .l-notification-group {
-  border-bottom: 4px solid rgba(255, 255, 255, .1);
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
 
   &:hover {
     .l-notification-group__title-actions {

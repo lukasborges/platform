@@ -51,15 +51,17 @@ type Props = OwnProps & StateFromProps;
 
 @injectSheet({
   content: {
-    width: 500,
-    height: 640,
+    width: 520,
+    height: 'min(640px, calc(100vh - 96px))',
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'flex-start',
-    marginTop: 50,
-    backgroundImage: (props: Props) => props.themeGradient,
-    borderRadius: 5,
-    boxShadow: '0px 10px 60px 5px rgba(0, 0, 0, 0.6)',
+    marginTop: 32,
+    backgroundColor: '#202124',
+    backgroundImage: 'none',
+    border: '1px solid rgba(255, 255, 255, .1)',
+    borderRadius: 12,
+    boxShadow: '0 18px 56px rgba(0, 0, 0, .52)',
     overflow: 'hidden',
   },
 })
@@ -85,7 +87,7 @@ class BangPresenterImpl extends React.PureComponent<Props, {}> {
     const hasEmptyQuery = searchValue === '';
 
     return (
-      <div className={classes!.content}>
+      <div className={`${classes!.content} station-quick-switch`}>
         <BangInput
           refBangInput={setRef}
           onValueChange={onSearchValueChange}

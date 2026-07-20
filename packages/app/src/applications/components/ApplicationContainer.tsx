@@ -1,4 +1,4 @@
-import { Icon, IconSymbol, ThemeTypes as Theme } from '@getstation/theme';
+import { Icon, IconSymbol } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -55,7 +55,7 @@ export interface StateProps {
 
 export type Props = OwnProps & StateProps;
 
-const styles = (theme: Theme) => {
+const styles = () => {
   const smallIcon = (props: Props) => props.promptBasicAuth;
   const stopAnimation = (props: Props) => props.crashed || props.promptBasicAuth;
 
@@ -66,12 +66,15 @@ const styles = (theme: Theme) => {
       justifyContent: 'center',
       flexDirection: 'column',
       position: 'fixed',
-      top: 0,
-      left: theme.dock.size,
+      top: 54,
+      left: 68,
       right: 0,
-      backgroundImage: (props: Props) => props.themeGradient,
+      bottom: 0,
+      backgroundColor: '#16171a',
+      backgroundImage: 'none',
+      borderLeft: '1px solid rgba(255, 255, 255, .08)',
       zIndex: 100,
-      padding: '10px',
+      padding: 24,
     },
     container2: {
       display: 'flex',
@@ -79,8 +82,7 @@ const styles = (theme: Theme) => {
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'rgba(255,255,255, 0.1)',
-      borderRadius: '3px',
+      backgroundColor: 'transparent',
       height: '100%',
       color: 'white',
       fontSize: '14px',
@@ -89,16 +91,17 @@ const styles = (theme: Theme) => {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      width: (props: Props) => smallIcon(props) ? 80 : 160,
-      height: (props: Props) => smallIcon(props) ? 80 : 160,
-      marginBottom: 30,
-      borderRadius: 100,
-      backgroundColor: 'rgba(255, 255, 255, .3)',
+      width: (props: Props) => smallIcon(props) ? 76 : 120,
+      height: (props: Props) => smallIcon(props) ? 76 : 120,
+      marginBottom: 24,
+      border: '1px solid rgba(255, 255, 255, .1)',
+      borderRadius: 18,
+      backgroundColor: '#2b2c31',
       position: 'relative',
     },
     icon: {
-      width: (props: Props) => smallIcon(props) ? 60 : 120,
-      height: (props: Props) => smallIcon(props) ? 60 : 120,
+      width: (props: Props) => smallIcon(props) ? 52 : 88,
+      height: (props: Props) => smallIcon(props) ? 52 : 88,
       animation: (props: Props) => stopAnimation(props) ? 'none' : '3s ease-in-out 0s infinite pulsation',
     },
     unhappyIcon: {

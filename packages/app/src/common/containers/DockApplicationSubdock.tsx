@@ -31,14 +31,16 @@ type Props = JSSProps & StateFromProps & OwnProps;
 @injectSheet({
   subdockContainer: {
     position: 'absolute',
-    top: 0,
-    left: 50,
-    width: 280,
-    height: '100%',
+    top: 54,
+    left: 68,
+    width: 300,
+    height: 'calc(100% - 54px)',
     color: 'white',
     zIndex: 2,
-    borderLeft: '2px solid rgba(255,255,255,0.4)',
-    backgroundImage: (props: Props) => props.themeGradient,
+    backgroundColor: '#202124',
+    backgroundImage: 'none',
+    borderRight: '1px solid rgba(255, 255, 255, .08)',
+    boxShadow: '10px 0 32px rgba(0, 0, 0, .3)',
     '&>div': {
       height: '100%',
       width: '100%',

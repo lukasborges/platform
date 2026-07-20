@@ -18,7 +18,7 @@ export class WebUIGradientProvider extends React.Component<Props, State> {
     super(props);
     this.state = {
       // default theme colors, just in case
-      themeColors: ['#2B91BA', '#3794C2', '#4B99CF', '#629FDD'],
+      themeColors: ['#202124', '#202124', '#25262a', '#2b2c31'],
     };
 
     this.subscription = props.themeColorsObservable.subscribe(themeColors => {

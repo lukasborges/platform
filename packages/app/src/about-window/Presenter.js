@@ -9,10 +9,11 @@ import AboutWindowVersions from './components/AboutWindowVersions';
 import { getSVG } from '../theme/api';
 import { isDarwin } from '../utils/process';
 
-const styles = theme => ({
+const styles = () => ({
   container: {
     height: '100%',
-    backgroundColor: theme.colors.gray.light,
+    backgroundColor: '#16171a',
+    color: 'rgba(255, 255, 255, .88)',
   },
   body: {
     display: 'flex',
@@ -20,7 +21,7 @@ const styles = theme => ({
     position: 'relative',
     height: '100%',
     padding: '40px 60px 60px 40px',
-    color: theme.colors.gray.dark,
+    color: 'rgba(255, 255, 255, .88)',
   },
   content: {
     flex: 1,
@@ -33,7 +34,8 @@ const styles = theme => ({
     right: 0,
     width: 100,
     height: '100%',
-    backgroundImage: props => props.themeGradient,
+    backgroundColor: '#2b2c31',
+    backgroundImage: 'none',
   }
 });
 

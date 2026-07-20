@@ -1,4 +1,3 @@
-import { ThemeTypes as Theme } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
@@ -12,14 +11,14 @@ export interface Props {
   classes?: Classes,
 }
 
-const styles = (theme: Theme) => ({
+const styles = () => ({
   footer: {
     display: 'flex',
     flexDirection: 'row',
     position: 'absolute',
     bottom: 0,
     left: 0,
-    color: theme.colors.gray.middle,
+    color: 'rgba(255, 255, 255, .5)',
     fontSize: 11,
   },
   link: {
@@ -37,7 +36,7 @@ export default class AboutWindowFooter extends React.PureComponent<Props, {}> {
 
     return (
       <footer className={classes!.footer}>
-        <p>2019 - { new Date().getFullYear() }</p>
+        <p>2019 - {new Date().getFullYear()}</p>
         <a
           className={classes!.link}
           href="https://github.com/lukasborges/desktop-app"

@@ -92,6 +92,7 @@ export default class SettingsOverlay extends React.PureComponent<Props, {}> {
 
     return (
       <Overlay
+        className="station-settings"
         withClickOutside={false}
         onClose={this.onClose}
         title="Settings"

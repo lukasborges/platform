@@ -1,7 +1,6 @@
 import { updateUI } from 'redux-ui/transpiled/action-reducer';
 import classNames from 'classnames';
 import memoize from 'memoizee';
-import * as remote from '@electron/remote';
 import mod from 'mod-op';
 import PropTypes from 'prop-types';
 import { findIndex, prop, propEq, tail } from 'ramda';
@@ -47,7 +46,6 @@ import KeyboardShortcuts from './components/KeyboardShortcuts';
 import DockIconDragLayer from './DockIconDragLayer';
 import * as dockActions from './duck';
 import { getApplicationsForDock } from './selectors';
-import { isDarwin } from '../utils/process';
 import DockWrapper from './components/DockWrapper';
 import DockTopSection from './components/DockTopSection';
 import { getIsApplicationInstanceLogoInDock } from '../application-settings/selectors';
@@ -61,8 +59,6 @@ const styles = () => ({
     backgroundColor: 'rgba(255,255,255,0.2)'
   }
 });
-
-const onTrafficLightClose = () => remote.getCurrentWindow().close();
 
 @injectSheet(styles)
 class DockImpl extends React.PureComponent {
@@ -474,8 +470,6 @@ class DockImpl extends React.PureComponent {
     return (
       <DockWrapper onClickDock={this.handleClickDock}>
         <DockTopSection
-          isDarwin={isDarwin}
-          onClose={onTrafficLightClose}
           isRecentSubdockVisible={isRecentSubdockVisible}
           showRecentSubdock={this.handleShowRecentSubdock}
           hideRecentSubdock={this.handleHideRecentSubdock}
@@ -530,7 +524,7 @@ class DockImpl extends React.PureComponent {
           <DockIconDragLayer onDraggingStateChange={this.onDraggingStateChange} />
         </div>
 
-        <div className={classes.bottomSection}>
+        <div className={classNames(classes.bottomSection, 'station-dock-bottom')}>
           <AutoUpdateDockNotification />
           <AppStore />
           <FocusModeDockContainer />

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Maybe from 'graphql/tsutils/Maybe';
-import { getHighlightGradient, Icon, IconSymbol, roundedBackground, ThemeTypes as Theme } from '@getstation/theme';
+import { Icon, IconSymbol, roundedBackground, ThemeTypes as Theme } from '@getstation/theme';
 import * as classNames from 'classnames';
 // @ts-ignore: no declaration file
 import * as isBlank from 'is-blank';
@@ -30,17 +30,15 @@ export const SUBDOCK_ITEM_HEIGHT = 40;
 
 const styles = (theme: Theme) => ({
   item: {
-    padding: '0 20px 0 15px',
-    borderBottom: '2px solid rgba(255,255,255,0.1)',
+    borderRadius: 8,
+    margin: [4, 12],
+    padding: [0, 10],
     listStyleType: 'none',
     '&:hover': {
-      backgroundImage: getHighlightGradient(undefined, .30),
+      backgroundColor: 'rgba(255, 255, 255, .06)',
     },
     '&.isActive': {
-      backgroundImage: getHighlightGradient(undefined, .50),
-    },
-    '&:last-child': {
-      borderBottom: 'none',
+      backgroundColor: 'rgba(255, 255, 255, .1)',
     },
     '& $buttons': {
       display: 'none',
@@ -53,9 +51,9 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     cursor: 'default',
-    height: SUBDOCK_ITEM_HEIGHT,
+    height: 42,
     position: 'relative',
-    borderBottom: '1px solid rgba(white, 0.15)',
+    borderBottom: 0,
   },
   favoriteIcon: {
     opacity: 0.4,

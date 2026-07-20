@@ -36,10 +36,11 @@ function getItemStyles(props: Props) {
   return {
     transform: transform,
     WebkitTransform: transform,
-    backgroundColor: '#3070CD',
-    width: 280,
-    borderRadius: 6,
-    boxShadow: '2px 2px 9px #444',
+    backgroundColor: '#303136',
+    width: 274,
+    border: '1px solid rgba(255, 255, 255, .12)',
+    borderRadius: 8,
+    boxShadow: '0 8px 24px rgba(0, 0, 0, .32)',
   };
 }
 

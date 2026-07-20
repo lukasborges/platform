@@ -7,16 +7,19 @@ export interface Props {
   duration: string
 }
 
-@injectSheet((theme: any) => ({
+@injectSheet(() => ({
   item: {
-    color: theme.colors.gray.middle,
+    color: 'rgba(255, 255, 255, .64)',
     fontSize: '12px',
     transition: 'all 250ms ease-in-out',
     cursor: 'pointer',
     '&:hover': {
-      color: theme.colors.gray.dark,
+      color: '#fff',
+      backgroundColor: 'rgba(255, 255, 255, .07)',
     },
-    margin: [4, 0],
+    borderRadius: 5,
+    margin: [3, 0],
+    padding: [3, 5],
   },
 }))
 class NotificationCenterSnoozePanelItem extends React.PureComponent<Props, {}> {
