@@ -12,12 +12,12 @@ export const UPSTREAMS = [
   {
     id: 'ingenium',
     repository: 'agenciaingenium/desktop-app',
-    role: 'primário',
+    role: 'primary',
   },
   {
     id: 'mathijs',
     repository: 'Mathijs003/station-app',
-    role: 'secundário',
+    role: 'secondary',
   },
 ];
 
@@ -56,7 +56,7 @@ function stateMarker(state) {
 
 const RULES = [
   {
-    category: 'Conflito com a política do Platform',
+    category: 'Platform policy conflict',
     risk: 4,
     patterns: [
       /system.?tray/i,
@@ -71,7 +71,7 @@ const RULES = [
     conflict: true,
   },
   {
-    category: 'Autenticação ou segurança',
+    category: 'Authentication or security',
     risk: 4,
     patterns: [/auth/i, /oauth/i, /credential/i, /certificate/i, /security/i, /permission/i],
   },
@@ -81,12 +81,12 @@ const RULES = [
     patterns: [/electron/i, /webcontents/i, /webview/i, /\bipc\b/i, /user.?agent/i, /session/i],
   },
   {
-    category: 'Persistência ou migração',
+    category: 'Persistence or migration',
     risk: 4,
     patterns: [/persist/i, /migration/i, /database/i, /sequelize/i, /storage/i, /partition/i],
   },
   {
-    category: 'Build, pacote ou dependências',
+    category: 'Build, packaging, or dependencies',
     risk: 3,
     patterns: [
       /package\.json/i,
@@ -101,23 +101,23 @@ const RULES = [
     ],
   },
   {
-    category: 'Interface ou experiência de uso',
+    category: 'UI or user experience',
     risk: 2,
     patterns: [/\.s?css$/i, /component/i, /toolbar/i, /quick.?switch/i, /dock/i, /icon/i, /logo/i, /theme/i, /ui\b/i],
   },
   {
-    category: 'App Store ou aplicações',
+    category: 'App Store or applications',
     risk: 2,
     patterns: [/app.?store/i, /manifest/i, /application/i, /recipe/i],
   },
   {
-    category: 'Identidade do produto',
+    category: 'Product identity',
     risk: 3,
     patterns: [/rebrand/i, /branding/i, /station.?logo/i, /product.?name/i],
     branding: true,
   },
   {
-    category: 'Testes ou documentação',
+    category: 'Tests or documentation',
     risk: 1,
     patterns: [/\btest/i, /spec\./i, /readme/i, /docs?\//i, /changelog/i],
   },
@@ -137,10 +137,10 @@ export function classifyChange(commits = [], files = []) {
 
   if (documentationOnly) {
     return {
-      categories: ['Testes ou documentação'],
+      categories: ['Tests or documentation'],
       conflict: false,
-      recommendation: 'Candidato a cherry-pick com `-x` se o commit for pequeno e isolado.',
-      risk: 'baixo',
+      recommendation: 'Candidate for `git cherry-pick -x` when the commit is small and isolated.',
+      risk: 'low',
     };
   }
 
@@ -148,22 +148,22 @@ export function classifyChange(commits = [], files = []) {
   const conflict = matches.some(rule => rule.conflict);
   const branding = matches.some(rule => rule.branding);
   const riskScore = Math.max(1, ...matches.map(rule => rule.risk));
-  const risk = riskScore >= 4 ? 'alto' : riskScore === 3 ? 'médio-alto' : riskScore === 2 ? 'médio' : 'baixo';
+  const risk = riskScore >= 4 ? 'high' : riskScore === 3 ? 'medium-high' : riskScore === 2 ? 'medium' : 'low';
   const categories = matches.length
     ? matches.map(rule => rule.category)
-    : ['Mudança geral; requer inspeção manual'];
+    : ['General change; manual inspection required'];
 
   let recommendation;
   if (conflict) {
-    recommendation = 'Rejeitar o comportamento conflitante. Se houver partes úteis no mesmo commit, reimplementar somente essas partes.';
+    recommendation = 'Reject the conflicting behavior. If the commit also contains useful parts, reimplement only those parts.';
   } else if (branding) {
-    recommendation = 'Reimplementar preservando nome, logos, links e pacotes do Platform.';
+    recommendation = 'Reimplement while preserving the Platform name, logos, links, and package identifiers.';
   } else if (riskScore >= 4) {
-    recommendation = 'Revisar em profundidade e preferir reimplementação; exige a validação completa antes de integrar.';
+    recommendation = 'Review in depth and prefer reimplementation; full validation is required before integration.';
   } else if (riskScore >= 2) {
-    recommendation = 'Candidato a adoção após revisar o diff e validar as personalizações do Platform.';
+    recommendation = 'Candidate for adoption after reviewing the diff and validating Platform customizations.';
   } else {
-    recommendation = 'Candidato a cherry-pick com `-x` se o commit for pequeno e isolado.';
+    recommendation = 'Candidate for `git cherry-pick -x` when the commit is small and isolated.';
   }
 
   return { categories, conflict, recommendation, risk };
@@ -216,7 +216,7 @@ async function getInitialChanges(upstream, branch) {
     commits,
     files: [...filesByName.values()],
     totalCommits: commits.length,
-    warning: 'Baseline inicial: os commits recentes são exibidos para triagem, mas não representam alterações novas desde uma execução anterior.',
+    warning: 'Initial baseline: recent commits are shown for triage, but they are not new changes detected since a previous run.',
   };
 }
 
@@ -232,7 +232,7 @@ async function compareChanges(upstream, base, head, branch) {
       files: comparison.files || [],
       totalCommits: comparison.total_commits ?? comparison.commits?.length ?? 0,
       warning: comparison.status === 'diverged'
-        ? 'O histórico divergiu desde o último SHA; revise a comparação manualmente.'
+        ? 'History has diverged since the previous SHA; review the comparison manually.'
         : null,
     };
   } catch (error) {
@@ -242,24 +242,24 @@ async function compareChanges(upstream, base, head, branch) {
     return {
       ...fallback,
       baseline: false,
-      warning: `Não foi possível comparar com ${shortSha(base)} (histórico reescrito ou SHA removido). Exibindo os commits mais recentes.`,
+      warning: `Unable to compare against ${shortSha(base)} (rewritten history or removed SHA). Showing the most recent commits instead.`,
     };
   }
 }
 
 function renderCommit(commit, repository) {
   const sha = commit.sha;
-  const subject = (commit.commit?.message || commit.message || 'Sem mensagem').split('\n')[0];
-  const author = commit.author?.login || commit.commit?.author?.name || 'autor desconhecido';
+  const subject = (commit.commit?.message || commit.message || 'No commit message').split('\n')[0];
+  const author = commit.author?.login || commit.commit?.author?.name || 'unknown author';
   const url = commit.html_url || `https://github.com/${repository}/commit/${sha}`;
   return `- [\`${shortSha(sha)}\`](${url}) ${markdown(subject)} — ${markdown(author)}`;
 }
 
 function renderFiles(files) {
-  if (!files.length) return 'não disponíveis no levantamento inicial';
+  if (!files.length) return 'not available in the initial scan';
   const shown = files.slice(0, 12).map(file => `\`${markdown(file.filename || file)}\``);
   const remaining = files.length - shown.length;
-  return `${shown.join(', ')}${remaining > 0 ? ` e mais ${remaining}` : ''}`;
+  return `${shown.join(', ')}${remaining > 0 ? ` and ${remaining} more` : ''}`;
 }
 
 function renderUpstreamReport(result) {
@@ -272,24 +272,24 @@ function renderUpstreamReport(result) {
   const lines = [
     `### [${upstream.repository}](https://github.com/${upstream.repository}) (${upstream.role})`,
     '',
-    `- **Head:** [\`${shortSha(head.sha)}\`](${headUrl}) na branch \`${markdown(head.branch)}\``,
-    `- **Commits encontrados:** ${changes.totalCommits}`,
-    `- **Risco:** ${classification.risk}`,
-    `- **Classificação:** ${classification.categories.join('; ')}`,
-    `- **Recomendação:** ${classification.recommendation}`,
-    `- **Arquivos:** ${renderFiles(changes.files)}`,
+    `- **Head:** [\`${shortSha(head.sha)}\`](${headUrl}) on branch \`${markdown(head.branch)}\``,
+    `- **Commits found:** ${changes.totalCommits}`,
+    `- **Risk:** ${classification.risk}`,
+    `- **Classification:** ${classification.categories.join('; ')}`,
+    `- **Recommendation:** ${classification.recommendation}`,
+    `- **Files:** ${renderFiles(changes.files)}`,
   ];
 
-  if (changes.warning) lines.push(`- **Atenção:** ${markdown(changes.warning)}`);
+  if (changes.warning) lines.push(`- **Warning:** ${markdown(changes.warning)}`);
   lines.push('', ...commits.map(commit => renderCommit(commit, upstream.repository)));
-  if (omitted > 0) lines.push(`- _Mais ${omitted} commit(s) omitido(s); abra a comparação completa antes de integrar._`);
+  if (omitted > 0) lines.push(`- _${omitted} additional commit(s) omitted; open the full comparison before integrating._`);
 
   return lines.join('\n');
 }
 
 export function renderReport(results, timestamp = new Date()) {
   return [
-    `## Relatório de ${timestamp.toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}`,
+    `## Report — ${timestamp.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo', dateStyle: 'medium', timeStyle: 'short' })} BRT`,
     '',
     ...results.flatMap((result, index) => [
       ...(index ? ['---', ''] : []),
@@ -304,17 +304,17 @@ function issueBody(report, state) {
   return [
     '# Upstream Radar',
     '',
-    'Painel automático das novidades nos forks acompanhados pelo Platform.',
+    'Automated dashboard for changes detected in the forks monitored by Platform.',
     '',
-    '> O radar não altera código. Toda adoção exige revisão humana, branch dedicada, pull request e validação multiplataforma.',
+    '> The radar never changes code. Every adoption requires human review, a dedicated branch, a pull request, and cross-platform validation.',
     '',
-    `[Política de integração e checklist](${policyUrl})`,
+    `[Integration policy and validation checklist](${policyUrl})`,
     '',
     report,
     '',
-    '## Próxima ação',
+    '## Next action',
     '',
-    'Use a classificação como triagem. Antes de aplicar qualquer item, leia o diff upstream completo e confira os invariantes descritos na política.',
+    'Use the classification for triage. Before applying an item, read the complete upstream diff and check every invariant in the integration policy.',
     '',
     stateMarker(state),
   ].join('\n');
@@ -366,7 +366,7 @@ async function run() {
   const changedHeads = heads.filter(({ upstream, head }) => previousState[upstream.id] !== head.sha);
 
   if (issue && changedHeads.length === 0) {
-    console.log('Upstream Radar: nenhum commit novo desde a última execução.');
+    console.log('Upstream Radar: no new commits since the previous run.');
     return;
   }
 
@@ -387,7 +387,7 @@ async function run() {
   }
 
   const savedIssue = await writeIssue(issue, report, nextState);
-  console.log(`Upstream Radar atualizado: ${savedIssue.html_url}`);
+  console.log(`Upstream Radar updated: ${savedIssue.html_url}`);
 }
 
 const isMainModule = process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href;

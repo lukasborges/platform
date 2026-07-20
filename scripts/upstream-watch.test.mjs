@@ -19,8 +19,8 @@ test('rejects system tray and auto-launch regressions', () => {
   );
 
   assert.equal(result.conflict, true);
-  assert.equal(result.risk, 'alto');
-  assert.match(result.recommendation, /Rejeitar/);
+  assert.equal(result.risk, 'high');
+  assert.match(result.recommendation, /Reject/);
 });
 
 test('classifies isolated documentation changes as low risk', () => {
@@ -30,7 +30,7 @@ test('classifies isolated documentation changes as low risk', () => {
   );
 
   assert.equal(result.conflict, false);
-  assert.equal(result.risk, 'baixo');
+  assert.equal(result.risk, 'low');
   assert.match(result.recommendation, /cherry-pick/);
 });
 
@@ -53,7 +53,7 @@ test('renders repository, commit, risk, and recommendation', () => {
 
   assert.match(report, /agenciaingenium\/desktop-app/);
   assert.match(report, /1234567/);
-  assert.match(report, /Risco/);
-  assert.match(report, /Recomendação/);
+  assert.match(report, /Risk/);
+  assert.match(report, /Recommendation/);
   assert.match(report, /persistence/);
 });
