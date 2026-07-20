@@ -46,6 +46,7 @@ dist/
 .cache/
 .tsnode-cache/
 release/
+/pkg/
 packages/app/src/theme/css/
 /graphql.config.json
 .yarn/install-state.gz
