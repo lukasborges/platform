@@ -3,7 +3,7 @@ const styles = {
     boxSizing: 'border-box',
     flex: 1,
     minWidth: 0,
-    padding: [76, 20, 48],
+    padding: [28, 20, 48],
   },
   resultsContent: {
     padding: [22, 0, 0],
@@ -15,7 +15,7 @@ const styles = {
   },
   '@media (min-width: 600px)': {
     container: {
-      padding: [84, 36, 56],
+      padding: [30, 36, 56],
     },
   },
   '@media (min-width: 1024px)': {

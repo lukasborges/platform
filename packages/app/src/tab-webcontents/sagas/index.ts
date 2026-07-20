@@ -2,6 +2,7 @@ import { ipcRenderer } from 'electron';
 import { SagaIterator } from 'redux-saga';
 import { all, call, delay, getContext, put, race, select, spawn, take } from 'redux-saga/effects';
 import { BrowserXAppWorker } from '../../app-worker';
+import { getAllApplicationIds, getBxAppManifestURL } from '../../../manifests';
 import { MAIN_APP_READY } from '../../app/duck';
 import { getFocusedTabId } from '../../app/selectors';
 import { isAlwaysLoaded } from '../../application-settings/api';
@@ -171,7 +172,11 @@ function* getTabsToLoadOnStartup() {
   const bxApp: BrowserXAppWorker = yield getContext('bxApp');
 
   const manifestURLs = yield select(getInstalledManifestURLs);
-  const manifests: Map<string, BxAppManifest> = yield call(getAllManifests, bxApp, manifestURLs);
+  const availableBundledManifestURLs = new Set(getAllApplicationIds().map(getBxAppManifestURL));
+  const loadableManifestURLs = manifestURLs.filter((manifestURL: string) =>
+    !manifestURL.startsWith('station-manifest://') || availableBundledManifestURLs.has(manifestURL)
+  );
+  const manifests: Map<string, BxAppManifest> = yield call(getAllManifests, bxApp, loadableManifestURLs);
   const appSettings: ApplicationsSettingsImmutable = yield select(getApplicationsSettings);
   const alwaysLoadedManifests = Array.from(manifests.entries())
     .filter(([manifestURL, manifest]) => isAlwaysLoaded(manifest, appSettings.get(manifestURL)))
@@ -197,14 +202,16 @@ function* startProgressiveWarmup() {
     yield take((action: any) => action.type === MARK_AS_DONE && action.done);
   }
 
-  const tabsToLoad = yield call(getTabsToLoadOnStartup);
-
   const tabId1 = yield select(getFrontActiveTabId);
-  yield put(doAttach(tabId1));
-
   yield takeEveryWitness(FRONT_ACTIVE_TAB_CHANGE, function* ({ tabId }: FrontActiveTabChangeAction) {
     yield put(doAttach(tabId));
   });
+
+  if (tabId1) {
+    yield put(doAttach(tabId1));
+  }
+
+  const tabsToLoad = yield call(getTabsToLoadOnStartup);
 
   // wait for the first tab to load correctly
   yield delay(ms('15sec'));

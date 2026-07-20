@@ -9,6 +9,10 @@ const styles = {
   categoriesContainer: {
     display: 'none',
   },
+  content: {
+    flex: 1,
+    minWidth: 0,
+  },
   categoriesList: {
     boxSizing: 'border-box',
     minWidth: 224,
@@ -59,15 +63,18 @@ const styles = {
     color: colors.blueGray100,
   },
   dropDown: {
-    backgroundColor: colors.blueGray30,
-    borderBottom: `1px solid ${colors.dividerColor}`,
     boxSizing: 'border-box',
-    left: 0,
-    padding: [10, 20],
-    position: 'fixed',
-    top: 126,
+    padding: [24, 20, 0],
+    position: 'relative',
     width: '100%',
     zIndex: 10,
+  },
+  dropDownLabel: {
+    color: colors.darkGray,
+    display: 'block',
+    fontSize: 12,
+    fontWeight: 600,
+    marginBottom: 7,
   },
   dropDownTitleContainer: {
     backgroundColor: colors.blueGray40,
@@ -88,6 +95,12 @@ const styles = {
     '&:focus-visible': {
       boxShadow: '0 0 0 2px rgba(164, 166, 172, .35)',
     },
+  },
+  dropDownSelection: {
+    alignItems: 'center',
+    display: 'flex',
+    gap: 9,
+    minWidth: 0,
   },
   dropDownTitle: {
     fontSize: 14,
@@ -115,7 +128,7 @@ const styles = {
     overflowY: 'auto',
     position: 'absolute',
     right: 20,
-    top: 56,
+    top: 88,
     transition: 'max-height 150ms ease, padding 150ms ease, border-color 150ms ease',
     '&.isActive': {
       borderColor: colors.buttonBorder,
@@ -149,10 +162,12 @@ const styles = {
   },
   '@media (min-width: 600px)': {
     dropDown: {
-      position: 'fixed',
-      top: 0,
-      left: 216,
-      width: 'calc(100% - 216px)',
+      padding: [30, 36, 0],
+    },
+    dropDownCategoriesList: {
+      left: 36,
+      right: 36,
+      top: 94,
     },
   },
   '@media (min-width: 1024px)': {
@@ -170,12 +185,15 @@ const styles = {
 export interface AppStoreAllAppsClasses {
   allAppsSection: string,
   categoriesContainer: string,
+  content: string,
   categoriesList: string,
   categoriesItem: string,
   categoryIcon: string,
   categoryText: string,
   dropDown: string,
+  dropDownLabel: string,
   dropDownTitleContainer: string,
+  dropDownSelection: string,
   dropDownTitle: string,
   dropDownIcon: string,
   dropDownCategoriesList: string,

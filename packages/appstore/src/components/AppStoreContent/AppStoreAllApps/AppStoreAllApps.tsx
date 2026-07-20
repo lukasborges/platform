@@ -68,6 +68,7 @@ class AppStoreAllApps extends React.PureComponent<AppStoreAllAppsComponentProps,
     const { classes, allCategories, applicationsByCategory, appStoreContext, onAddApplication } = this.props;
     const { selectedCategory } = this.state;
     const renderPageContent = allCategories && !!allCategories.length;
+    const selectedCategoryData = allAppsCategoriesList.find(item => item.title === selectedCategory);
 
     return (
       <React.Fragment>
@@ -98,53 +99,64 @@ class AppStoreAllApps extends React.PureComponent<AppStoreAllAppsComponentProps,
               </ul>
             </nav>
 
-            <div className={classes!.dropDown}>
-              <button
-                type="button"
-                className={classes!.dropDownTitleContainer}
-                onClick={this.toggleMenu}
-                aria-expanded={this.state.isDropDownOpen}
-              >
-                <span className={classes!.dropDownTitle}>{selectedCategory || 'Categories'}</span>
-                <Icon
-                  symbolId={IconSymbol.ARROW_BACK}
-                  size={16}
-                  className={classNames(classes!.dropDownIcon, { isActive: this.state.isDropDownOpen })}
+            <div className={classes!.content}>
+              <div className={classes!.dropDown}>
+                <span id="app-category-label" className={classes!.dropDownLabel}>Category</span>
+                <button
+                  type="button"
+                  className={classes!.dropDownTitleContainer}
+                  onClick={this.toggleMenu}
+                  aria-expanded={this.state.isDropDownOpen}
+                  aria-labelledby="app-category-label app-category-selection"
+                >
+                  <span className={classes!.dropDownSelection}>
+                    {!!selectedCategoryData &&
+                      <Icon className={classes!.categoryIcon} symbolId={selectedCategoryData.icon} size={18}/>
+                    }
+                    <span id="app-category-selection" className={classes!.dropDownTitle}>
+                      {selectedCategory || 'Choose a category'}
+                    </span>
+                  </span>
+                  <Icon
+                    symbolId={IconSymbol.ARROW_BACK}
+                    size={16}
+                    className={classNames(classes!.dropDownIcon, { isActive: this.state.isDropDownOpen })}
+                  />
+                </button>
+
+                <ul className={classNames(classes!.dropDownCategoriesList, { isActive: this.state.isDropDownOpen })}>
+                  {allCategories.map(categoryName => {
+                    const category = allAppsCategoriesList.find(item => item.title === categoryName);
+                    return (
+                      <li key={categoryName}>
+                        <button
+                          type="button"
+                          className={classNames(
+                            classes!.dropDownCategoriesItem,
+                            { isActive: categoryName === selectedCategory }
+                          )}
+                          onClick={() => this.onSelectCategory(categoryName)}
+                        >
+                          {!!category &&
+                            <Icon className={classes!.categoryIcon} symbolId={category.icon} size={18}/>
+                          }
+                          <span className={classes!.categoryText}>{categoryName}</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              {!!allCategories && allCategories.length &&
+                <AppStoreAllAppsList
+                  categoryName={selectedCategory}
+                  applicationsByCategory={applicationsByCategory}
+                  appStoreContext={appStoreContext}
+                  onAddApplication={onAddApplication}
                 />
-              </button>
-
-              <ul className={classNames(classes!.dropDownCategoriesList, { isActive: this.state.isDropDownOpen })}>
-                {allCategories.map(categoryName => {
-                  const category = allAppsCategoriesList.find(item => item.title === categoryName);
-                  return (
-                    <li key={categoryName}>
-                      <button
-                        type="button"
-                        className={classNames(
-                          classes!.dropDownCategoriesItem,
-                          { isActive: categoryName === selectedCategory }
-                        )}
-                        onClick={() => this.onSelectCategory(categoryName)}
-                      >
-                        {!!category &&
-                          <Icon className={classes!.categoryIcon} symbolId={category.icon} size={18}/>
-                        }
-                        <span className={classes!.categoryText}>{categoryName}</span>
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
+              }
             </div>
-
-            {!!allCategories && allCategories.length &&
-              <AppStoreAllAppsList
-                categoryName={selectedCategory}
-                applicationsByCategory={applicationsByCategory}
-                appStoreContext={appStoreContext}
-                onAddApplication={onAddApplication}
-              />
-            }
           </section>
         }
       </React.Fragment>
