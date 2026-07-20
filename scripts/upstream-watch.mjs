@@ -19,6 +19,11 @@ export const UPSTREAMS = [
     repository: 'Mathijs003/station-app',
     role: 'secondary',
   },
+  {
+    id: 'oddball',
+    repository: 'oddballza/desktop-app',
+    role: 'experimental',
+  },
 ];
 
 function hasArg(name) {

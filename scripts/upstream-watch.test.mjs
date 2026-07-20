@@ -12,6 +12,17 @@ test('reads the persisted state from the issue marker', () => {
   assert.deepEqual(parseState('<!-- upstream-state:not-json -->'), {});
 });
 
+test('monitors the selected active forks in priority order', () => {
+  assert.deepEqual(
+    UPSTREAMS.map(({ id, repository, role }) => ({ id, repository, role })),
+    [
+      { id: 'ingenium', repository: 'agenciaingenium/desktop-app', role: 'primary' },
+      { id: 'mathijs', repository: 'Mathijs003/station-app', role: 'secondary' },
+      { id: 'oddball', repository: 'oddballza/desktop-app', role: 'experimental' },
+    ],
+  );
+});
+
 test('rejects system tray and auto-launch regressions', () => {
   const result = classifyChange(
     [{ commit: { message: 'Restore minimize to tray and auto launch' } }],

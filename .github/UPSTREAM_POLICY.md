@@ -4,6 +4,9 @@ Platform monitors these active Station forks for fixes and useful features:
 
 - `agenciaingenium/desktop-app` is the primary source for regular fixes and features.
 - `Mathijs003/station-app` is a secondary source for runtime and architectural changes.
+- `oddballza/desktop-app` is an experimental source for React, Redux, Electron, and
+  development-tooling modernization. Its large dependency changes require selective
+  reimplementation and must never be adopted as a single upgrade commit.
 
 The scheduled Upstream Radar only reports changes. It must never merge, cherry-pick,
 push a branch, or modify `main` automatically.
@@ -30,7 +33,7 @@ of these changes may only be reimplemented selectively.
 3. Use `git cherry-pick -x <sha>` only for a small, isolated fix with no overlap.
 4. Reimplement UI, runtime, persistence, packaging, and branding changes when they
    overlap Platform behavior.
-5. Work on `sync/ingenium-<sha>` or `sync/mathijs-<sha>`, never directly on `main`.
+5. Work on `sync/<source>-<sha>`, never directly on `main`.
 6. Open a pull request describing what was adopted, adapted, or intentionally left out.
 
 ## Validation checklist
@@ -42,4 +45,3 @@ of these changes may only be reimplemented selectively.
 - Search the diff for Station branding and links that should remain Platform-branded.
 - Search for tray, auto-launch, and background execution regressions.
 - Check generated package names and update metadata.
-
