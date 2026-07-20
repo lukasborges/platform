@@ -1,22 +1,19 @@
 import * as React from 'react';
 import injectSheet from 'react-jss';
 import AppStorePageHeader from '@src/components/AppStoreContent/AppStorePageHeader/AppStorePageHeader';
-import { WithMostPopularApplicationsProps } from '@src/HOC/withMostPopularApplications';
 import AppStoreApplication from '@src/components/AppStoreContent/AppStoreApplicationItem/AppStoreApplication';
-import { ContextEnvPlatform } from '@src/app';
-import AppStorePageCategoryTitle
-  from '@src/components/AppStoreContent/AppStorePageCategoryTitle/AppStorePageCategoryTitle';
 import { scrollToTop } from '@src/shared/functions/scroll-to-top';
 import AppStorePreloader from '@src/components/AppStorePreloader/AppStorePreloader';
 
-import styles, { AppStoreMostPopularAppsClasses } from './styles';
-import { PopularApps } from '../../../../../manifests';
+import { FeaturedApps } from '../../../../../manifests';
 
-export interface AppStoreMostPopularAppsProps extends WithMostPopularApplicationsProps {
+import styles, { AppStoreMostPopularAppsClasses } from './styles';
+
+export interface AppStoreMostPopularAppsProps {
   classes?: AppStoreMostPopularAppsClasses,
   appStoreContext: number,
   onAddApplication: (applicationId: string, manifestURL: string) => any,
-  mostPopularApps?: PopularApps,
+  mostPopularApps?: FeaturedApps,
 }
 
 @injectSheet(styles)
@@ -27,14 +24,12 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
   }
 
   render() {
-    const { classes, loading, appStoreContext, onAddApplication, mostPopularApps: apps } = this.props;
+    const { classes, appStoreContext, onAddApplication, mostPopularApps } = this.props;
 
-    const title = 'Most Popular';
-    const subTitle = 'The 100 most installed apps by the Platform community';
-    const alternate = (appStoreContext !== ContextEnvPlatform.Browser);
-
-    const renderPageContent =
-      apps && !loading && (!!apps.creamOfTheCropApps.length) && (!!apps.runnerUps.length) && (!!apps.noteworthy.length);
+    const title = 'Featured Apps';
+    const subTitle = 'A curated selection for communication, planning, and focused work';
+    const apps = mostPopularApps && mostPopularApps.featuredApps || [];
+    const renderPageContent = !!apps.length;
 
     return (
       <React.Fragment>
@@ -47,62 +42,17 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
               subTitle={subTitle}
             />
             <div className={classes!.container}>
-              {!!apps && !!apps.creamOfTheCropApps.length && <div>
-                <AppStorePageCategoryTitle
-                  title={'Cream of the crop'}
-                  iconUrl={'/static/most-popular-apps-sprite.svg#i--cherry'}
-                />
-                <ul className={classes!.resultsContent}>
-                  {apps.creamOfTheCropApps.map(app => {
-                    return <AppStoreApplication
-                      key={app.id}
-                      application={app}
-                      appStoreContext={appStoreContext}
-                      alternate={alternate}
-                      onAddApplication={onAddApplication}
-                      marginBottom={20}
-                    />;
-                  })}
-                </ul>
-              </div>}
-
-              {!!apps && !!apps.runnerUps.length && <div>
-                <AppStorePageCategoryTitle
-                  title={'Runner ups'}
-                  iconUrl={'/static/most-popular-apps-sprite.svg#i--trainers'}
-                />
-                <ul className={classes!.resultsContent}>
-                  {apps.runnerUps.map(app => {
-                    return <AppStoreApplication
-                      key={app.id}
-                      application={app}
-                      appStoreContext={appStoreContext}
-                      alternate={alternate}
-                      onAddApplication={onAddApplication}
-                      marginBottom={20}
-                    />;
-                  })}
-                </ul>
-              </div>}
-
-              {!!apps && !!apps.noteworthy.length && <div>
-                <AppStorePageCategoryTitle
-                  title={'Noteworthy'}
-                  iconUrl={'/static/most-popular-apps-sprite.svg#i--like'}
-                />
-                <ul className={classes!.resultsContent}>
-                  {apps.noteworthy.map(app => {
-                    return <AppStoreApplication
-                      key={app.id}
-                      application={app}
-                      appStoreContext={appStoreContext}
-                      alternate={alternate}
-                      onAddApplication={onAddApplication}
-                      marginBottom={20}
-                    />;
-                  })}
-                </ul>
-              </div>}
+              <ul className={classes!.resultsContent}>
+                {apps.map(app => {
+                  return <AppStoreApplication
+                    key={app.id}
+                    application={app}
+                    appStoreContext={appStoreContext}
+                    onAddApplication={onAddApplication}
+                    isCategoryNameDisplayed={false}
+                  />;
+                })}
+              </ul>
             </div>
           </section>
         }

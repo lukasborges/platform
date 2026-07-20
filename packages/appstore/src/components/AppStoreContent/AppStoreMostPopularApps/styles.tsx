@@ -1,21 +1,18 @@
 const styles = {
   container: {
-    padding: [30, 20, 0, 20],
+    padding: [24, 20, 48],
   },
   resultsContent: {
-    padding: [30, 0, 45],
+    padding: 0,
     margin: 0,
     listStyleType: 'none',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
+    display: 'grid',
+    gap: [8, 18],
+    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
   },
   '@media (min-width: 600px)': {
     container: {
-      padding: [36, 40, 20, 40],
-    },
-    resultsContent: {
-      padding: [40, 0, 45],
+      padding: [30, 40, 56],
     },
   },
 };

@@ -1,6 +1,6 @@
 {
   "name": "Discord",
-  "category": "Communication & Collaboration",
+  "category": "Messaging & Communication",
   "start_url": "https://discord.com/login",
   "icons": [
     {
@@ -12,5 +12,5 @@
   "scope": "https://discord.com",
   "bx_keep_always_loaded": true,
   "bx_legacy_service_id": "discord",
-  "recommendedPosition": "15"
+  "recommendedPosition": "5"
 }

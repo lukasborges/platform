@@ -8,9 +8,10 @@ import { ThemeProvider } from 'react-jss';
 import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 
-import { AppStoreContext, ContextEnvPlatform } from './context';
 import { MinimalApplication } from '../../app/src/applications/graphql/withApplications';
-import { PopularApps } from '../../app/manifests';
+import { FeaturedApps } from '../../app/manifests';
+
+import { AppStoreContext, ContextEnvPlatform } from './context';
 
 export { ContextEnvPlatform };
 
@@ -36,7 +37,7 @@ interface IState {
   themeColors?: string[],
   installApplication?: (applicationId: string, manifestURL: string) => void,
   search?: (query: string) => Promise<{ body: MinimalApplication[] }>,
-  mostPopularApps?: PopularApps,
+  mostPopularApps?: FeaturedApps,
   allCategories: string[],
   applicationsByCategory: Record<string, MinimalApplication[]>;
 }
@@ -63,7 +64,7 @@ class AppImpl extends React.Component<Props, IState> {
       const bxApi = window.bxApi;
 
       bxApi.theme.addThemeColorsChangeListener((_: any, themeColors: string[]) => {
-        this.setState({ themeColors })
+        this.setState({ themeColors });
       });
 
       if ('applications' in bxApi) {

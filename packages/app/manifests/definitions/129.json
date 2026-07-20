@@ -1,6 +1,6 @@
 {
   "name": "Notion",
-  "category": "Communication & Collaboration",
+  "category": "Notes & Knowledge",
   "start_url": "https://www.notion.so/login",
   "icons": [
     {
@@ -16,5 +16,5 @@
   ],
   "main": "notion/main",
   "renderer": "notion/renderer",
-  "recommendedPosition": "17"
+  "recommendedPosition": "21"
 }

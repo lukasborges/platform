@@ -1,6 +1,6 @@
 {
   "name": "Zoom",
-  "category": "Communication & Collaboration",
+  "category": "Video Meetings",
   "start_url": "https://zoom.us/signin",
   "icons": [
     {
@@ -12,5 +12,5 @@
   "scope": "https://zoom.us",
   "bx_keep_always_loaded": true,
   "bx_legacy_service_id": "zoom-us",
-  "recommendedPosition": "27"
+  "recommendedPosition": "25"
 }

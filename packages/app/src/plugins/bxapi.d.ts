@@ -1,9 +1,10 @@
 import { IpcRendererEvent } from 'electron';
 import { Observable } from 'rxjs';
+
+import { FeaturedApps } from '../../manifests';
 import { ApplicationConfigData } from '../applications/duck';
 import { MinimalApplication } from '../applications/graphql/withApplications';
 import { BxAppManifest } from '../applications/manifest-provider/bxAppManifest';
-import { PopularApps } from '../../manifests';
 
 type AppManifest = Omit<BxAppManifest, 'icons'> & { id: string, icon: string };
 
@@ -141,7 +142,7 @@ declare module BxAPI {
     uninstallByManifest(manifestURL: string): Promise<any>,
     setConfigData(applicationId: string, configData: ApplicationConfigData): Promise<any>,
     search(query: string): Promise<{ body: MinimalApplication[] }>,
-    getMostPopularApps(): Promise<{ body: PopularApps }>,
+    getMostPopularApps(): Promise<{ body: FeaturedApps }>,
     getAllCategories(): Promise<{ body: string[]}>,
     getApplicationsByCategory(): Promise<{ body: Record<string, MinimalApplication[]> }>,
     requestPrivate(payload: PrivateApplicationRequest): Promise<{body: { id: string; bxAppManifestURL: string }}>,
@@ -170,7 +171,7 @@ interface Bx {
 }
 
 declare global {
-  interface Window { 
+  interface Window {
     bxApi: Bx;
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ClickUp",
-  "category": "Task & Project Management",
+  "category": "Tasks & Projects",
   "start_url": "https://app.clickup.com",
   "icons": [
     {
@@ -13,5 +13,6 @@
   ],
   "theme_color": "#7B68EE",
   "scope": "https://app.clickup.com",
-  "bx_legacy_service_id": "clickup"
+  "bx_legacy_service_id": "clickup",
+  "recommendedPosition": "19"
 }

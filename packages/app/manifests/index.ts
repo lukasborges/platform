@@ -1,14 +1,16 @@
 import * as Fuse from 'fuse.js';
+
 import { MinimalApplication } from '../src/applications/graphql/withApplications';
 import { BxAppManifest } from '../src/applications/manifest-provider/bxAppManifest';
 import { ApplicationItem } from '../src/urlrouter/types';
+
 import { getPrivateApplicationById, getPrivateManifests } from './private';
 
 const reqIcon = require.context('!url-loader!./icons', true, /\.(png|svg)$/);
 const reqManifest = require.context('./definitions', true, /\.json$/);
 
 export type Manifest = Omit<BxAppManifest, 'icons'> & { id: string, icon: string };
-export type PopularApps = { creamOfTheCropApps: MinimalApplication[], runnerUps: MinimalApplication[], noteworthy: MinimalApplication[] };
+export type FeaturedApps = { featuredApps: MinimalApplication[] };
 
 /**
  * Get basename of a file, without extension
@@ -42,14 +44,12 @@ export function allApplicationsDictionary(): Record<string, Manifest> {
   }, {});
 }
 
-export function listMostPopularApplications(): PopularApps {
+export function listMostPopularApplications(): FeaturedApps {
   const apps = listAllApplications().filter(app => app.recommendedPosition && app.recommendedPosition > 0);
   const sorted = apps.sort((a, b) => (a.recommendedPosition ?? 0) - (b.recommendedPosition ?? 0));
 
   return {
-    creamOfTheCropApps: sorted.slice(0, 10).map(manifestToMinimalApplication),
-    runnerUps: sorted.slice(10, 20).map(manifestToMinimalApplication),
-    noteworthy: sorted.slice(20, 30).map(manifestToMinimalApplication),
+    featuredApps: sorted.slice(0, 30).map(manifestToMinimalApplication),
   };
 }
 

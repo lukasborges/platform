@@ -26,12 +26,12 @@ const styles = (theme: ThemeTypes) => ({
     opacity: 0.7,
   },
   resultsContent: {
-    padding: '47px 0 32px 0',
+    padding: '24px 0 32px 0',
     margin: 0,
     listStyleType: 'none',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignItems: 'flex-start',
+    display: 'grid',
+    gap: [8, 18],
+    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
   },
   resultsButtonContainer: {
     textAlign: 'center',

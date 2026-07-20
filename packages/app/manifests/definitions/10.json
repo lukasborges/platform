@@ -1,6 +1,6 @@
 {
   "name": "ChatGPT",
-  "category": "AI & Assistants",
+  "category": "AI Assistants",
   "start_url": "https://chatgpt.com/",
   "icons": [
     {
@@ -10,5 +10,6 @@
   ],
   "theme_color": "#000000",
   "scope": "https://chatgpt.com/",
-  "bx_legacy_service_id": "chatgpt"
+  "bx_legacy_service_id": "chatgpt",
+  "recommendedPosition": "7"
 }

@@ -1,6 +1,6 @@
 {
   "name": "Evernote",
-  "category": "Communication & Collaboration",
+  "category": "Notes & Knowledge",
   "start_url": "https://www.evernote.com/Home.action",
   "icons": [
     {
@@ -11,5 +11,5 @@
   "theme_color": "#7AC143",
   "scope": "https://www.evernote.com",
   "bx_legacy_service_id": "evernote",
-  "recommendedPosition": "18"
+  "recommendedPosition": "24"
 }

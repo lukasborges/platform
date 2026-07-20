@@ -5,7 +5,7 @@ import { flowRight as compose } from 'lodash';
 import { Application } from '@src/graphql/queries';
 import AppStorePageHeader from '@src/components/AppStoreContent/AppStorePageHeader/AppStorePageHeader';
 import AppRequest from '@src/components/AppStoreContent/AppStoreRequest/AppRequest';
-import { Size } from '@getstation/theme';
+import { Icon, IconSymbol, Size } from '@getstation/theme';
 import withCustomApplications, { WithCustomApplicationsProps } from '@src/HOC/withCustomApplications';
 import AppRequestButton from '@src/components/AppStoreContent/AppStoreRequest/AppRequestButton/AppRequestButton';
 import withCustomAppRequestMode, { WithCustomAppRequestModeStatus } from '@src/HOC/withCustomAppRequestMode';
@@ -153,7 +153,14 @@ class AppStoreMyCustomApps extends React.PureComponent<Props, AppStoreMyCustomAp
 
               {appRequestIsOpen ?
                 <div className={classes!.container}>
-                  <div className={classes!.goBackBtn} onClick={() => this.exitFlow(false)}>My custom apps</div>
+                  <button
+                    type="button"
+                    className={classes!.goBackBtn}
+                    onClick={() => this.exitFlow(false)}
+                  >
+                    <Icon symbolId={IconSymbol.ARROW_BACK} size={16}/>
+                    <span>My custom apps</span>
+                  </button>
                   {
                     <React.Fragment>
                       {currentMode === customAppsMode.editMode ?

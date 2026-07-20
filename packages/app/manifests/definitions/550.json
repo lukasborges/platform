@@ -1,6 +1,6 @@
 {
   "name": "Proton Mail",
-  "category": "Communication & Collaboration",
+  "category": "Email",
   "start_url": "https://mail.proton.me",
   "icons": [
     {
@@ -14,5 +14,6 @@
   "theme_color": "#1E213F",
   "scope": "https://mail.proton.me",
   "bx_keep_always_loaded": true,
-  "bx_legacy_service_id": "protonmail"
+  "bx_legacy_service_id": "protonmail",
+  "recommendedPosition": "13"
 }

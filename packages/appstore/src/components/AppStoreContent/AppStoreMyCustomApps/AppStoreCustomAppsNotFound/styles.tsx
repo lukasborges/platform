@@ -54,18 +54,6 @@ const styles = {
     color: colors.stationBlue,
     cursor: 'pointer',
   },
-  button: {
-    display: 'inline-block',
-    fontSize: 14,
-    fontWeight: 600,
-    color: '#fff',
-    backgroundColor: colors.stationBlue,
-    textAlign: 'center',
-    padding: '12px 38px',
-    borderRadius: 20,
-    boxShadow: '0 2px 4px 0 rgba(22, 77, 156, 0.5)',
-    cursor: 'pointer',
-  },
   link: {
     textDecoration: 'none',
   },

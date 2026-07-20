@@ -13,11 +13,11 @@ const styles = (theme: ThemeTypes) => ({
       error ? `2px solid ${theme.colors.error}` : `1px solid ${colors.dividerColor}`) as any,
     padding: [0, 15] as any,
     boxSizing: 'border-box',
-    borderRadius: 30,
+    borderRadius: 8,
     minWidth: 200,
     width: '100%',
-    height: 34,
-    lineHeight: '34px',
+    height: 38,
+    lineHeight: '38px',
     ...theme.fontMixin(11, 500),
     transition: 'all 250ms ease-out',
     color: (({ error }: AppRequestStepsInputProps) =>
@@ -28,6 +28,8 @@ const styles = (theme: ThemeTypes) => ({
     },
     '&:focus': {
       outline: 'none',
+      borderColor: colors.gray,
+      boxShadow: '0 0 0 2px rgba(164, 166, 172, .18)',
     },
     '&::-webkit-input-placeholder': {
       color: colors.darkGray,

@@ -33,14 +33,14 @@ class AppStoreCustomAppsNotFound extends React.PureComponent<Props, {}> {
       <div className={classes!.notFoundPage}>
         <div className={classes!.content}>
           <div className={classes!.title}>
-            You don't have any custom app
+            You don't have any custom apps yet
           </div>
           <div className={classes!.description}>
             <div className={classes!.text}>
-              More than 600 apps are supported by Platform.
+              Platform includes a curated collection of communication and productivity apps.
             </div>
             <div className={classes!.text}>
-              If you can't find what you're looking for, just add any URL you wish here.
+              Can't find yours? Add any web app by entering its URL.
             </div>
           </div>
 

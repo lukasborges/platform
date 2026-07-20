@@ -1,6 +1,6 @@
 {
-  "name": "Whatsapp",
-  "category": "Communication & Collaboration",
+  "name": "WhatsApp",
+  "category": "Messaging & Communication",
   "start_url": "https://web.whatsapp.com/",
   "icons": [
     {
@@ -12,5 +12,5 @@
   "scope": "https://web.whatsapp.com",
   "bx_keep_always_loaded": true,
   "bx_legacy_service_id": "whatsapp",
-  "recommendedPosition": "4"
+  "recommendedPosition": "1"
 }

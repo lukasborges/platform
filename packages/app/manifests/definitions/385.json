@@ -1,6 +1,6 @@
 {
-  "name": "Monday",
-  "category": "Task & Project Management",
+  "name": "monday.com",
+  "category": "Tasks & Projects",
   "start_url": "https://{{subdomain}}.monday.com",
   "icons": [
     {
@@ -23,5 +23,6 @@
     "subdomain_ui_help": "Enter your team's Monday domain.",
     "subdomain_ui_suffix": ".monday.com"
   },
-  "bx_use_default_session": true
+  "bx_use_default_session": true,
+  "recommendedPosition": "20"
 }

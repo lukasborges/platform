@@ -1,6 +1,6 @@
 {
   "name": "Outlook",
-  "category": "Communication & Collaboration",
+  "category": "Email",
   "start_url": "https://outlook.office.com/mail/",
   "icons": [
     {
@@ -9,7 +9,7 @@
     }
   ],
   "theme_color": "#0070C9",
-  "scope": "https://outlook.live.com",
+  "scope": "https://outlook.office.com",
   "bx_legacy_service_id": "outlook",
   "extended_scopes": [
     "https://*.live.com",

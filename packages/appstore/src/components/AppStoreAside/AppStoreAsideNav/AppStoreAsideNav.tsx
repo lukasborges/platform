@@ -92,7 +92,7 @@ const AppStoreAsideNav = (
   const discoverNavMenuList = [
     {
       screenName: screenNames.mostPopulars,
-      title: 'Most popular',
+      title: 'Featured apps',
       iconName: '#i--hot',
       hash: screenHash.MOST_POPULAR,
     },

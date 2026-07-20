@@ -1,97 +1,81 @@
-import { roundedBackground } from '@getstation/theme';
 import { colors } from '@src/theme';
-import { applicationNameMaxWidth } from '@src/shared/constants/constants';
-
-import { AppStoreApplicationProps } from './AppStoreApplication';
 
 const styles = {
   application: {
-    flex: '0 0 291px',
+    border: '1px solid transparent',
+    borderRadius: 10,
+    boxSizing: 'border-box',
+    color: colors.blueGray100,
     display: 'flex',
     justifyContent: 'space-between',
-    color: colors.blueGray100,
     alignItems: 'center',
-    width: ({ alternate }: AppStoreApplicationProps) => alternate ? null : 291,
-    marginBottom: 27,
-    padding: 10,
+    minHeight: 60,
+    minWidth: 0,
+    padding: [9, 10],
     backgroundColor: 'transparent',
-    borderRadius: 12,
-    transition: 'none',
+    transition: 'background-color 120ms ease, border-color 120ms ease',
+    width: '100%',
     '&:hover': {
       backgroundColor: colors.hoverBlue,
+      borderColor: colors.dividerColor,
     },
   },
   applicationContent: {
     display: 'flex',
     alignItems: 'center',
+    flex: 1,
+    minWidth: 0,
   },
   applicationDetails: {
-    maxWidth: 190,
+    flex: 1,
+    minWidth: 0,
   },
   applicationNameContainer: {
-    display: 'inline-block',
-    '&.applicationNamePopup': {
-      position: 'relative',
-      '&:after': {
-        content: ({ application }: AppStoreApplicationProps) => `'${application.name}'`,
-        display: 'block',
-        position: 'absolute',
-        top: '-20px',
-        left: 6,
-        backgroundColor: colors.blueGray10,
-        fontSize: 10,
-        letterSpacing: '0.5px',
-        color: colors.blueGray100,
-        padding: [3, 4],
-        borderRadius: 3,
-        boxShadow: `0 2px 4px 1px rgba(0, 0, 0, 0.08), 0 0 0 0.5px ${colors.blueGray10}`,
-        visibility: 'hidden',
-        transition: 'visibility .2s',
-      },
-      '&:hover:after': {
-        visibility: 'visible',
-        transition: 'visibility .2s',
-      },
-    },
+    display: 'block',
+    minWidth: 0,
   },
   applicationName: {
-    display: 'inline-block',
-    fontSize: '16px',
-    fontWeight: '600',
-    maxWidth: applicationNameMaxWidth,
+    display: 'block',
+    fontSize: 15,
+    fontWeight: 600,
+    maxWidth: '100%',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
   applicationControls: {
+    alignItems: 'center',
     display: 'flex',
-  },
-  applicationControlsItem: {
-    marginRight: 10,
+    gap: 4,
+    marginLeft: 8,
   },
   categoryName: {
     fontSize: '12px',
     color: colors.darkGray,
   },
   action: {
-    flexShrink: 0,
-    ...roundedBackground('#999'),
-    opacity: 0,
-    display: 'none',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    border: 0,
+    borderRadius: 6,
+    color: colors.blueGray100,
     cursor: 'pointer',
-    transition: '200ms',
-    '$application:hover &': {
-      display: 'block',
-      opacity: .6,
-    },
+    display: 'inline-flex',
+    flexShrink: 0,
+    height: 30,
+    justifyContent: 'center',
+    opacity: .65,
+    outline: 0,
+    padding: 0,
+    transition: 'background-color 120ms ease, opacity 120ms ease',
+    width: 30,
     '&:hover': {
-      display: 'block',
-      opacity: '1 !important',
+      backgroundColor: colors.blueGray40,
+      opacity: 1,
     },
-  },
-  '@media (min-width: 600px)': {
-    application: {
-      marginBottom: ({ marginBottom }: AppStoreApplicationProps) => marginBottom ? marginBottom : 14,
+    '&:focus-visible': {
+      boxShadow: '0 0 0 2px rgba(164, 166, 172, .35)',
+      opacity: 1,
     },
   },
 };
@@ -103,7 +87,6 @@ export interface AppStoreApplicationClasses {
   applicationNameContainer: string,
   applicationName: string,
   applicationControls: string,
-  applicationControlsItem: string,
   categoryName: string,
   action: string,
 }

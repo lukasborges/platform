@@ -2,7 +2,6 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
-import * as classNames from 'classnames';
 import { Icon, IconSymbol } from '@getstation/theme';
 import { ContextEnvPlatform } from '@src/app';
 import { Application } from '@src/graphql/queries';
@@ -12,7 +11,6 @@ import {
   customAppsCategories,
   customAppsMode,
   screenNames,
-  applicationNameMaxWidth,
 } from '@src/shared/constants/constants';
 import { SET_SEARCH_STRING } from '@src/graphql/schemes/search';
 import { SET_ACTIVE_SCREEN_NAME } from '@src/graphql/schemes/activeScreenName';
@@ -31,14 +29,11 @@ export type AppStoreApplicationProps = {
   application: Application,
   appStoreContext: number,
   onAddApplication: (applicationId: string, manifestURL: string) => any,
-  alternate?: boolean,
-  marginBottom?: number,
   isCategoryNameDisplayed?: boolean,
 };
 
 export type AppStoreApplicationState = {
   isAnimationStopped: boolean,
-  appNameWidth: number,
 };
 
 export type Props = WithActiveScreenNameProps
@@ -51,25 +46,14 @@ export type Props = WithActiveScreenNameProps
 
 @injectSheet(styles)
 class AppStoreApplication extends React.PureComponent<Props, AppStoreApplicationState> {
-  appNameRef: React.RefObject<HTMLDivElement>;
-
   constructor(props: Props) {
     super(props);
     this.state = {
       isAnimationStopped: true,
-      appNameWidth: 0,
     };
-    this.appNameRef = React.createRef();
 
     this.handleAddApplication = this.handleAddApplication.bind(this);
     this.toggleAnimation = this.toggleAnimation.bind(this);
-  }
-
-  componentDidMount() {
-    this.setState({
-      ...this.state,
-      appNameWidth: this.appNameRef.current ? this.appNameRef.current.offsetWidth : this.state.appNameWidth,
-    });
   }
 
   handleAddApplication() {
@@ -111,7 +95,6 @@ class AppStoreApplication extends React.PureComponent<Props, AppStoreApplication
     const { application, classes, appStoreContext, isCategoryNameDisplayed = true } = this.props;
     const categoryName = !!application && !!application.category && application.category.name || null;
     const isCustom = categoryName === customAppsCategories.privateApps || application.isPrivate;
-    const isShouldDisplayPopup = this.state.appNameWidth >= applicationNameMaxWidth;
 
     return (
       <li className={classes!.application}>
@@ -123,14 +106,8 @@ class AppStoreApplication extends React.PureComponent<Props, AppStoreApplication
             toggleAnimation={this.toggleAnimation}
           />
           <div className={classes!.applicationDetails}>
-            <div
-              className={classNames(
-                classes!.applicationNameContainer,
-                { applicationNamePopup: isShouldDisplayPopup },
-              )}
-              ref={this.appNameRef}
-            >
-              <strong className={classes!.applicationName}>{application.name}</strong>
+            <div className={classes!.applicationNameContainer}>
+              <strong className={classes!.applicationName} title={application.name}>{application.name}</strong>
             </div>
             {isCategoryNameDisplayed && !!categoryName &&
               <div className={classes!.categoryName}>
@@ -145,21 +122,25 @@ class AppStoreApplication extends React.PureComponent<Props, AppStoreApplication
             appStoreContext === ContextEnvPlatform.LegacyBxApiApp) &&
           <div className={classes!.applicationControls}>
             {isCustom &&
-            <div className={classes!.applicationControlsItem}>
-              <Icon
-                symbolId={IconSymbol.TRASH}
-                size={34}
+              <button
+                type="button"
                 className={classes!.action}
                 onClick={this.enterEditApplicationFlow}
-              />
-            </div>
+                aria-label={`Edit ${application.name}`}
+                title="Edit custom app"
+              >
+                <Icon symbolId={IconSymbol.TRASH} size={16}/>
+              </button>
             }
-            <Icon
-              symbolId={IconSymbol.PLUS}
-              size={34}
+            <button
+              type="button"
               className={classes!.action}
               onClick={() => this.handleAddApplication()}
-            />
+              aria-label={`Add ${application.name}`}
+              title="Add app"
+            >
+              <Icon symbolId={IconSymbol.PLUS} size={16}/>
+            </button>
           </div>
         }
       </li>

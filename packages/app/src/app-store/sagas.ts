@@ -2,8 +2,8 @@ import * as remote from '@electron/remote';
 import * as isBlank from 'is-blank';
 import * as _ from 'lodash';
 import { SagaIterator } from 'redux-saga';
-import { delay } from 'redux-saga/effects';
-import { all, call, getContext, put, putResolve, race, select } from 'redux-saga/effects';
+import { all, call, delay, getContext, put, putResolve, race, select } from 'redux-saga/effects';
+
 import {
   getBxAppManifestURL,
   listAllApplications,
@@ -26,6 +26,7 @@ import { APPLICATION_INSTALLED_TOPIC, ApplicationInstalledPayload } from '../pub
 import sdk from '../sdk/default-client';
 import { REHYDRATION_COMPLETE } from '../store/duck';
 import { takeEveryWitness } from '../utils/sagas';
+
 import { SHOW_APP_STORE, showAppStore, ShowAppStoreAction, TOGGLE_VISIBILITY } from './duck';
 import { getAppStoreApplication, hasAlreadyApplicationsForManifest, isVisible } from './selectors';
 
@@ -129,6 +130,16 @@ export function* getMostPopularApplications(): SagaIterator {
  ************** Categories ******************
  */
 
+const catalogCategories = [
+  'Messaging & Communication',
+  'AI Assistants',
+  'Email',
+  'Calendar & Scheduling',
+  'Tasks & Projects',
+  'Notes & Knowledge',
+  'Video Meetings',
+];
+
 const specialCategoriesForList = ['My Private Apps', 'Company Apps', 'Miscellaneous'];
 
 const retrieveAllCategories = (apps: Manifest[]): string[] => {
@@ -146,10 +157,17 @@ const retrieveAllCategories = (apps: Manifest[]): string[] => {
 const sortAllCategories = (categories: string[]): string[] => {
   if (categories.length) {
     const sortedCategories = categories
-    .filter(category => !_.some(specialCategoriesForList, item => item === category))
-    .sort();
+      .filter(category => !_.some(specialCategoriesForList, item => item === category))
+      .sort((a, b) => {
+        const aIndex = catalogCategories.indexOf(a);
+        const bIndex = catalogCategories.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      });
 
-    sortedCategories.push('Miscellaneous');
+    if (categories.includes('Miscellaneous')) sortedCategories.push('Miscellaneous');
     return sortedCategories;
   }
   return [];
@@ -177,7 +195,11 @@ export function* getApplicationsByCategory(): SagaIterator {
 
   // Sort apps in their respective categories
   for (const cat in appsByCategory) {
-    appsByCategory[cat] = appsByCategory[cat].sort((a, b) => a.name.localeCompare(b.name));
+    appsByCategory[cat] = appsByCategory[cat].sort((a, b) => {
+      const aPosition = a.recommendedPosition || Number.MAX_SAFE_INTEGER;
+      const bPosition = b.recommendedPosition || Number.MAX_SAFE_INTEGER;
+      return aPosition - bPosition || a.name.localeCompare(b.name);
+    });
   }
 
   return appsByCategory;

@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { createUseStyles } from 'react-jss';
 import * as classNames from 'classnames';
 import { colors } from '@src/theme';
-import { Button, Icon, IconSymbol, Size } from '@getstation/theme';
+import { Icon, IconSymbol, Size } from '@getstation/theme';
 import { customAppsMode, screenHash } from '@src/shared/constants/constants';
 import {
   useSetCustomAppRequestModeMutation, useSetSearchStringMutation,
@@ -26,10 +26,29 @@ const useStyles = createUseStyles({
     },
   },
   addAppBtn: {
+    alignItems: 'center',
     fontSize: 12,
     fontWeight: 600,
-    backgroundColor: [[`${colors.stationBlue}`], '!important'],
+    backgroundColor: colors.blueGray40,
+    border: `1px solid ${colors.buttonBorder}`,
+    borderRadius: 8,
+    color: colors.blueGray100,
     cursor: 'pointer',
+    display: 'inline-flex',
+    height: 36,
+    justifyContent: 'center',
+    outline: 0,
+    transition: 'background-color 120ms ease, border-color 120ms ease',
+    '&:hover': {
+      backgroundColor: colors.hoverBlue,
+      borderColor: colors.gray,
+    },
+    '&:active': {
+      backgroundColor: colors.blueGray30,
+    },
+    '&:focus-visible': {
+      boxShadow: '0 0 0 2px rgba(164, 166, 172, .45)',
+    },
     '&.addAppBtn_small': {
       padding: [0, 21],
     },
@@ -38,8 +57,7 @@ const useStyles = createUseStyles({
     },
   },
   addAppPlusIcon: {
-    verticalAlign: 'middle',
-    marginLeft: -5,
+    marginRight: 7,
   },
 });
 
@@ -93,8 +111,8 @@ const AppRequestButton = ({
 
   const standAlone = () => {
     return (
-      <Button
-        btnSize={btnSize}
+      <button
+        type="button"
         className={classNames(
           classes!.addAppBtn,
           { addAppBtn_small: btnSize === Size.SMALL },
@@ -102,9 +120,9 @@ const AppRequestButton = ({
         )}
         onClick={onClick}
       >
-        <Icon symbolId={IconSymbol.PLUS} size={23} className={classes!.addAppPlusIcon} />
+        <Icon symbolId={IconSymbol.PLUS} size={16} className={classes!.addAppPlusIcon} />
         Add a custom app
-      </Button>
+      </button>
     );
   };
 

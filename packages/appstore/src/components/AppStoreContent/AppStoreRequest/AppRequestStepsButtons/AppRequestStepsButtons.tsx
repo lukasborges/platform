@@ -21,9 +21,13 @@ export default class AppRequestStepsButtons extends React.PureComponent<AppReque
 
     return (
       <div className={classes!.controlsContainer}>
-        {onCancel && <button className={classes!.cancelBtn} onClick={onCancel}>{onCancelBtnText}</button>}
+        {onCancel &&
+          <button type="button" className={classes!.cancelBtn} onClick={onCancel}>
+            {onCancelBtnText}
+          </button>
+        }
         {isOnContinueBtn &&
-        <button className={classes!.onContinueBtn} onClick={onContinue}>
+        <button type="button" className={classes!.onContinueBtn} onClick={onContinue}>
           {onContinueBtnText}
         </button>
         }

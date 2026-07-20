@@ -9,9 +9,10 @@ import { Size } from '@getstation/theme';
 import { scrollToTop } from '@src/shared/functions/scroll-to-top';
 import AppStorePreloader from '@src/components/AppStorePreloader/AppStorePreloader';
 
+import { MinimalApplication } from '../../../../../app/applications/graphql/withApplications';
+
 import AppStoreSearchNotFound from './AppStoreSearchNotFound/AppStoreSearchNotFound';
 import styles, { AppStoreSearchResultsClasses } from './styles';
-import { MinimalApplication } from '../../../../../app/applications/graphql/withApplications';
 
 export interface AppStoreSearchResultsProps extends WithSearchApplicationsByNameProps {
   classes?: AppStoreSearchResultsClasses,
@@ -54,7 +55,6 @@ class AppStoreSearchResults extends React.Component<AppStoreSearchResultsProps, 
 
     const loading = false;
 
-    const alternate = (appStoreContext !== ContextEnvPlatform.Browser);
     const resultsAmount = apps.length && apps.length > 1 ? `${apps.length} results` : `${apps.length} result`;
     const renderSearchResults = !!apps.length && !loading || !apps.length && loading;
 
@@ -77,9 +77,7 @@ class AppStoreSearchResults extends React.Component<AppStoreSearchResultsProps, 
                       key={app.id}
                       application={app}
                       appStoreContext={appStoreContext}
-                      alternate={alternate}
                       onAddApplication={onAddApplication}
-                      marginBottom={38}
                     />;
                   })}
                 </ul>

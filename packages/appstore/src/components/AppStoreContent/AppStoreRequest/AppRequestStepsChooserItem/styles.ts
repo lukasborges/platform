@@ -32,19 +32,21 @@ const styles = (theme: ThemeTypes) => ({
   },
   itemButton: {
     backgroundColor: ({ btnBgColor }: AppRequestStepsChooserItemProps) =>
-      btnBgColor ? btnBgColor : colors.stationBlue,
-    fontFamily: 'HelveticaNeue',
-    fontSize: 11,
-    fontWeight: 700,
-    color: '#fff',
-    padding: [8, 21, 10],
-    border: 0,
-    borderRadius: 40,
+      btnBgColor ? btnBgColor : colors.activeSuggestion,
+    fontSize: 12,
+    fontWeight: 600,
+    color: colors.blueGray100,
+    padding: [8, 16],
+    border: `1px solid ${colors.buttonBorder}`,
+    borderRadius: 8,
     cursor: 'pointer',
     outline: 'none',
-    opacity: .8,
     '&:hover': {
-      color: 'rgba(255, 255, 255, 0.8)',
+      backgroundColor: colors.hoverBlue,
+      borderColor: colors.gray,
+    },
+    '&:focus-visible': {
+      boxShadow: '0 0 0 2px rgba(164, 166, 172, .45)',
     },
   },
 });

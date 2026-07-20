@@ -1,6 +1,6 @@
 {
   "name": "Facebook Messenger",
-  "category": "Communication & Collaboration",
+  "category": "Messaging & Communication",
   "start_url": "https://www.messenger.com",
   "icons": [
     {
@@ -12,5 +12,5 @@
   "scope": "https://www.messenger.com",
   "bx_keep_always_loaded": true,
   "bx_legacy_service_id": "facebook-messenger",
-  "recommendedPosition": "6"
+  "recommendedPosition": "29"
 }

@@ -1,6 +1,6 @@
 {
-  "name": "GoToMeeting",
-  "category": "Communication & Collaboration",
+  "name": "GoTo Meeting",
+  "category": "Video Meetings",
   "start_url": "https://global.gotomeeting.com/",
   "icons": [
     {
@@ -9,5 +9,8 @@
     }
   ],
   "theme_color": "#FF9800",
-  "scope": "https:/gotomeeting.com/"
+  "scope": "https://gotomeeting.com",
+  "extended_scopes": [
+    "https://global.gotomeeting.com"
+  ]
 }

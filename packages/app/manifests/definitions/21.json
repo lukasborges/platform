@@ -1,6 +1,6 @@
 {
   "name": "Slack",
-  "category": "Communication & Collaboration",
+  "category": "Messaging & Communication",
   "start_url": "https://{{subdomain}}.slack.com",
   "icons": [
     {
@@ -32,5 +32,5 @@
   "bx_use_default_session": true,
   "main": "slack/main",
   "renderer": "slack/renderer",
-  "recommendedPosition": "5"
+  "recommendedPosition": "2"
 }

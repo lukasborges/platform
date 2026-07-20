@@ -1,6 +1,6 @@
 {
-  "name": "Yahoo Email",
-  "category": "Communication & Collaboration",
+  "name": "Yahoo Mail",
+  "category": "Email",
   "start_url": "https://mail.yahoo.com/login",
   "icons": [
     {

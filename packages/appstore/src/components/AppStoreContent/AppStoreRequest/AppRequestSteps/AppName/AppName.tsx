@@ -71,10 +71,10 @@ export default class AppName extends React.PureComponent<Props, IState> {
 
     return (
       <div className={classes!.stepContainer}>
-        <div className={classes!.subTitle}>What's your app name?</div>
+        <div className={classes!.subTitle}>What's your app's name?</div>
         <div className={classes!.inputContainer}>
           <AppRequestStepsInput
-            placeholder={'Add a custom app'}
+            placeholder={'App name'}
             value={appName && appName}
             maxLength={100}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.onChange(e.target.value)}

@@ -1,7 +1,8 @@
 {
   "name": "Google Gemini",
-  "category": "AI & Assistants",
+  "category": "AI Assistants",
   "start_url": "https://gemini.google.com/app",
   "theme_color": "#1A73E8",
-  "scope": "https://gemini.google.com/"
+  "scope": "https://gemini.google.com/",
+  "recommendedPosition": "9"
 }

@@ -1,6 +1,6 @@
 {
   "name": "Zulip",
-  "category": "Communication & Collaboration",
+  "category": "Messaging & Communication",
   "start_url": "https://{{subdomain}}.zulipchat.com/",
   "icons": [
     {

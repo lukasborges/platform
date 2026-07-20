@@ -1,7 +1,8 @@
 {
   "name": "Perplexity",
-  "category": "AI & Assistants",
+  "category": "AI Assistants",
   "start_url": "https://www.perplexity.ai/",
   "theme_color": "#20B8CD",
-  "scope": "https://www.perplexity.ai/"
+  "scope": "https://www.perplexity.ai/",
+  "recommendedPosition": "27"
 }

@@ -2,13 +2,15 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import * as classNames from 'classnames';
 import injectSheet from 'react-jss';
+import { Icon, IconSymbol } from '@getstation/theme';
 import AppStoreAllAppsList from '@src/components/AppStoreContent/AppStoreAllAppsList/AppStoreAllAppsList';
 import { allAppsCategoriesList } from '@src/shared/constants/constants';
 import withBurgerMenuStatus, { WithBurgerMenuStatus } from '@src/HOC/withBurgerMenuStatus';
 import { scrollToTop } from '@src/shared/functions/scroll-to-top';
 
-import styles, { AppStoreAllAppsClasses } from './styles';
 import { MinimalApplication } from '../../../../../app/applications/graphql/withApplications';
+
+import styles, { AppStoreAllAppsClasses } from './styles';
 
 const { flowRight: compose } = _;
 
@@ -53,39 +55,9 @@ class AppStoreAllApps extends React.PureComponent<AppStoreAllAppsComponentProps,
     }
   }
 
-  getPrevCategoryName = () => {
-    const currentCategoryIndex: number = _.indexOf(this.props.allCategories, this.state.selectedCategory);
-    return currentCategoryIndex ? this.props.allCategories[currentCategoryIndex - 1] : '';
-  }
-
-  getNextCategoryName() {
-    const currentCategoryIndex: number = _.indexOf(this.props.allCategories, this.state.selectedCategory);
-    return this.props.allCategories[currentCategoryIndex + 1];
-  }
-
   onSelectCategory = (selectedCategory: string) => {
     scrollToTop();
-    this.setState({ selectedCategory });
-  }
-
-  onPrevCategory = () => {
-    const prevCategoryName = this.getPrevCategoryName();
-    if (prevCategoryName) {
-      scrollToTop();
-      this.setState({ selectedCategory: prevCategoryName });
-    }
-  }
-
-  onNextCategory = () => {
-    const nextCategoryName = this.getNextCategoryName();
-    if (nextCategoryName) {
-      scrollToTop();
-      this.setState({ selectedCategory: nextCategoryName });
-    }
-  }
-
-  smoothScrollToTop = () => {
-    window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+    this.setState({ selectedCategory, isDropDownOpen: false });
   }
 
   toggleMenu = () => {
@@ -96,78 +68,81 @@ class AppStoreAllApps extends React.PureComponent<AppStoreAllAppsComponentProps,
     const { classes, allCategories, applicationsByCategory, appStoreContext, onAddApplication } = this.props;
     const { selectedCategory } = this.state;
     const renderPageContent = allCategories && !!allCategories.length;
-    const isPrevButtonShowed = !!this.getPrevCategoryName();
-    const isNextButtonShowed = !!this.getNextCategoryName();
 
     return (
       <React.Fragment>
         {renderPageContent &&
           <section className={classes!.allAppsSection}>
-            <div className={classes!.categoriesContainer}>
+            <nav className={classes!.categoriesContainer} aria-label="App categories">
               <ul className={classes!.categoriesList}>
                 {allCategories.map(categoryName => {
                   const category = allAppsCategoriesList.find(item => item.title === categoryName);
                   return (
-                    <li
-                      className={classNames(
-                        classes!.categoriesItem,
-                        { isActive: categoryName === selectedCategory }
-                      )}
-                      key={categoryName}
-                      onClick={() => this.onSelectCategory(categoryName)}
-                    >
-                      {<svg className={classes!.categoryIcon}>
-                        <use xlinkHref={`/static/all-apps-sprite.svg${category && category.icon}`} />
-                      </svg>}
-                      <div className={classes!.categoryText}>{categoryName}</div>
+                    <li key={categoryName}>
+                      <button
+                        type="button"
+                        className={classNames(
+                          classes!.categoriesItem,
+                          { isActive: categoryName === selectedCategory }
+                        )}
+                        onClick={() => this.onSelectCategory(categoryName)}
+                      >
+                        {!!category &&
+                          <Icon className={classes!.categoryIcon} symbolId={category.icon} size={18}/>
+                        }
+                        <span className={classes!.categoryText}>{categoryName}</span>
+                      </button>
                     </li>
                   );
                 })}
               </ul>
-            </div>
+            </nav>
 
-            {/*Start of the dropdown-menu for categories list that is displayed till 1024px*/}
-            <div className={classes!.dropDown} onClick={this.toggleMenu}>
-              <div className={classes!.dropDownTitleContainer}>
-                <div className={classes!.dropDownTitle}>Categories</div>
-                {<svg className={classNames(classes!.dropDownIcon, { isActive: this.state.isDropDownOpen })}>
-                  <use xlinkHref={`/static/all-apps-sprite.svg#i--dropdown-arrow`} />
-                </svg>}
-              </div>
+            <div className={classes!.dropDown}>
+              <button
+                type="button"
+                className={classes!.dropDownTitleContainer}
+                onClick={this.toggleMenu}
+                aria-expanded={this.state.isDropDownOpen}
+              >
+                <span className={classes!.dropDownTitle}>{selectedCategory || 'Categories'}</span>
+                <Icon
+                  symbolId={IconSymbol.ARROW_BACK}
+                  size={16}
+                  className={classNames(classes!.dropDownIcon, { isActive: this.state.isDropDownOpen })}
+                />
+              </button>
 
               <ul className={classNames(classes!.dropDownCategoriesList, { isActive: this.state.isDropDownOpen })}>
                 {allCategories.map(categoryName => {
+                  const category = allAppsCategoriesList.find(item => item.title === categoryName);
                   return (
-                    <li
-                      className={classNames(
-                        classes!.dropDownCategoriesItem,
-                        { isActive: categoryName === selectedCategory }
-                      )}
-                      key={categoryName}
-                      onClick={() => this.onSelectCategory(categoryName)}
-                    >
-                      <div className={classes!.categoryText}>{categoryName}</div>
+                    <li key={categoryName}>
+                      <button
+                        type="button"
+                        className={classNames(
+                          classes!.dropDownCategoriesItem,
+                          { isActive: categoryName === selectedCategory }
+                        )}
+                        onClick={() => this.onSelectCategory(categoryName)}
+                      >
+                        {!!category &&
+                          <Icon className={classes!.categoryIcon} symbolId={category.icon} size={18}/>
+                        }
+                        <span className={classes!.categoryText}>{categoryName}</span>
+                      </button>
                     </li>
                   );
                 })}
               </ul>
             </div>
-            {/*End of the dropdown-menu for categories list that is displayed till 1024px*/}
 
             {!!allCategories && allCategories.length &&
               <AppStoreAllAppsList
                 categoryName={selectedCategory}
                 applicationsByCategory={applicationsByCategory}
                 appStoreContext={appStoreContext}
-                isPrevButtonShowed={isPrevButtonShowed}
-                isNextButtonShowed={isNextButtonShowed}
-                prevCategoryName={this.getPrevCategoryName()}
-                nextCategoryName={this.getNextCategoryName()}
-                onPrevCategory={this.onPrevCategory}
-                onNextCategory={this.onNextCategory}
-                smoothScrollToTop={this.smoothScrollToTop}
                 onAddApplication={onAddApplication}
-                first={50}
               />
             }
           </section>

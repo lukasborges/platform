@@ -1,7 +1,7 @@
 {
   "name": "Fastmail",
-  "category": "Marketing & Analytics",
-  "start_url": "https://www.fastmail.com/login/",
+  "category": "Email",
+  "start_url": "https://app.fastmail.com/login/",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/JX5wgM3T1qpsjH58OtPA",
@@ -9,6 +9,9 @@
     }
   ],
   "theme_color": "#F3BB32",
-  "scope": "https://www.fastmail.com",
-  "bx_legacy_service_id": "fastmail"
+  "scope": "https://app.fastmail.com",
+  "bx_legacy_service_id": "fastmail",
+  "extended_scopes": [
+    "https://www.fastmail.com"
+  ]
 }

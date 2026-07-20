@@ -1,6 +1,6 @@
 {
   "name": "Calendly",
-  "category": "Communication & Collaboration",
+  "category": "Calendar & Scheduling",
   "start_url": "https://calendly.com/login",
   "icons": [
     {
@@ -13,5 +13,6 @@
   ],
   "theme_color": "#00BFFF",
   "scope": "https://calendly.com",
-  "bx_legacy_service_id": "calendly"
+  "bx_legacy_service_id": "calendly",
+  "recommendedPosition": "30"
 }

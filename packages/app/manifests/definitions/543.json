@@ -1,6 +1,6 @@
 {
-  "name": "Android Messages",
-  "category": "Communication & Collaboration",
+  "name": "Google Messages",
+  "category": "Messaging & Communication",
   "start_url": "https://messages.google.com/web/",
   "icons": [
     {

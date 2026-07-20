@@ -1,13 +1,4 @@
-import { ALL_MOCKED_APPS } from '@src/applications/mockedAllAppsTemp';
-import { graphql } from 'react-apollo';
-
 import { ApplicationsAvailable } from '../graphql/queries';
-import {
-  QUERY_GET_APPLICATIONS,
-  ApplicationsRequestVariables,
-  ApplicationsResponse,
-} from '../graphql/schemes/applications';
-import { applicationsLimit } from '../shared/constants/constants';
 
 export type SearchAppRequestVariables = {
   searchValue: string,
@@ -17,13 +8,6 @@ export type SearchAppRequestVariables = {
 export type WithSearchApplicationsByNameProps = {
   apps?: ApplicationsAvailable[],
   loading?: boolean,
-};
-
-export const searchAppByName = (search: string) => {
-  return {
-    apps: ALL_MOCKED_APPS,
-    loading: false,
-  };
 };
 
 // export default graphql<

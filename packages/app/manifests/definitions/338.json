@@ -1,6 +1,6 @@
 {
   "name": "YouTrack",
-  "category": "Task & Project Management",
+  "category": "Tasks & Projects",
   "start_url": "https://{{subdomain}}.youtrack.cloud/",
   "icons": [
     {

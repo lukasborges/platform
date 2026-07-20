@@ -23,7 +23,7 @@ story
             isActive={boolean('isActive', true)}
             isBurgerOpen={boolean('isBurgerOpen', false)}
             iconName={text('iconName', '#i--hot')}
-            title={text('title', 'Most Popular')}
+            title={text('title', 'Featured apps')}
             screenName={text('screenName', 'MOST_POPULAR')}
           />
         )

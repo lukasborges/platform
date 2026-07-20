@@ -1,6 +1,6 @@
 {
   "name": "Asana",
-  "category": "Task & Project Management",
+  "category": "Tasks & Projects",
   "start_url": "https://app.asana.com/",
   "icons": [
     {
@@ -11,5 +11,5 @@
   "theme_color": "#F95B82",
   "scope": "https://app.asana.com",
   "bx_legacy_service_id": "asana",
-  "recommendedPosition": "22"
+  "recommendedPosition": "18"
 }

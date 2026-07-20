@@ -1,6 +1,6 @@
 {
   "name": "Todoist",
-  "category": "Task & Project Management",
+  "category": "Tasks & Projects",
   "start_url": "https://app.todoist.com/auth/login",
   "icons": [
     {
@@ -11,5 +11,5 @@
   "theme_color": "#E64229",
   "scope": "https://*.todoist.com",
   "bx_legacy_service_id": "todoist",
-  "recommendedPosition": "30"
+  "recommendedPosition": "16"
 }

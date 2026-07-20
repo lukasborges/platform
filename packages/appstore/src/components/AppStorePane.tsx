@@ -9,13 +9,14 @@ import { ContextEnvPlatform } from '@src/app';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import withCustomAppRequestMode from '@src/HOC/withCustomAppRequestMode';
 
+import { MinimalApplication } from '../../../app/applications/graphql/withApplications';
+import { FeaturedApps } from '../../../manifests';
+
 import AppStoreHeader from './AppStoreHeader/AppStoreHeader';
 import AppStoreAside from './AppStoreAside/AppStoreAside';
 import AppStoreContent from './AppStoreContent/AppStoreContent';
 import styles, { noPaneMatchers } from './styles';
 import AppStoreSearchResults from './AppStoreContent/AppStoreSearchResults/AppStoreSearchResults';
-import { MinimalApplication } from '../../../app/applications/graphql/withApplications';
-import { PopularApps } from '../../../manifests';
 
 const useStyles = createUseStyles(styles);
 
@@ -28,7 +29,7 @@ export interface AppStorePaneProps {
   onAddApplication: (applicationId: string, manifestURL: string) => void,
   appStoreContext: ContextEnvPlatform | undefined,
   onSearch: (query: string) => Promise<{ body: MinimalApplication[] }>,
-  mostPopularApps?: PopularApps,
+  mostPopularApps?: FeaturedApps,
   allCategories: string[],
   applicationsByCategory: Record<string, MinimalApplication[]>,
 }

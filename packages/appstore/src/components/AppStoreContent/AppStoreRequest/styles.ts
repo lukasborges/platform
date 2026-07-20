@@ -1,34 +1,6 @@
-import { colors } from '@src/theme';
-
 const styles = {
   container: {
     padding: [30, 20, 100, 20],
-  },
-  goBackBtn: {
-    display: 'inline-block',
-    fontSize: 13,
-    fontWeight: 500,
-    color: colors.blueGray100,
-    paddingLeft: 25,
-    marginBottom: 30,
-    opacity: .77,
-    position: 'relative',
-    cursor: 'pointer',
-    '&:before': {
-      content: '""',
-      display: 'block',
-      position: 'absolute',
-      top: 3,
-      left: 0,
-      width: 3,
-      height: 3,
-      border: `solid ${colors.blueGray100}`,
-      borderWidth: [0, 3, 3, 0],
-      borderRadius: '1.2px',
-      padding: 3,
-      opacity: .5,
-      transform: 'rotate(135deg)',
-    },
   },
   stepperContainer: {
     maxWidth: 330,
@@ -46,7 +18,6 @@ const styles = {
 
 export interface AppRequestClasses {
   container: string,
-  goBackBtn: string,
   stepperContainer: string,
 }
 

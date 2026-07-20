@@ -7,18 +7,16 @@ const styles = {
     padding: [30, 20, 0, 20],
   },
   resultsContent: {
-    padding: [30, 0, 30],
+    padding: [24, 0, 30],
     margin: 0,
     listStyleType: 'none',
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: 'grid',
+    gap: [8, 18],
+    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
   },
   '@media (min-width: 600px)': {
     container: {
       padding: [40, 45, 57, 45],
-    },
-    resultsContent: {
-      padding: [40, 0, 25],
     },
     buttonContainer: {
       display: 'none',

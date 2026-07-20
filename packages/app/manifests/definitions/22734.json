@@ -1,7 +1,8 @@
 {
   "name": "Claude",
-  "category": "AI & Assistants",
+  "category": "AI Assistants",
   "start_url": "https://claude.ai/",
   "theme_color": "#D97757",
-  "scope": "https://claude.ai/"
+  "scope": "https://claude.ai/",
+  "recommendedPosition": "8"
 }

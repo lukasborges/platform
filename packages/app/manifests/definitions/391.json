@@ -1,7 +1,7 @@
 {
   "name": "iCloud",
-  "category": "Storage & File-sharing",
-  "start_url": "https://www.icloud.com/",
+  "category": "Email",
+  "start_url": "https://www.icloud.com/mail/",
   "icons": [
     {
       "src": "https://cdn.filestackcontent.com/4RGMB1I1SAeNcdDMULOr"

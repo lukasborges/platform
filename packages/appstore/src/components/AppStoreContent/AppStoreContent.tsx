@@ -6,16 +6,16 @@ import { AppStoreContext } from '@src/context';
 import { screenHash } from '@src/shared/constants/constants';
 import AppStoreMostPopularApps from '@src/components/AppStoreContent/AppStoreMostPopularApps/AppStoreMostPopularApps';
 import AppStoreAllApps from '@src/components/AppStoreContent/AppStoreAllApps/AppStoreAllApps';
-import AppStoreBoostedApps from '@src/components/AppStoreContent/AppStoreBoostedApps/AppStoreBoostedApps';
 import AppStoreMyCustomApps from '@src/components/AppStoreContent/AppStoreMyCustomApps/AppStoreMyCustomApps';
 import withCustomAppRequestMode, { WithCustomAppRequestModeStatus } from '@src/HOC/withCustomAppRequestMode';
+
 import { MinimalApplication } from '../../../../app/applications/graphql/withApplications';
-import { PopularApps } from '../../../../manifests';
+import { FeaturedApps } from '../../../../manifests';
 
 export interface AppStoreContentComponentProps {
   onAddApplication: (applicationId: string, manifestURL: string) => void,
   availableApplicationsToInstall: string[],
-  mostPopularApps?: PopularApps,
+  mostPopularApps?: FeaturedApps,
   allCategories: string[],
   applicationsByCategory: Record<string, MinimalApplication[]>,
 }
@@ -52,12 +52,6 @@ const AppStoreContent = (
             onAddApplication={onAddApplication}
             allCategories={allCategories}
             applicationsByCategory={applicationsByCategory}
-          />);
-      case screenHash.BOOSTED_APPS:
-        return (
-          <AppStoreBoostedApps
-            appStoreContext={appStoreContext}
-            onAddApplication={onAddApplication}
           />);
       case screenHash.MY_CUSTOM_APPS:
         return (

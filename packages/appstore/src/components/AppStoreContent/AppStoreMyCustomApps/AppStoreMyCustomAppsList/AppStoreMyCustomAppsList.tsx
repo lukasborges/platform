@@ -12,7 +12,6 @@ import styles, { AppStoreMyCustomAppsListClasses }
 import {
   WithCustomApplicationsProps,
 } from '@src/HOC/withCustomApplications';
-import { ContextEnvPlatform } from '@src/app';
 
 export interface AppStoreRenderAppsComponentProps {
   classes?: AppStoreMyCustomAppsListClasses,
@@ -34,8 +33,6 @@ class AppStoreMyCustomAppsList extends React.PureComponent<AppStoreMyCustomAppsP
       privateApps,
       onAddApplication,
     } = this.props;
-
-    const alternate = (appStoreContext !== ContextEnvPlatform.Browser);
 
     return (
       <React.Fragment>
@@ -60,9 +57,7 @@ class AppStoreMyCustomAppsList extends React.PureComponent<AppStoreMyCustomAppsP
                         key={app.id}
                         application={app}
                         appStoreContext={appStoreContext}
-                        alternate={alternate}
                         onAddApplication={onAddApplication}
-                        marginBottom={25}
                       />;
                     })}
                   </ul>
