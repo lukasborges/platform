@@ -17,6 +17,7 @@
     "build": "yarn workspaces foreach --all --topological run build",
     "clean": "yarn workspaces foreach --all run clean && rimraf release",
     "release": "yarn clean && yarn workspaces foreach --all --topological run release",
+    "release:arch": "bash ./scripts/build-arch.sh",
     "dev": "yarn workspaces foreach --all --topological run dev",
     "lint": "yarn workspaces foreach --all --topological run lint",
     "test": "yarn workspaces foreach --all run test"

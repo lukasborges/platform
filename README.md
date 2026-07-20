@@ -25,7 +25,9 @@
 - [Useful env variables for dev](#useful-env-variables-for-dev)
 - [Migrations](#migrations)
   - [Inspect DB](#inspect-db)
-- [Packaging](#packaging)
+- [Manual Packaging](#manual-packaging)
+  - [Arch Linux package](#arch-linux-package)
+  - [Linux rpm (Fedora 41+)](#linux-rpm-fedora-41)
   - [Code signing](#code-signing)
 - [Development tools](#development-tools)
 - [Releases](#releases)
@@ -39,7 +41,7 @@
 
 ```bash
 $ git clone https://github.com/lukasborges/platform.git
-$ cd desktop-app
+$ cd platform
 $ yarn
 ```
 
@@ -145,7 +147,50 @@ To package apps for the local platform:
 $ yarn run build
 ```
 
-#### Linux rpm (Fedora 41+)
+### Arch Linux package
+
+The Arch package is built separately from the targets configured in
+`electron-builder.yml`. It uses the repository's `PKGBUILD` and produces a
+standard `.pkg.tar.zst` package that can be installed directly with `pacman`.
+
+Install the Arch build tools first:
+
+```bash
+sudo pacman -S --needed base-devel
+```
+
+From the repository root, install the JavaScript dependencies and run the Arch
+release command:
+
+```bash
+yarn install
+yarn release:arch
+```
+
+The command builds the application, asks `electron-builder` to create
+`release/linux-unpacked/`, and then runs `makepkg` with `PKGDEST` set to the
+repository's `release/` directory.
+
+`makepkg` reads `release/linux-unpacked/` and writes an artifact similar to:
+
+```text
+release/platform-desktop-app-3.3.0.b1-1-x86_64.pkg.tar.zst
+```
+
+Inspect and install the generated package, replacing `<version>` with the
+version printed by `makepkg`:
+
+```bash
+pacman -Qip release/platform-desktop-app-<version>-x86_64.pkg.tar.zst
+sudo pacman -U release/platform-desktop-app-<version>-x86_64.pkg.tar.zst
+```
+
+The package provides and replaces `station-desktop-app`, so an existing Station
+installation is migrated without requiring both packages to be installed. The
+current `PKGBUILD` intentionally does not depend on the removed Arch
+`http-parser` package.
+
+### Linux rpm (Fedora 41+)
 
 `electron-builder`'s bundled `fpm` is too old for `rpm >= 4.20`. Build the rpm with the helper script after `electron-builder` has produced `release/linux-unpacked/`:
 
