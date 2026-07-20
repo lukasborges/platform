@@ -10,6 +10,9 @@ if ! command -v makepkg >/dev/null 2>&1; then
   exit 1
 fi
 
+# The Electron app consumes the App Store's generated dist directory. Build it
+# explicitly so the Arch package never reuses a stale workspace artifact.
+yarn workspace @getstation/appstore build:1
 yarn workspace platform-desktop-app build
 yarn workspace platform-desktop-app exec electron-builder --linux dir
 PKGDEST="$repository_root/release" makepkg -f --clean
