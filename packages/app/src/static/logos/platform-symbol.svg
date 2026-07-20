@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <title>Platform</title>
+  <circle cx="32" cy="20" r="11.5" stroke="#18191d" stroke-width="5.5"/>
+  <rect x="14" y="39" width="36" height="6" rx="3" fill="#18191d"/>
+  <rect x="21" y="50" width="22" height="4" rx="2" fill="#18191d"/>
+</svg>

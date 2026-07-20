@@ -14,6 +14,8 @@ import {
   Platform,
 } from './queries@local.gql.generated';
 
+const platformLogo = require('../static/logos/platform-logo.svg');
+
 export interface Classes {
   container: string,
   section: string,
@@ -85,12 +87,9 @@ const styles = (theme: ThemeTypes) => ({
     width: '100%',
   },
   brand: {
-    color: '#111214',
-    fontFamily: '"SF UI Display", "Noto Sans", sans-serif',
-    fontSize: 28,
-    fontWeight: 400,
-    letterSpacing: '-0.6px',
-    lineHeight: '34px',
+    display: 'block',
+    width: 144,
+    height: 50,
   },
   trafficLights: {
     position: 'fixed',
@@ -234,7 +233,7 @@ class Presenter extends React.PureComponent<Props, State> {
 
         <div className={classes!.section}>
           <div className={classes!.sectionHeader}>
-            <div className={classes!.brand} aria-label="Platform">platform</div>
+            <img className={classes!.brand} src={platformLogo} alt="Platform" />
           </div>
 
           <SlideX step={step}>
