@@ -30,6 +30,12 @@ export const RESET_ZOOM = 'browserX/applications/RESET_ZOOM';
 export type RESET_ZOOM = 'browserX/applications/RESET_ZOOM';
 export const UPDATE_ICON = 'browserX/applications/UPDATE_ICON';
 export type UPDATE_ICON = 'browserX/applications/UPDATE_ICON';
+export const PICK_CUSTOM_ICON = 'browserX/applications/PICK_CUSTOM_ICON';
+export type PICK_CUSTOM_ICON = 'browserX/applications/PICK_CUSTOM_ICON';
+export const RESET_CUSTOM_ICON = 'browserX/applications/RESET_CUSTOM_ICON';
+export type RESET_CUSTOM_ICON = 'browserX/applications/RESET_CUSTOM_ICON';
+export const SET_CUSTOM_ICON_URL = 'browserX/applications/SET_CUSTOM_ICON_URL';
+export type SET_CUSTOM_ICON_URL = 'browserX/applications/SET_CUSTOM_ICON_URL';
 export const SET_CONFIG_DATA = 'browserX/applications/SET_CONFIG_DATA';
 export type SET_CONFIG_DATA = 'browserX/applications/SET_CONFIG_DATA';
 export const INSTALL_APPLICATION = 'browserX/applications/INSTALL_APPLICATION';
@@ -105,6 +111,19 @@ export type ResetZoomAction = {
 export type UpdateIconAction = {
   type: UPDATE_ICON,
   applicationId: string, imageURL: string,
+};
+export type PickCustomIconAction = {
+  type: PICK_CUSTOM_ICON,
+  applicationId: string,
+};
+export type ResetCustomIconAction = {
+  type: RESET_CUSTOM_ICON,
+  applicationId: string,
+};
+export type SetCustomIconURLAction = {
+  type: SET_CUSTOM_ICON_URL,
+  applicationId: string,
+  customIconURL: string | null,
 };
 export type SetConfigDataAction = {
   type: SET_CONFIG_DATA,
@@ -210,6 +229,9 @@ export type ApplicationActions =
   ZoomOutAction |
   ResetZoomAction |
   UpdateIconAction |
+  PickCustomIconAction |
+  ResetCustomIconAction |
+  SetCustomIconURLAction |
   SetConfigDataAction |
   InstallApplicationAction |
   UninstallApplicationAction |
@@ -258,6 +280,18 @@ export const resetZoom = (applicationId: string): ResetZoomAction => ({
 });
 export const updateApplicationIcon = (applicationId: string, imageURL: string): UpdateIconAction => ({
   type: UPDATE_ICON, applicationId, imageURL,
+});
+export const pickCustomApplicationIcon = (applicationId: string): PickCustomIconAction => ({
+  type: PICK_CUSTOM_ICON, applicationId,
+});
+export const resetCustomApplicationIcon = (applicationId: string): ResetCustomIconAction => ({
+  type: RESET_CUSTOM_ICON, applicationId,
+});
+export const setCustomApplicationIconURL = (
+  applicationId: string,
+  customIconURL: string | null,
+): SetCustomIconURLAction => ({
+  type: SET_CUSTOM_ICON_URL, applicationId, customIconURL,
 });
 export const setConfigData = (applicationId: string, configData: ApplicationConfigData): SetConfigDataAction => ({
   type: SET_CONFIG_DATA, applicationId, configData,
@@ -425,6 +459,12 @@ export default function applications(state: Immutable.Map<string, any> = Immutab
       const { applicationId, imageURL } = action;
       if (!state.has(applicationId)) return state;
       return state.setIn([applicationId, 'iconURL'], imageURL);
+    }
+
+    case SET_CUSTOM_ICON_URL: {
+      const { applicationId, customIconURL } = action;
+      if (!state.has(applicationId)) return state;
+      return state.setIn([applicationId, 'customIconURL'], customIconURL);
     }
 
     case DISABLE_NOTIFICATIONS: {

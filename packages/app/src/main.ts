@@ -12,6 +12,7 @@ import services from './services/servicesManager';
 import { getUrlToLoad } from './utils/dev';
 import { isPackaged } from './utils/env';
 import * as remoteMain from '@electron/remote/main';
+import { registerCustomIconIpcHandlers } from './custom-icons/main';
 
 if (process.platform === 'linux') {
   app.setDesktopName('platform-desktop-app.desktop');
@@ -186,6 +187,7 @@ const init = () => {
 
   overrideUserDataPath();
   applyLogLevel();
+  registerCustomIconIpcHandlers();
 
   if (process.argv.indexOf('database') !== -1) {
     loadCliWindow('database').catch(console.error);

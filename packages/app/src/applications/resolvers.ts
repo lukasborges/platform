@@ -96,7 +96,8 @@ const resolvers: Resolvers = {
       }
       return null;
     },
-    iconURL: (application) => application.get('iconURL') || null,
+    iconURL: (application) => application.get('customIconURL') || application.get('iconURL') || null,
+    customIconURL: (application) => application.get('customIconURL') || null,
     manifestURL: getApplicationManifestURL,
     manifestData: (application, _, context) =>
       context.manifestProvider.get(getApplicationManifestURL(application))

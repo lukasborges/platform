@@ -3,6 +3,7 @@ import { RecursiveImmutableMap } from '../types';
 export type StationApplication = {
   applicationId: string,
   iconURL: string,
+  customIconURL?: string,
   manifestURL: string,
   installContext?: InstallContext,
   badge: string,

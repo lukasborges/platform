@@ -35,6 +35,8 @@ import {
   navigateToTab,
   NavigateToTabAction,
   RESET_APPLICATION,
+  PICK_CUSTOM_ICON,
+  RESET_CUSTOM_ICON,
   RESET_ZOOM,
   ResetApplicationAction,
   SET_ACTIVE_TAB,
@@ -59,6 +61,7 @@ import { getNewPageURL } from './helpers';
 import { installApplication, watchLifecyleActions, InstallApplicationReturn } from './lifecycle';
 import { goToStartUrlAfterSetConfigData, updateApplicationIconAfterSetConfigData } from './configData';
 import { ApplicationImmutable } from '../types';
+import { pickCustomIcon, resetCustomIcon } from './customIcon';
 
 function* interceptZoomActions({ applicationId }: ZoomActions) {
   const application = yield select(getApplicationById, applicationId);
@@ -213,6 +216,8 @@ export default function* main(bxApp: BrowserXAppWorker) {
   yield all([
     fork(watchLifecyleActions),
     takeEveryWitness([ZOOM_IN, ZOOM_OUT, RESET_ZOOM], interceptZoomActions),
+    takeEveryWitness(PICK_CUSTOM_ICON, pickCustomIcon),
+    takeEveryWitness(RESET_CUSTOM_ICON, resetCustomIcon),
     takeEveryWitness(SET_CONFIG_DATA, goToStartUrlAfterSetConfigData),
     takeEveryWitness(SET_CONFIG_DATA, updateApplicationIconAfterSetConfigData),
     takeEveryWitness(SET_ACTIVE_TAB, focusActiveTab),

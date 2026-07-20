@@ -96,6 +96,7 @@ export class ApplicationProxy extends MapProxyMixin({
       installContext: JSON.stringify(installContext ? installContext.toJS() : undefined),
       activeTabId: state.get('activeTab'),
       iconURL: state.get('iconURL'),
+      customIconURL: state.get('customIconURL'),
       // todo(app-323): remove `serviceId`
       serviceId: state.get('serviceId'),
       notificationsEnabled: state.get('notificationsEnabled'),
@@ -110,6 +111,7 @@ export class ApplicationProxy extends MapProxyMixin({
     installContext: obj.installContext ? Immutable.Map(JSON.parse(obj.installContext)) : null,
     activeTab: obj.activeTabId,
     iconURL: obj.iconURL,
+    customIconURL: obj.customIconURL,
     // todo(app-323): remove `serviceId`
     serviceId: obj.serviceId,
     notificationsEnabled: obj.notificationsEnabled,

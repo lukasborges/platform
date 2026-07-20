@@ -9,6 +9,7 @@ const applicationGmail = Immutable.Map({
     applicationId: 'gmail-Byg_4OpCzW',
     identityId: 'google-113495821402887020288',
     iconURL: 'http://getstation.com',
+    customIconURL: 'file:///tmp/platform-custom-icons/gmail.png',
     activeTab: 'gmail-Byg_4OpCzW/S1YV_aCf-',
     notificationsEnabled: true,
     installContext: Immutable.Map({

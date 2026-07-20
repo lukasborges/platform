@@ -1,6 +1,6 @@
 import { SDK } from '@getstation/sdk';
 import { evolve } from 'ramda';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { BxAppManifest } from '../applications/manifest-provider/bxAppManifest';
 import { service } from '../services/lib/decorator';
 
@@ -30,9 +30,9 @@ export interface ServiceRuntime {
   deactivate: Deactivator,
 }
 
-const ensureActivator: Transformer<SDKActivator, Activator> = activate => async (sdk: SDK, bx?: SDKConsumer) => {
+export const ensureActivator: Transformer<SDKActivator, Activator> = activate => async (sdk: SDK, bx?: SDKConsumer) => {
   const result = await activate(sdk, bx);
-  return result instanceof Observable ? result : Observable.empty();
+  return result instanceof Observable ? result : EMPTY;
 };
 
 const ensureRuntime: Transformer<SDKServiceRuntime, ServiceRuntime> = evolve({

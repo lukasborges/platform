@@ -6,7 +6,14 @@ import { oc } from 'ts-optchain';
 import { pure } from 'recompose';
 import Maybe from 'graphql/tsutils/Maybe';
 
-import { createNewEmptyTab, installApplication, navigateToApplicationTabAutomatically, toggleNotifications } from '../applications/duck';
+import {
+  createNewEmptyTab,
+  installApplication,
+  navigateToApplicationTabAutomatically,
+  pickCustomApplicationIcon,
+  resetCustomApplicationIcon,
+  toggleNotifications,
+} from '../applications/duck';
 import { getApplicationActiveTab } from '../applications/get';
 import { getTabById } from '../tabs/selectors';
 import { getTabURL } from '../tabs/get';
@@ -59,6 +66,8 @@ export interface OwnProps {
   toggleNotifications: () => void,
   openApplicationPreferences: (application: Application) => void,
   onOpenNewTab: () => void,
+  onChangeIcon: () => void,
+  onResetIcon: () => void,
 }
 
 type Props = OuterProps & OwnProps & GraphQLProps;
@@ -104,6 +113,7 @@ class SubdockContainerImpl extends React.PureComponent<Props, {}> {
     return (
       <Subdock
         {...this.props}
+        hasCustomIcon={Boolean(this.props.application && this.props.application.customIconURL)}
         onSelectFavorite={this.onSelectFavorite}
         onSelectTab={this.onSelectTab}
         onCloseTab={this.onCloseTab}
@@ -147,6 +157,8 @@ const SubdockContainer = compose(
         openApplicationPreferences: (application: Application) =>
           openApplicationPreferences(application.manifestURL, OpenApplicationPreferencesVia.APP_SUBDOCK),
         onOpenNewTab: () => createNewEmptyTab(ownProps.applicationId, false),
+        onChangeIcon: () => pickCustomApplicationIcon(ownProps.applicationId),
+        onResetIcon: () => resetCustomApplicationIcon(ownProps.applicationId),
         onClickAddNewInstance: (application: Application) => {
           return installApplication(application.manifestURL, { navigate: true });
         },

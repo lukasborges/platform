@@ -31,6 +31,9 @@ interface Props {
   onClickAddNewInstance: (application: Application) => void,
   openApplicationPreferences: (application: Application) => void,
   toggleNotifications: () => void,
+  onChangeIcon: () => void,
+  onResetIcon: () => void,
+  hasCustomIcon: boolean,
   handleHideSubdock: () => void,
 }
 
@@ -63,7 +66,7 @@ export default class Subdock extends React.PureComponent<Props, {}> {
       classes, application, onOverStateChange, notificationsEnabled,
       handleHideSubdock, activeTab, onSelectTab, onDetachTab, onAttachTab, onSelectFavorite, onAddTabAsFavorite,
       onRemoveFavorite, onDetachFavorite, onCloseTab, onClickAddNewInstance, onOpenNewTab, openApplicationPreferences,
-      toggleNotifications,
+      toggleNotifications, onChangeIcon, onResetIcon, hasCustomIcon,
     } = this.props;
 
     const onMouseEnter = () => onOverStateChange(true);
@@ -76,6 +79,9 @@ export default class Subdock extends React.PureComponent<Props, {}> {
           notificationsEnabled={notificationsEnabled}
           openApplicationPreferences={openApplicationPreferences}
           toggleNotifications={toggleNotifications}
+          onChangeIcon={onChangeIcon}
+          onResetIcon={onResetIcon}
+          hasCustomIcon={hasCustomIcon}
         />
 
         <div className={classes!.panels}>
