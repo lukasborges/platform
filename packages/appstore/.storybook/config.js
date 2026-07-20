@@ -9,7 +9,7 @@ import { BrowserXThemeProvider, withBrowserXTheme } from '@getstation/theme';
 import StoryRouter from 'storybook-react-router';
 
 withOptions({
-  name: 'Station AppStore Styleguide v' + require('../package.json').version,
+  name: 'Platform AppStore Styleguide v' + require('../package.json').version,
   hierarchySeparator: /\//,
   hierarchyRootSeparator: /\|/,
 });

@@ -19,11 +19,11 @@ const styles = {
     textAlign: 'center',
     lineHeight: '30px',
     fontWeight: '500',
-    color: 'white',
+    color: colors.blueGray100,
     zIndex: 30,
   },
   downloadLink: {
-    backgroundColor: 'rgba(255, 255, 255, 1)',
+    backgroundColor: colors.blueGray40,
     borderRadius: 20,
     border: 0,
     marginLeft: 25,
@@ -33,10 +33,10 @@ const styles = {
     padding: '4px 15px',
     cursor: 'pointer',
     '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.75)',
+      backgroundColor: colors.hoverBlue,
     },
     '&:active': {
-      backgroundColor: 'rgba(255, 255, 255, 0.7)',
+      backgroundColor: colors.activeSuggestion,
     },
   },
   '@media (max-width: 1279px)': {

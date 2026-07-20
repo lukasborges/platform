@@ -1,6 +1,7 @@
 import { ThemeTypes } from '@getstation/theme';
 import { IProps } from '@src/components/AppStoreContent/AppStoreRequest/AppRequestSteps/AppData/AppData';
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 // tslint:disable-next-line:max-line-length
 const StripeImg = 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAJUlEQVQoU2N89+7dfwY0ICQkxIguxjgUFKI7GsTH5m4M3w1ChQDSWCb4Kwsr/AAAAABJRU5ErkJggg==)';
@@ -42,7 +43,7 @@ const styles = (theme: ThemeTypes) => ({
     display: 'block',
     fontSize: 14,
     fontWeight: 'bold',
-    color: '#363636',
+    color: colors.blueGray100,
   },
   itemContainer: {
     position: 'relative',
@@ -50,7 +51,7 @@ const styles = (theme: ThemeTypes) => ({
   subLabel: {
     fontFamily: 'Asap',
     fontSize: 12,
-    color: '#949494',
+    color: colors.darkGray,
   },
   subLabelError: {
     position: 'absolute',
@@ -66,7 +67,7 @@ const styles = (theme: ThemeTypes) => ({
   themeColorRender: {
     display: 'inline-flex',
     ...theme.mixins.size(35),
-    border: '1px solid rgba(146, 166, 184, .30)',
+    border: `1px solid ${colors.dividerColor}`,
     borderRadius: 6,
     marginRight: 10,
     background: StripeImg,
@@ -75,13 +76,15 @@ const styles = (theme: ThemeTypes) => ({
     width: 80,
     height: 35,
     padding: [0, 10],
-    border: '1px solid rgba(146, 166, 184, .30)',
+    border: `1px solid ${colors.dividerColor}`,
     borderRadius: 6,
     fontSize: 13,
     outline: 'none',
     '&::-webkit-input-placeholder': {
-      color: 'rgba(1, 1, 1, 0.3)',
+      color: colors.darkGray,
     },
+    color: colors.blueGray100,
+    backgroundColor: colors.blueGray40,
   },
   colorWheelWrapper: {
     display: 'inline-flex',
@@ -89,7 +92,7 @@ const styles = (theme: ThemeTypes) => ({
   },
   inputColor: {
     ...theme.mixins.size(20),
-    border: '1px solid rgba(146, 166, 184, .30)',
+    border: `1px solid ${colors.dividerColor}`,
     borderRadius: 6,
     verticalAlign: 'middle',
     marginTop: 6,
@@ -110,13 +113,14 @@ const styles = (theme: ThemeTypes) => ({
     borderRadius: 100,
     border: 0,
     outline: 'none',
-    backgroundColor: '#333',
+    backgroundColor: colors.blueGray40,
+    border: `1px solid ${colors.dividerColor}`,
     cursor: 'pointer',
   },
   uploadInfo: {
     fontSize: 12,
     lineHeight: '18px',
-    color: '#949494',
+    color: colors.darkGray,
     marginLeft: 35,
   },
   imageUploadedWrapper: {
@@ -146,7 +150,7 @@ const styles = (theme: ThemeTypes) => ({
   selectContainer: {
     maxWidth: 67,
     height: 30,
-    backgroundColor: '#e7ecf0',
+    backgroundColor: colors.blueGray40,
     paddingLeft: 4,
     borderRadius: 7,
     margin: [6, 0, 20],
@@ -159,7 +163,7 @@ const styles = (theme: ThemeTypes) => ({
       top: 10,
       left: 43,
       padding: 3,
-      border: 'solid black',
+      border: `solid ${colors.blueGray100}`,
       borderWidth: '0 2px 2px 0',
       transform: 'rotate(45deg)',
     },
@@ -167,14 +171,14 @@ const styles = (theme: ThemeTypes) => ({
   selectIcon: {
     width: 30,
     height: 30,
-    filter: 'brightness(0) saturate(0%) invert(0%) sepia(0%) hue-rotate(0) brightness(100%) contrast(100%)',
+    filter: 'grayscale(1) brightness(1.8)',
   },
   selectList: {
     display: 'none',
     flexWrap: 'wrap',
     minWidth: 330,
     maxWidth: 330,
-    backgroundColor: '#e7ecf0',
+    backgroundColor: colors.blueGray40,
     padding: [5, 9, 3, 9],
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)',
     borderRadius: 7,
@@ -199,7 +203,7 @@ const styles = (theme: ThemeTypes) => ({
     },
   },
   selectItemIcon: {
-    filter: 'brightness(0) saturate(0%) invert(0%) sepia(0%) hue-rotate(0) brightness(100%) contrast(100%)',
+    filter: 'grayscale(1) brightness(1.8)',
     width: '100%',
   },
   inputContainer: {

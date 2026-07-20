@@ -64,7 +64,7 @@ class SettingsAutoLaunch extends React.Component<Props, {}> {
             onChange={handleSwitcherChange}
           />
           <div className={classes!.label}>
-            Launch Station on login
+            Launch Platform on login
           </div>
         </div>
       </div>

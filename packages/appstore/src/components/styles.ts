@@ -8,6 +8,8 @@ const styles = {
   '@global': {
     body: {
       margin: 0,
+      backgroundColor: '#17181b',
+      color: '#e8e8ea',
       fontFamily: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
                   sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
       fontWeight: 'normal',
@@ -16,12 +18,16 @@ const styles = {
     '*': {
       boxSizing: 'border-box',
     },
+    'input, textarea, button': {
+      fontFamily: 'inherit',
+    },
   },
 
   appStore: {
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: '#17181b',
+    color: '#e8e8ea',
     overflow: ({ isAppModalOpen }: WithAppModalStatusProps) => isAppModalOpen ? 'hidden' : 'visible',
     minWidth: '300px',
     '-webkit-overflow-scrolling': 'touch',
@@ -54,7 +60,7 @@ const styles = {
       paddingTop: () => 0,
       paddingLeft: ({ pathname }: { pathname: string }) => {
         const isMatching = noPaneMatchers.some(regexp => pathname.match(regexp));
-        return isMatching ? 0 : 200;
+        return isMatching ? 0 : 216;
       },
     },
   },

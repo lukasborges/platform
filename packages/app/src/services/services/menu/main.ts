@@ -137,7 +137,7 @@ export class ContextMenuServiceImpl extends ContextMenuService implements RPC.No
     autofill.popup({
       window: BrowserWindow.fromWebContents(wc.hostWebContents),
       // The rect we receive is given without our own UI elements
-      // The rect is relative to the webview, so account for Station's custom shell.
+      // The rect is relative to the webview, so account for Platform's custom shell.
       x: Math.floor(rect.left + 68),
       y: Math.floor(rect.bottom + 54 + 5), // add 5 for padding
     });

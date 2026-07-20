@@ -1,5 +1,6 @@
 import { DisambiguationProps } from '@src/components/AppStoreContent/AppStoreRequest/AppRequestSteps/Disambiguation/Disambiguation';
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 const styles = {
   stepContainer: {
@@ -51,7 +52,7 @@ const styles = {
     border: 'none',
     height: 1,
     width: '100%',
-    backgroundColor: '#F4F4F4',
+    backgroundColor: colors.dividerColor,
   },
   itemWrapper: {
     marginTop: 30,

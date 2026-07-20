@@ -24,7 +24,7 @@ export default class LegacyBxApiApp extends React.PureComponent<Props, {}> {
       <div className={classes!.stepContainer}>
         <div className={classes!.stepContent}>
           <div className={classes!.text}>
-            You are using an outdated version of Station with missing features. Stay safe and restart your Station.
+            You are using an outdated version of Platform with missing features. Stay safe and restart Platform.
           </div>
         </div>
         <AppRequestStepsButtons

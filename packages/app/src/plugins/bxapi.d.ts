@@ -165,7 +165,7 @@ interface Bx {
   services: BxAPI.Services,
   applications: BxAPI.Applications,
   identities: BxAPI.Identities,
-  // Only available on station:// tabs
+  // Only available on Platform internal tabs
   manifest: BxAPI.Manifest,
 }
 

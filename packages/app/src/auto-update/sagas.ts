@@ -80,7 +80,7 @@ function* checkForUpdates() {
 }
 
 function* doOpenReleaseNotes() {
-  yield call(dispatchUrlSaga, { url: 'https://github.com/lukasborges/desktop-app/releases/' });
+  yield call(dispatchUrlSaga, { url: 'https://github.com/lukasborges/platform/releases/' });
 }
 
 function* consumeUpdateLockFile() {

@@ -136,7 +136,7 @@ export default class OnboardingStepAppStore extends React.PureComponent<Props> {
         </p>
 
         <Button btnSize={Size.BIG} onClick={onValidSubmit} disabled={selectedApplications.length < 3} isLoading={isLoading}>
-          Start Station
+          Start Platform
         </Button>
 
         <p className={classes!.smallSubtitle}>Select at least 3 apps</p>

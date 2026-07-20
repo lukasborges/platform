@@ -13,17 +13,17 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'space-between',
     backgroundColor: colors.blueGray30,
-    boxShadow: '0 1px 4px 0 rgba(48, 55, 64, 0.28)',
+    boxShadow: '0 1px 4px rgba(0, 0, 0, 0.24)',
     zIndex: 20,
     // FIXME: don't rely on **override by order** for media queries
     // WARNING: if you use ordering for to override CSS rules,
     // might end up in a non determistic state
     '@media (min-width: 600px)': {
-      width: 200,
-      minWidth: 200,
-      maxWidth: 200,
+      width: 216,
+      minWidth: 216,
+      maxWidth: 216,
       height: '100%',
-      borderRight: '1px solid rgba(48, 55, 64, 0.19)',
+      borderRight: `1px solid ${colors.dividerColor}`,
       boxShadow: 'unset',
     },
     '@media (min-width: 1280px)': {
@@ -46,9 +46,12 @@ const styles = {
     marginRight: 5,
     opacity: 0.7,
   },
-  logo: {
-    width: 48,
-    height: 13,
+  brandLink: {
+    color: colors.blueGray100,
+    fontSize: 12,
+    fontWeight: 600,
+    letterSpacing: '-0.2px',
+    textDecoration: 'none',
   },
 };
 
@@ -56,7 +59,7 @@ export interface IClasses {
   aside: string,
   info: string,
   text: string,
-  logo: string,
+  brandLink: string,
 }
 
 export default styles;

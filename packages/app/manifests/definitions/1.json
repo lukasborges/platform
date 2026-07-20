@@ -1,10 +1,10 @@
 {
   "name": "App Store",
   "category": "Admin & Back-office",
-  "start_url": "station://appstore/",
+  "start_url": "platform://appstore/",
   "icons": [],
   "theme_color": "#2440FF",
-  "scope": "station://appstore",
+  "scope": "platform://appstore",
   "bx_no_dock": true,
   "doNotList": true,
   "bx_use_default_session": true,

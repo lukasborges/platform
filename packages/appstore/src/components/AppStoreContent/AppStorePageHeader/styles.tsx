@@ -5,9 +5,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: [32, 45],
-    borderBottom: `1px solid ${colors.blueGray30}`,
-    minHeight: 127,
+    padding: [28, 40],
+    borderBottom: `1px solid ${colors.dividerColor}`,
+    minHeight: 112,
+    backgroundColor: '#1b1c20',
   },
   content: {
     display: 'flex',
@@ -31,7 +32,7 @@ const styles = {
   },
   title: {
     fontFamily: 'Asap',
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 500,
     color: colors.blueGray100,
     marginBottom: 10,

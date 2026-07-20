@@ -21,7 +21,7 @@ import { withNotes } from '@storybook/addon-notes';
 import { withInfo } from '@storybook/addon-info';
 
 setOptions({
-  name: 'Station Styleguide v' + require('../package.json').version,
+  name: 'Platform Styleguide v' + require('../package.json').version,
   hierarchySeparator: /\//,
   hierarchyRootSeparator: /\|/
 });

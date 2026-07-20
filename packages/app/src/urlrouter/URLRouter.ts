@@ -68,7 +68,7 @@ export default class URLRouter {
     }
 
     try {
-      // Station tabs
+      // Platform tabs
       const match = this.hasMatchingTab(url);
       if (match) {
         if (match.type === 'exact') {
@@ -131,7 +131,7 @@ export default class URLRouter {
   }
 
   /**
-   * Search if the given URL is covered by any of the already installed app scopes in Station
+   * Search if the given URL is covered by any of the already installed app scopes in Platform
    * and returns its ID if one is found.
    * @param url URL to check against all the installed scopes
    */

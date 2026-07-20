@@ -28,6 +28,6 @@ export default class BackgroundLogo extends React.PureComponent<Props, {}> {
   render() {
     const { classes } = this.props;
 
-    return <img src={illustration} className={classes!.backgroundLogo} alt="Station logo" />;
+    return <img src={illustration} className={classes!.backgroundLogo} alt="Platform logo" />;
   }
 }

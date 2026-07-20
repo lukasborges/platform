@@ -1,4 +1,4 @@
-# Station Desktop Application
+# Platform Desktop Application
 
 > **Fork of [getstation/desktop-app](https://github.com/getstation/desktop-app)**. I like the app and want to keep using it, but upstream hasn't shipped updates, fixes or improvements in a long time.
 
@@ -38,7 +38,7 @@
 * yarn >= `1.19.x`
 
 ```bash
-$ git clone https://github.com/lukasborges/desktop-app.git
+$ git clone https://github.com/lukasborges/platform.git
 $ cd desktop-app
 $ yarn
 ```
@@ -111,7 +111,7 @@ To inspect the main process, connect Chrome by visiting `chrome://inspect` and s
 - `STATION_AUTOUPDATER_MOCK_SCENARIO` set the scenario for the mock of `AutoUpdater` module:
   - `available` (default), mock an update is available and downloaded
   - `not-available` mock an update is not available
-- `OVERRIDE_USER_DATA_PATH` override `userData` path (example: `OVERRIDE_USER_DATA_PATH="Station Canary" yarn run dev`)
+- `OVERRIDE_USER_DATA_PATH` overrides the `userData` path (example: `OVERRIDE_USER_DATA_PATH="Platform Canary" yarn run dev`)
 - `STATION_CHECK_INACTIVE_TAB_EVERY_MS` override the interval period between each check for inactive tabs
 - `STATION_WAIT_MS_BEFORE_KILL_TAB` override the time to wait before considering a tab is inactive and killing it
 - `STATION_QUICK_TRANSITIONS` all transitions are quick (used to test changing colors)
@@ -135,7 +135,7 @@ $ yarn run database migrations down
 ```
 
 ### Inspect DB
-Install [TablePlus](https://tableplus.io/) and create a new SQLite connection with the database file located at `~/Library/Application\ Support/Station\ Dev/db/station.db`
+Install [TablePlus](https://tableplus.io/) and create a new SQLite connection with the database file located in the active Platform development profile.
 
 ## Manual Packaging
 
@@ -174,8 +174,8 @@ This repository should be used as a proper monorepo. Packages that should be imp
 
 ## Releases
 
-1. [Draft a new release](https://github.com/lukasborges/desktop-app/releases/new) tagged with the desired version
-2. Apply your changes on [`release`](https://github.com/lukasborges/desktop-app/tree/release) branch
+1. [Draft a new release](https://github.com/lukasborges/platform/releases/new) tagged with the desired version
+2. Apply your changes on [`release`](https://github.com/lukasborges/platform/tree/release) branch
 3. On `release` branch, bump the version with `yarn version` to the corresponding version number
 4. Let the CI build artifacts for each platform
 5. Publish the draft

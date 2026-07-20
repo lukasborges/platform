@@ -28,7 +28,7 @@ declare module 'graphql-tools' {
 }
 
 /**
- * Import and add Station resolvers to the schema.
+ * Import and add Platform resolvers to the schema.
  */
 export function addAllResolvers(schema: GraphQLSchema) {
   addResolveFunctionsToSchema({ schema, resolvers: appResolvers });

@@ -9,16 +9,16 @@ const styles = {
     flex: '0 0 291px',
     display: 'flex',
     justifyContent: 'space-between',
-    color: 'rgb(38, 33, 33)',
+    color: colors.blueGray100,
     alignItems: 'center',
     width: ({ alternate }: AppStoreApplicationProps) => alternate ? null : 291,
     marginBottom: 27,
     padding: 10,
     backgroundColor: 'transparent',
-    borderRadius: '999px',
+    borderRadius: 12,
     transition: 'none',
     '&:hover': {
-      backgroundColor: ({ alternate }: AppStoreApplicationProps) => alternate ? '#EEE' : 'none',
+      backgroundColor: colors.hoverBlue,
     },
   },
   applicationContent: {
@@ -71,7 +71,7 @@ const styles = {
   },
   categoryName: {
     fontSize: '12px',
-    color: '#949494',
+    color: colors.darkGray,
   },
   action: {
     flexShrink: 0,

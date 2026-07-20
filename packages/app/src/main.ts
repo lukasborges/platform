@@ -14,7 +14,7 @@ import { isPackaged } from './utils/env';
 import * as remoteMain from '@electron/remote/main';
 
 if (process.platform === 'linux') {
-  app.setDesktopName('station-desktop-app.desktop');
+  app.setDesktopName('platform-desktop-app.desktop');
 }
 
 bootServices(); // all side effects related to services (in main process)
@@ -140,11 +140,12 @@ const overrideUserDataPath = () => {
     const userDataPath = path.join(app.getPath('appData'), process.env.OVERRIDE_USER_DATA_PATH);
     app.setPath('userData', userDataPath);
   } else if (!isPackaged) {
-    app.name = 'Station Dev';
+    app.name = 'Platform Dev';
+    // Keep the legacy directory so existing development profiles remain available.
     const userDataPath = path.join(app.getPath('appData'), 'Station Dev');
     app.setPath('userData', userDataPath);
   } else {
-    // do not conflict with pre open-source data
+    // Keep the legacy directory so Platform opens the user's existing Station profile.
     const userDataPath = path.join(app.getPath('appData'), 'Stationv2');
     app.setPath('userData', userDataPath);
   }

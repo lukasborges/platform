@@ -23,16 +23,16 @@ class AppStoreHeader extends React.PureComponent<Props, {}> {
           <header className={classes.header}>
             {appStoreContext === ContextEnvPlatform.Browser &&
               <div className={classes.headerBanner}>
-                <form action="https://github.com/lukasborges/desktop-app/releases/latest" method="get">
+                <form action="https://github.com/lukasborges/platform/releases/latest" method="get">
                   <span>All your web applications in a single place</span>
-                  <button className={classes.downloadLink} type="submit">Download Station</button>
+                  <button className={classes.downloadLink} type="submit">Download Platform</button>
                 </form>
               </div>
             }
 
             {appStoreContext === ContextEnvPlatform.LegacyBxApiApp &&
               <div className={classes.headerBanner}>
-                You are using an outdated version of Station with missing features. Stay safe and restart your Station.
+                You are using an outdated version of Platform with missing features. Stay safe and restart Platform.
               </div>
             }
           </header>

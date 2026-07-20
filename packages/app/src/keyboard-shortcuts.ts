@@ -47,7 +47,7 @@ export const SHORTCUTS = <{ [key: string]: KeyboardShortcut }>{
     id: 'hide-station',
     accelerator: 'Command+H',
     kbd: '⌘ H',
-    label: 'Hide Station',
+    label: 'Hide Platform',
     category: CATEGORY.WINDOWS,
     disabled: !isDarwin,
   },
@@ -230,7 +230,7 @@ export const SHORTCUTS = <{ [key: string]: KeyboardShortcut }>{
   },
   'app-devtools': <KeyboardShortcut>{
     id: 'app-devtools',
-    label: 'Toggle Station Developer Tools',
+    label: 'Toggle Platform Developer Tools',
     accelerator: 'Alt+Shift+CmdOrCtrl+I',
     kbd: isDarwin ? '⌘ ALT ⇧ I' : 'CTRL ALT ⇧ I',
     category: CATEGORY.PAGE,

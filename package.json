@@ -1,10 +1,10 @@
 {
-  "name": "station-project",
+  "name": "platform-project",
   "private": true,
-  "productName": "Station",
+  "productName": "Platform",
   "version": "3.3.0-b1",
-  "description": "Station",
-  "homepage": "https://github.com/lukasborges/desktop-app#readme",
+  "description": "Platform Desktop",
+  "homepage": "https://github.com/lukasborges/platform#readme",
   "author": {
     "name": "Joël Charles",
     "email": "joel.charles91@gmail.com",

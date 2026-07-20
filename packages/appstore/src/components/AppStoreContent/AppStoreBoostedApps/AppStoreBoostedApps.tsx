@@ -35,7 +35,7 @@ class AppStoreBoostedApps extends React.PureComponent<AppStoreBoostedAppsProps, 
       appStatusSync,
     } = this.props;
     const title = 'Boosted apps';
-    const subTitle = `Apps that are more deeply integrated with Station.
+    const subTitle = `Apps that are more deeply integrated with Platform.
     Nothing to do on your side, these additional features are automatically activated.`;
     const alternate = (appStoreContext !== ContextEnvPlatform.Browser);
     const renderAppNotificationBadge = !!appNotificationBadge && !!appNotificationBadge.length;

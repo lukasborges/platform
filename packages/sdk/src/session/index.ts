@@ -5,7 +5,7 @@ export namespace session {
   export interface SessionConsumer extends Consumer {
     readonly id: string;
     /**
-     * Get Station User Agent
+     * Get Platform User Agent
      * @example
      * const userAgent = await sdk.session.getUserAgent();
      */

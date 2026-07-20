@@ -2,7 +2,7 @@ import { colors } from '@src/theme';
 
 const styles = {
   searchSection: {
-    padding: '25px 30px',
+    padding: '22px 18px 18px',
     backgroundColor: colors.blueGray40,
     color: colors.blueGray100,
     display: 'flex',
@@ -15,10 +15,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '24px',
+    marginBottom: '18px',
   },
   title: {
-    color: 'black',
+    color: colors.blueGray100,
     display: 'flex',
     alignItems: 'center',
     fontSize: 16,
@@ -28,6 +28,7 @@ const styles = {
     width: '19px',
     height: '22px',
     marginRight: '13px',
+    filter: 'grayscale(1) brightness(1.8)',
   },
   logoText: {
     fontFamily: 'Asap',
@@ -44,7 +45,7 @@ const styles = {
       display: 'none',
     },
     searchSection: {
-      padding: '25px 15px',
+      padding: '22px 18px 18px',
       borderBottom: `1px solid ${colors.dividerColor}`,
     },
   },

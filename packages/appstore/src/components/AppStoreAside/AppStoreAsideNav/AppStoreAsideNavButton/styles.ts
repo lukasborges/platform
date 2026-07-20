@@ -3,17 +3,17 @@ import { colors } from '@src/theme';
 const styles = {
   navButton: {
     listStyleType: 'none',
-    minHeight: 36,
-    paddingLeft: 30,
-    paddingRight: 10,
+    minHeight: 38,
+    padding: [0, 12],
+    margin: [2, 10],
+    borderRadius: 10,
     color: colors.blueGray100,
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
     transition: 'background-color .2s',
-    '&:hover $content': {
-      transform: 'translateX(7px)',
-      transition: 'transform .3s',
+    '&:hover': {
+      backgroundColor: colors.hoverBlue,
     },
   },
   activeNavButton: {
@@ -24,7 +24,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
-    transition: 'transform .3s',
+    transition: 'color .2s',
   },
   title: {
     color: colors.blueGray100,
@@ -42,10 +42,11 @@ const styles = {
     width: '14px',
     height: '14px',
     marginRight: '12px',
+    filter: 'grayscale(1) brightness(1.8)',
   },
   '@media (min-width: 600px)': {
     navButton: {
-      paddingLeft: 21,
+      padding: [0, 12],
     },
   },
 };

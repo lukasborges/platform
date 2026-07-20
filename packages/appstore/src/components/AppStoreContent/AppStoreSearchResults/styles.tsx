@@ -11,7 +11,7 @@ const styles = (theme: ThemeTypes) => ({
     alignItems: 'center',
     minHeight: 30,
     paddingBottom: 8,
-    borderBottom: '1px solid #e8ebec',
+    borderBottom: `1px solid ${colors.dividerColor}`,
   },
   resultsTitle: {
     fontFamily: 'Asap',

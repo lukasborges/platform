@@ -15,7 +15,7 @@ const styles = {
     fontFamily: 'HelveticaNeue',
     fontSize: 11,
     fontWeight: 700,
-    color: 'rgba(41, 41, 41, .5)',
+    color: colors.darkGray,
     padding: [10, 0],
     border: 0,
     borderRadius: 40,

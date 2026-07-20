@@ -29,7 +29,7 @@ export function* optOutConfirmationFlow(applicationId: string, manifestURL: stri
   yield put(
     addItem({
       id,
-      title: `We just added ${manifest.name} to your Station. Would you like to keep it there?`,
+      title: `We just added ${manifest.name} to your Platform. Would you like to keep it there?`,
       message: 'You can always add it manually from the app store',
       tabId: getTabId(tab),
       actions: [

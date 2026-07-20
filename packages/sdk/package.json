@@ -3,16 +3,16 @@
   "version": "0.16.0",
   "author": "joel@getstation.com",
   "license": "ISC",
-  "description": "Station SDK",
+  "description": "Platform SDK",
   "main": "./lib/index",
   "types": "./lib/index",
   "bugs": {
-    "url": "https://github.com/lukasborges/desktop-app/issues"
+    "url": "https://github.com/lukasborges/platform/issues"
   },
-  "homepage": "https://github.com/lukasborges/desktop-app#readme",
+  "homepage": "https://github.com/lukasborges/platform#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukasborges/desktop-app.git",
+    "url": "git+https://github.com/lukasborges/platform.git",
     "directory": "packages/sdk"
   },
   "scripts": {

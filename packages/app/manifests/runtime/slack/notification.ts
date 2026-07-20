@@ -4,7 +4,7 @@ const REGEX_NUDGE_NOTIFICATION = /^👉.*\(sent via.*Station.*\)$/;
 const isNudgeNotification = (body: string) => Boolean(body.match(REGEX_NUDGE_NOTIFICATION));
 
 /**
- * Manipulate Station's notifications
+ * Manipulate legacy notifications
  */
 export default class NotificationOverride {
   bx: any;

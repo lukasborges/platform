@@ -95,8 +95,8 @@ jobs:
             printf '%s\n' "$COMMIT_MSG"
             printf '```\n\n'
             printf '## Artifacts\n\n'
-            printf '### Linux (x86_64)\n- `Station-x86_64.AppImage` — distro-agnostic\n- `Station-amd64.deb` — Debian / Ubuntu\n- `Station-x86_64.rpm` — Fedora / RHEL (built with `scripts/build-rpm.sh`)\n\n'
-            printf '### Windows (x86_64)\n- `Station-Setup.exe` — NSIS installer (cross-built from Linux via wine)\n- `Station-Setup.exe.blockmap` — auto-update delta metadata\n\n'
+            printf '### Linux (x86_64)\n- `Platform-x86_64.AppImage` — distro-agnostic\n- `Platform-amd64.deb` — Debian / Ubuntu\n- `Platform-x86_64.rpm` — Fedora / RHEL (built with `scripts/build-rpm.sh`)\n\n'
+            printf '### Windows (x86_64)\n- `Platform-Setup.exe` — NSIS installer (cross-built from Linux via wine)\n- `Platform-Setup.exe.blockmap` — auto-update delta metadata\n\n'
             printf '### Auto-update metadata\n- `latest-linux.yml`, `latest.yml`\n\n'
             printf 'macOS build is not included.\n'
           } > "$notes_file"
@@ -105,10 +105,10 @@ jobs:
             --prerelease \
             --title "$TAG" \
             --notes-file "$notes_file" \
-            release/Station-x86_64.AppImage \
-            release/Station-amd64.deb \
-            release/Station-x86_64.rpm \
-            release/Station-Setup.exe \
-            release/Station-Setup.exe.blockmap \
+            release/Platform-x86_64.AppImage \
+            release/Platform-amd64.deb \
+            release/Platform-x86_64.rpm \
+            release/Platform-Setup.exe \
+            release/Platform-Setup.exe.blockmap \
             release/latest-linux.yml \
             release/latest.yml

@@ -16,11 +16,11 @@ const useStyles = createUseStyles({
     fontSize: 11,
     fontWeight: 'bold',
     color: colors.blueGray100,
-    paddingLeft: 30,
+    paddingLeft: 22,
     paddingRight: 10,
     marginBottom: '14px',
     letterSpacing: 0.55,
-    opacity: '.5',
+    opacity: '.62',
   },
   navList: {
     padding: 0,
@@ -29,7 +29,7 @@ const useStyles = createUseStyles({
   '@media (min-width: 600px)': {
     title: {
       display: () => 'block',
-      paddingLeft: 21,
+      paddingLeft: 22,
     },
   },
 });

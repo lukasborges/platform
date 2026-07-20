@@ -13,7 +13,7 @@ exports.default = async function(context) {
   
   process.chdir(appOutDir);
 
-  fs.moveSync('station-desktop-app', 'station-desktop-app.bin');
+  fs.moveSync('platform-desktop-app', 'platform-desktop-app.bin');
 
   const wrapperScript = 
   `#!/bin/sh
@@ -22,10 +22,10 @@ if [ -z \${WAYLAND_DISPLAY+x} ]; then
 else 
   WAYLAND_PARAMS="--enable-features=UseOzonePlatform --ozone-platform=wayland"
 fi
-nohup "$(dirname "$(readlink -f "$0")")/station-desktop-app.bin" \$WAYLAND_PARAMS --no-sandbox "$@" >/dev/null 2>&1 &
+nohup "$(dirname "$(readlink -f "$0")")/platform-desktop-app.bin" \$WAYLAND_PARAMS --no-sandbox "$@" >/dev/null 2>&1 &
       `;
-    fs.writeFileSync('station-desktop-app', wrapperScript);
-  fs.chmodSync('station-desktop-app', '755');
+    fs.writeFileSync('platform-desktop-app', wrapperScript);
+  fs.chmodSync('platform-desktop-app', '755');
 
   process.chdir(originalDir);
 }

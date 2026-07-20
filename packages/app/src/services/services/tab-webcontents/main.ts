@@ -270,7 +270,7 @@ export class TabWebContentsServiceImpl extends TabWebContentsService implements 
 
       wc.setWindowOpenHandler((details: HandlerDetails) => {
         // Fork-specific: every link click that would spawn a new window/tab
-        // is sent to the OS default browser instead of opening inside Station.
+        // is sent to the OS default browser instead of opening inside Platform.
         // Two narrow exceptions stay inside Electron:
         //   1. OAuth flows / popup-window patterns initiated by a webview
         //      (about:blank, accounts.google.com, popup features,

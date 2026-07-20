@@ -55,12 +55,12 @@ export const getFullNotificationsOrderedGrouped = createSelector(
     let currentApplicationId: string;
     // @ts-ignore: no proper iterator declaration
     for (const notification of notifications.values()) {
-      currentApplicationId = notification.get('applicationId', 'station');
+      currentApplicationId = notification.get('applicationId', 'platform');
 
       if (currentApplicationId !== previousApplicationId || groups.size === 0) {
         groups = groups.push(Immutable.Map({
           applicationId: currentApplicationId,
-          applicationName: notification.get('applicationName', 'Station'),
+          applicationName: notification.get('applicationName', 'Platform'),
           icon: notification.get('icon'),
           label: notification.get('label'),
           notifications: Immutable.List([notification]),

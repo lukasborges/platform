@@ -1,1 +1,1 @@
-# Station Application Store
+# Platform Application Store

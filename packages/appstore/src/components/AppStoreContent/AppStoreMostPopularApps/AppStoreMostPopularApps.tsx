@@ -30,7 +30,7 @@ class AppStoreMostPopularApps extends React.PureComponent<AppStoreMostPopularApp
     const { classes, loading, appStoreContext, onAddApplication, mostPopularApps: apps } = this.props;
 
     const title = 'Most Popular';
-    const subTitle = 'The 100 most installed apps by the Station community';
+    const subTitle = 'The 100 most installed apps by the Platform community';
     const alternate = (appStoreContext !== ContextEnvPlatform.Browser);
 
     const renderPageContent =

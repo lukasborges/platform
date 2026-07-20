@@ -44,10 +44,10 @@ export class BrowserXMenuManager extends EventEmitter {
     const emit = this.emit.bind(this);
 
     return {
-      label: 'Station',
+      label: 'Platform',
       submenu: [
         {
-          label: 'About Station',
+          label: 'About Platform',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'about' });
           },
@@ -201,7 +201,7 @@ export class BrowserXMenuManager extends EventEmitter {
       label: 'Help',
       submenu: [
         {
-          label: 'About Station',
+          label: 'About Platform',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'about' });
           },
@@ -211,7 +211,7 @@ export class BrowserXMenuManager extends EventEmitter {
         },
         this.getMenuItemFromShortcut('toggle-kbd-shortcuts', true),
         {
-          label: 'What\'s new in Station',
+          label: 'What\'s new in Platform',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'show-release-notes' });
           },
@@ -250,7 +250,7 @@ export class BrowserXMenuManager extends EventEmitter {
           },
         },
         {
-          label: 'What\'s new in Station',
+          label: 'What\'s new in Platform',
           click(_menuItem: Electron.MenuItem, _browserWindow: Electron.BrowserWindow, event: Electron.KeyboardEvent) {
             emit('click-item', { event: serializedKeyboardEvent(event), action: 'show-release-notes' });
           },

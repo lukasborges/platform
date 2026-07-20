@@ -52,7 +52,7 @@ function* checkSleepyTabs(): SagaIterator {
     const notificationId = `notif/${shortid.generate()}`;
     const wording = mountedTabsToKill.size > 1 ? `${mountedTabsToKill.size} unused apps` : `an unused app`;
     const props = {
-      title: 'Station',
+      title: 'Platform',
       body: `We have put in sleep ${wording} so that your battery is safe, but they'll be available next time you use them.
              We'll keep saving your battery in the future without disturbing you`,
       icon: getIconPath(),

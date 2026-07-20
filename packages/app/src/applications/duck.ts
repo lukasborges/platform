@@ -313,7 +313,7 @@ export const navigateToApplicationTabAutomatically = (tabId: string, via: Change
 interface InstallApplicationOptions {
   configData?: ApplicationConfigData,
   /**
-  * Will make Station navigate to the application after installation.
+  * Will make Platform navigate to the application after installation.
   */
   navigate?: boolean,
   /**

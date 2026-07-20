@@ -18,6 +18,7 @@ export interface Classes {
   container: string,
   section: string,
   sectionHeader: string,
+  brand: string,
   trafficLights: string,
   illustration: string,
   onboardingDock: string,
@@ -82,6 +83,14 @@ const styles = (theme: ThemeTypes) => ({
   sectionHeader: {
     padding: [60, 60, 0, 60],
     width: '100%',
+  },
+  brand: {
+    color: '#111214',
+    fontFamily: '"SF UI Display", "Noto Sans", sans-serif',
+    fontSize: 28,
+    fontWeight: 400,
+    letterSpacing: '-0.6px',
+    lineHeight: '34px',
   },
   trafficLights: {
     position: 'fixed',
@@ -210,7 +219,7 @@ class Presenter extends React.PureComponent<Props, State> {
 
     return (
       <div className={classes!.container}>
-        <div id="portal-powered-by-station" />
+        <div id="portal-powered-by-platform" />
         {isDarwin &&
           <div className={classes!.trafficLights}>
             <TrafficLights
@@ -225,7 +234,7 @@ class Presenter extends React.PureComponent<Props, State> {
 
         <div className={classes!.section}>
           <div className={classes!.sectionHeader}>
-            <img src="static/logos/station-logo-full-black.svg" alt="" />
+            <div className={classes!.brand} aria-label="Platform">platform</div>
           </div>
 
           <SlideX step={step}>

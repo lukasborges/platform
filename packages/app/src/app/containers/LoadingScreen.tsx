@@ -163,14 +163,14 @@ class LoadingScreenImpl extends React.PureComponent<StateProps & JSSProps, {}> {
         <div className={classes.container2}>
           <div className={classes.cartouche}>
             <div className={classes.mark} aria-hidden="true" />
-            <div className={classes.brand}>Station</div>
+            <div className={classes.brand}>Platform</div>
           </div>
           <div className={classes.salutations}>
             <p>
               Preparing your workspace…
             </p>
           </div>
-          <div className={classes.progress} role="progressbar" aria-label="Loading Station">
+          <div className={classes.progress} role="progressbar" aria-label="Loading Platform">
             <div className={classes.progressBar} />
           </div>
           <div className={classes.announcement} dangerouslySetInnerHTML={{ __html: announcementHTML }}/>

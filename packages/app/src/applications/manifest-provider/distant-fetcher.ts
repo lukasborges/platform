@@ -11,10 +11,10 @@ import { getApplicationById } from '../../../manifests';
 // ---- FETCH STRATEGIES
 
 /**
- * Back when Station was a connected app, we used to fetch manifests from a remote API, hence the default
+ * Back when the app was connected, we used to fetch manifests from a remote API, hence the default
  * strategy was an outbound request (type Request / Response). See commented `defaultFetcher` below.
  *
- * Now that Station is a disconnected app, we store the manifests locally and load/fetch them in memory (or something)
+ * Now that Platform is a disconnected app, we store the manifests locally and load/fetch them in memory (or something)
  * and simply read them with the `localFetcher`.
  *
  * We left the configuration capabilities if you wish to overload, or you can simply remove the `localFetcher` and go back to
@@ -25,7 +25,7 @@ import { getApplicationById } from '../../../manifests';
 // @ts-ignore global.fetch is not recognized, depending on where we are
 // const fetch = (global.fetch) ? global.fetch.bind(global) : require('node-fetch');
 
-// Strategy used when Station was connected
+// Strategy used when the app was connected
 // async function defaultFetcher(url: string) { return fetch(url).then((res: Response) => res.json()); }
 
 async function localFetcher(url: string) {

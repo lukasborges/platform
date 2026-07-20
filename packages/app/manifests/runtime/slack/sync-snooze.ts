@@ -4,7 +4,7 @@ import { EMPTY, Observable } from 'rxjs';
 import * as slack from '@getstation/slack';
 
 /**
- * Will synchronize Slack's snooze with Station's snooze
+ * Will synchronize Slack's snooze with Platform's snooze
  */
 export default class SnoozeSynchronizer {
   bx: any;

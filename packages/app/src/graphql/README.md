@@ -274,7 +274,7 @@ export default connect(SettingsAutoLaunch);
 # Developers
 
 ## Motivation
-_Being able to make faster iteration on the UI of Station._
+_Being able to make faster iteration on the UI of Platform._
 
 This motivation led to these requirements:
 - Decouple data logic from UI logic (back-end vs front-end)

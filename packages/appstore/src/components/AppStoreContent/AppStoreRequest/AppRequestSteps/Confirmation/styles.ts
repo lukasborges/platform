@@ -1,6 +1,7 @@
 import { ThemeTypes } from '@getstation/theme';
 import { ConfirmationProps } from '@src/components/AppStoreContent/AppStoreRequest/AppRequestSteps/Confirmation/Confirmation';
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 const styles = (theme: ThemeTypes) => ({
   stepContainer: {
@@ -48,7 +49,7 @@ const styles = (theme: ThemeTypes) => ({
   appName: {
     fontSize: 14,
     fontWeight: 700,
-    color: '#363636',
+    color: colors.blueGray100,
     marginBottom: 25,
   },
   title: {
@@ -57,7 +58,7 @@ const styles = (theme: ThemeTypes) => ({
   },
   text: {
     fontSize: 17,
-    color: '#4a4a4a',
+    color: colors.darkGray,
     textAlign: 'center',
   },
   closeButton: {

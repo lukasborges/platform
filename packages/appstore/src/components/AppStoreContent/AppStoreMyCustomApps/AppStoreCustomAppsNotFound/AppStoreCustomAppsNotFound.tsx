@@ -37,7 +37,7 @@ class AppStoreCustomAppsNotFound extends React.PureComponent<Props, {}> {
           </div>
           <div className={classes!.description}>
             <div className={classes!.text}>
-              More than 600 apps are supported by Station.
+              More than 600 apps are supported by Platform.
             </div>
             <div className={classes!.text}>
               If you can't find what you're looking for, just add any URL you wish here.

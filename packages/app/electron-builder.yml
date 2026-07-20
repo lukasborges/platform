@@ -1,4 +1,4 @@
-appId: org.getstation.DesktopApp
+appId: io.github.lukasborges.Platform
 
 publish:
   provider: 'github'
@@ -14,8 +14,9 @@ directories:
   output: '../../release'
 
 protocols:
-  name: Station
+  name: Platform
   schemes:
+  - platform
   - station
 
 dmg:
@@ -80,4 +81,3 @@ files:
     to: 'static/social-network'
   - from: 'src/static/animations'
     to: 'static/animations'
-

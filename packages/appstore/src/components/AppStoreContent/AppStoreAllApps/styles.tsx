@@ -104,7 +104,7 @@ const styles = {
     cursor: 'pointer',
     transition: 'background-color .3s',
     '&.isActive': {
-      backgroundColor: '#c8deea',
+      backgroundColor: colors.hoverBlue,
       transition: 'background-color .3s',
     },
   },
@@ -112,8 +112,8 @@ const styles = {
     dropDown: {
       position: 'fixed',
       top: 0,
-      left: 200,
-      width: 'calc(100% - 200px)',
+      left: 216,
+      width: 'calc(100% - 216px)',
     },
   },
   '@media (min-width: 1024px)': {

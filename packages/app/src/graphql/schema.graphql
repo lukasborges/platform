@@ -311,7 +311,7 @@ type BxMultiInstanceConfig {
 """
 Activity + History + Search
 
-Activity — cold and immutable collection of user actions in Station
+Activity — cold and immutable collection of user actions in Platform
 History — hot and updated collection of activities
 Search — hot and updated version of queried History + queried 3rd party APIs
 """

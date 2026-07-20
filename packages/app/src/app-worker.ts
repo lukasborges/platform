@@ -263,7 +263,7 @@ export class BrowserXAppWorker {
         this.dispatch(toggleKbdShortcuts());
         break;
       case 'show-community':
-        this.dispatch(dispatchUrl('https://github.com/lukasborges/desktop-app/issues'));
+        this.dispatch(dispatchUrl('https://github.com/lukasborges/platform/issues'));
         break;
       case 'show-release-notes':
         this.dispatch(setReleaseNotesSubdockVisibility(true));

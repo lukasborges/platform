@@ -1,12 +1,12 @@
 {
   "name": "@getstation/appstore",
   "version": "1.0.0",
-  "description": "Station App Store",
-  "homepage": "https://github.com/lukasborges/desktop-app#readme",
-  "bugs": "https://github.com/lukasborges/desktop-app/issues",
+  "description": "Platform App Store",
+  "homepage": "https://github.com/lukasborges/platform#readme",
+  "bugs": "https://github.com/lukasborges/platform/issues",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukasborges/desktop-app.git",
+    "url": "git+https://github.com/lukasborges/platform.git",
     "directory": "packages/appstore"
   },
   "license": "UNLICENSED",

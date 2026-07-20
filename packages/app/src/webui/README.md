@@ -1,4 +1,4 @@
-WebUI are UIs that are accessible via `station://` protocol.
+WebUI are UIs that are accessible via the `platform://` protocol. The legacy `station://` scheme remains supported for existing profiles.
 
 
 Inspired from [Chromium WebUI].

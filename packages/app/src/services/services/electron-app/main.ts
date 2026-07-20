@@ -211,7 +211,7 @@ export class ElectronAppServiceImpl extends ElectronAppService implements RPC.In
 
     const tray = new Tray(this.getTrayIcon());
     tray.addListener('double-click', () => this.showAllWindows());
-    tray.setToolTip('Station');
+    tray.setToolTip('Platform');
     tray.setContextMenu(contextMenu);
     return tray;
   }

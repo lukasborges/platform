@@ -1,21 +1,29 @@
 import { net, protocol } from 'electron';
 import { dirname } from 'path';
 import { pathToFileURL } from 'url';
-import { BX_PROTOCOL } from './const';
+
+import { BX_PROTOCOL, LEGACY_BX_PROTOCOL } from './const';
 import handlers from './handlers';
 
 protocol.registerSchemesAsPrivileged([
-  { 
-    scheme: BX_PROTOCOL, 
-    privileges: { 
-      standard: true, 
+  {
+    scheme: BX_PROTOCOL,
+    privileges: {
+      standard: true,
       secure: true,
-    } 
+    },
+  },
+  {
+    scheme: LEGACY_BX_PROTOCOL,
+    privileges: {
+      standard: true,
+      secure: true,
+    },
   },
 ]);
 
 export function start() {
-  protocol.handle(BX_PROTOCOL, (req: GlobalRequest) => {
+  const handleRequest = (req: GlobalRequest) => {
     const parsedUrl = new URL(req.url);
     const handler = handlers.find(h => h.hostname === parsedUrl.hostname);
 
@@ -32,5 +40,8 @@ export function start() {
     }
 
     return net.fetch(pathToFileURL(handler.filePath).toString());
-  });
+  };
+
+  protocol.handle(BX_PROTOCOL, handleRequest);
+  protocol.handle(LEGACY_BX_PROTOCOL, handleRequest);
 }

@@ -66,7 +66,7 @@ const useStyles = createUseStyles({
   },
   '@media (min-width: 600px)': {
     nav: {
-      padding: '23px 0',
+      padding: '20px 0',
     },
     divider: {
       width: 148,
@@ -87,7 +87,7 @@ const AppStoreAsideNav = (
   const classes: IClasses = useStyles();
 
   const discoverMenuTitle = 'DISCOVER';
-  const myStationMenuTitle = 'MY STATION';
+  const myStationMenuTitle = 'MY PLATFORM';
 
   const discoverNavMenuList = [
     {

@@ -1,9 +1,9 @@
 {
-  "name": "station-desktop-app",
-  "productName": "Station",
+  "name": "platform-desktop-app",
+  "productName": "Platform",
   "version": "3.3.0-b1",
-  "description": "Station",
-  "homepage": "https://github.com/lukasborges/desktop-app#readme",
+  "description": "Platform Desktop",
+  "homepage": "https://github.com/lukasborges/platform#readme",
   "author": {
     "name": "Joël Charles",
     "email": "joel.charles91@gmail.com",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:lukasborges/desktop-app.git"
+    "url": "git@github.com:lukasborges/platform.git"
   },
   "contributors": [],
   "license": "Apache License 2.0",

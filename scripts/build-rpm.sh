@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build a Station rpm from release/linux-unpacked using rpmbuild directly.
+# Build a Platform rpm from release/linux-unpacked using rpmbuild directly.
 # Used because electron-builder's bundled fpm 1.9.3 is incompatible with
 # rpm >= 4.20 (Fedora 41+).
 set -euo pipefail
@@ -7,7 +7,7 @@ set -euo pipefail
 repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 unpacked="$repo_root/release/linux-unpacked"
 icon_src="$repo_root/packages/app/src/static/icon-app.png"
-out_rpm="$repo_root/release/Station-x86_64.rpm"
+out_rpm="$repo_root/release/Platform-x86_64.rpm"
 
 if [[ ! -d "$unpacked" ]]; then
   echo "error: $unpacked not found — run electron-builder first" >&2
@@ -16,37 +16,37 @@ fi
 
 version="$(node -p "require('$repo_root/packages/app/package.json').version" | tr - _)"
 
-work="$(mktemp -d /tmp/station-rpm-XXXX)"
+work="$(mktemp -d /tmp/platform-rpm-XXXX)"
 trap 'rm -rf "$work"' EXIT
 
 mkdir -p "$work/SOURCES" "$work/SPECS" "$work/BUILD" "$work/RPMS" "$work/SRPMS" "$work/BUILDROOT"
 
-cat > "$work/SOURCES/station-desktop-app.desktop" <<'EOF'
+cat > "$work/SOURCES/platform-desktop-app.desktop" <<'EOF'
 [Desktop Entry]
-Name=Station
+Name=Platform
 Comment=A smarter web browser for busy people
-Exec=/opt/Station/station-desktop-app %U
+Exec=/opt/Platform/platform-desktop-app %U
 Terminal=false
 Type=Application
-Icon=station-desktop-app
-StartupWMClass=station-desktop-app
+Icon=platform-desktop-app
+StartupWMClass=platform-desktop-app
 Categories=Network;
-MimeType=x-scheme-handler/station;
+MimeType=x-scheme-handler/platform;x-scheme-handler/station;
 EOF
 
-cp "$icon_src" "$work/SOURCES/station-desktop-app.png"
-tar -C "$(dirname "$unpacked")" -czf "$work/SOURCES/station-linux-unpacked.tar.gz" "$(basename "$unpacked")"
+cp "$icon_src" "$work/SOURCES/platform-desktop-app.png"
+tar -C "$(dirname "$unpacked")" -czf "$work/SOURCES/platform-linux-unpacked.tar.gz" "$(basename "$unpacked")"
 
-cat > "$work/SPECS/station-desktop-app.spec" <<EOF
-Name:           station-desktop-app
+cat > "$work/SPECS/platform-desktop-app.spec" <<EOF
+Name:           platform-desktop-app
 Version:        $version
 Release:        1%{?dist}
-Summary:        Station — a smarter web browser for busy people
+Summary:        Platform — a smarter web browser for busy people
 License:        ASL 2.0
-URL:            https://getstation.com
-Source0:        station-linux-unpacked.tar.gz
-Source1:        station-desktop-app.desktop
-Source2:        station-desktop-app.png
+URL:            https://github.com/lukasborges/platform
+Source0:        platform-linux-unpacked.tar.gz
+Source1:        platform-desktop-app.desktop
+Source2:        platform-desktop-app.png
 BuildArch:      x86_64
 AutoReqProv:    no
 Requires:       gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2-core, libuuid
@@ -57,7 +57,7 @@ Requires:       gtk3, libnotify, nss, libXScrnSaver, libXtst, xdg-utils, at-spi2
 %global _build_id_links none
 
 %description
-Station is a desktop app that turns the chaos of work apps into productive flow.
+Platform is a desktop app that turns the chaos of work apps into productive flow.
 
 %prep
 %setup -q -n linux-unpacked
@@ -66,21 +66,23 @@ Station is a desktop app that turns the chaos of work apps into productive flow.
 # nothing to compile — prebuilt by electron-builder
 
 %install
-mkdir -p %{buildroot}/opt/Station
-cp -a . %{buildroot}/opt/Station/
+mkdir -p %{buildroot}/opt/Platform
+cp -a . %{buildroot}/opt/Platform/
 mkdir -p %{buildroot}%{_bindir}
-ln -s ../../opt/Station/station-desktop-app %{buildroot}%{_bindir}/station-desktop-app
+ln -s ../../opt/Platform/platform-desktop-app %{buildroot}%{_bindir}/platform
+ln -s ../../opt/Platform/platform-desktop-app %{buildroot}%{_bindir}/station
 mkdir -p %{buildroot}%{_datadir}/applications
-install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/station-desktop-app.desktop
+install -m 644 %{SOURCE1} %{buildroot}%{_datadir}/applications/platform-desktop-app.desktop
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/512x512/apps
-install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/station-desktop-app.png
+install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/512x512/apps/platform-desktop-app.png
 
 %files
-/opt/Station
-%attr(4755, root, root) /opt/Station/chrome-sandbox
-%{_bindir}/station-desktop-app
-%{_datadir}/applications/station-desktop-app.desktop
-%{_datadir}/icons/hicolor/512x512/apps/station-desktop-app.png
+/opt/Platform
+%attr(4755, root, root) /opt/Platform/chrome-sandbox
+%{_bindir}/platform
+%{_bindir}/station
+%{_datadir}/applications/platform-desktop-app.desktop
+%{_datadir}/icons/hicolor/512x512/apps/platform-desktop-app.png
 
 %post
 update-desktop-database -q || :
@@ -98,7 +100,7 @@ rpmbuild -bb \
   --define "_specdir $work/SPECS" \
   --define "_builddir $work/BUILD" \
   --define "_buildrootdir $work/BUILDROOT" \
-  "$work/SPECS/station-desktop-app.spec"
+  "$work/SPECS/platform-desktop-app.spec"
 
 built="$(find "$work/RPMS" -name '*.rpm' | head -1)"
 [[ -n "$built" ]] || { echo "error: no rpm produced" >&2; exit 1; }

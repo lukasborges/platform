@@ -1,5 +1,6 @@
 import { ThemeTypes } from '@getstation/theme';
 import { AppRequestStepsInputProps } from '@src/components/AppStoreContent/AppStoreRequest/AppRequestStepsInput/AppRequestStepsInput';
+import { colors } from '@src/theme';
 
 const styles = (theme: ThemeTypes) => ({
   inputWrapper: {
@@ -9,7 +10,7 @@ const styles = (theme: ThemeTypes) => ({
     display: 'block',
     appearance: 'none',
     border: (({ error }: AppRequestStepsInputProps) =>
-      error ? `2px solid ${theme.colors.error}` : '1px solid rgba(41, 41, 41, 0.1)') as any,
+      error ? `2px solid ${theme.colors.error}` : `1px solid ${colors.dividerColor}`) as any,
     padding: [0, 15] as any,
     boxSizing: 'border-box',
     borderRadius: 30,
@@ -20,8 +21,8 @@ const styles = (theme: ThemeTypes) => ({
     ...theme.fontMixin(11, 500),
     transition: 'all 250ms ease-out',
     color: (({ error }: AppRequestStepsInputProps) =>
-      error ? theme.colors.error : '#292929') as any,
-    backgroundColor: '#FFFFFF',
+      error ? theme.colors.error : colors.blueGray100) as any,
+    backgroundColor: colors.blueGray40,
     '&:disabled': {
       opacity: 0.4,
     },
@@ -29,7 +30,7 @@ const styles = (theme: ThemeTypes) => ({
       outline: 'none',
     },
     '&::-webkit-input-placeholder': {
-      color: 'rgba(1, 1, 1, 0.3)',
+      color: colors.darkGray,
     },
   },
   error: {

@@ -10,6 +10,7 @@ import { flowRight as compose } from 'lodash';
 import withSearchString, { WithSearchStringProps } from '@src/HOC/withSearchString';
 import withCustomAppRequestMode, { WithCustomAppRequestModeStatus } from '@src/HOC/withCustomAppRequestMode';
 import withBurgerMenuStatus, { WithBurgerMenuStatus } from '@src/HOC/withBurgerMenuStatus';
+import { screenHash } from '@src/shared/constants/constants';
 
 const useStyles = createUseStyles({
   link: {
@@ -37,7 +38,8 @@ const AppStoreAsideNavRouterButton = (props: AppStoreAsideNavRouterButton) => {
     setIsActive(
       !appRequestIsOpen &&
       !isEnterPressed &&
-      location.hash === props.hash &&
+      (location.hash === props.hash ||
+        (location.hash === '' && props.hash === screenHash.MOST_POPULAR)) &&
       location.pathname === props.link
     );
   }, [location, appRequestIsOpen, isEnterPressed, props.hash]);

@@ -106,7 +106,7 @@ function* sagaCreateNewTab({ applicationId, url, home, detach: shouldDetach, nav
   } else {
     // `navigateToTab`: will make the application navigate to the tab "in background"
     // `navigateToApplicationTab`: will make the application navigate to the tab
-    // and Station navigate to the application
+    // and Platform navigates to the application
     // todo: add option in `CreateNewTabAction` to influence this behavior
     yield put(setActiveTab(applicationId, tabId));
   }

@@ -222,13 +222,13 @@ const computeScore = ScoreEngine(finalAlgorithm, { idSelector: 'id' });
 const items: Item[] = [
   { id: '0', label: '' },
   { id: '1', label: 'just a simple sentence' },
-  { id: 'a', label: 'Station: one app to rule them all' },
-  { id: 'b', label: 'every guys working at Station drink Zevia !' },
-  { id: 'c', label: 'Station ! Station ! Station ! Station ! Station !' },
+  { id: 'a', label: 'Platform: one app to rule them all' },
+  { id: 'b', label: 'everyone working at Platform drinks Zevia!' },
+  { id: 'c', label: 'Platform! Platform! Platform! Platform! Platform!' },
   { id: 'd', label: 'Zevia Zevia Zevia !' },
 ];
 
-const scoredItems: Scored<Item>[] = computeScore(items, { query: 'Station' });
+const scoredItems: Scored<Item>[] = computeScore(items, { query: 'Platform' });
 
 console.log(scoredItems);
 
@@ -246,7 +246,7 @@ console.log(scoredItems);
   },
   {
     id: 'a',
-    label: 'Station: one app to rule them all',
+    label: 'Platform: one app to rule them all',
     _scores: [
       1.9879518072289157,
       14.285714285714285,
@@ -255,7 +255,7 @@ console.log(scoredItems);
   },
   { 
     id: 'b',
-    label: 'every guys working at Station drink Zevia !',
+    label: 'everyone working at Platform drinks Zevia!',
     _scores: [
       2.5903614457831328,
       14.285714285714285,
@@ -264,7 +264,7 @@ console.log(scoredItems);
   },
   {
     id: 'c',
-    label: 'Station ! Station ! Station ! Station ! Station !',
+    label: 'Platform! Platform! Platform! Platform! Platform!',
     _scores: [
       2.951807228915663,
       71.42857142857143,

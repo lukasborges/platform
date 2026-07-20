@@ -57,7 +57,7 @@ const CACHE_FOLDER = '.cache';
 const CANARY_FILE_CACHE = `${CACHE_FOLDER}/canary.json`;
 
 const NOTIFICATION_CHANNEL = '#dev';
-const BX_REPO = 'lukasborges/desktop-app';
+const BX_REPO = 'lukasborges/platform';
 const CANARY_REPO = 'getstation/station-canary';
 const CANARY_RELEASE_URL = 'https://github.com/getstation/station-canary/releases';
 const CANARY_LABEL = 'Ready for Canary';
@@ -191,7 +191,7 @@ const getPrsInformations = (prs, formater) => {
 };
 
 const getCanaryNotificationMessageOnCreate = (prsInformations, draftUrl, releaseNumber) => {
-  return `:egg: *Station Canary v${releaseNumber}* _(new draft created)_
+  return `:egg: *Platform Canary v${releaseNumber}* _(new draft created)_
 
 ${prsInformations}
 
@@ -199,7 +199,7 @@ _draft:_ ${draftUrl}`;
 };
 
 const getCanaryNotificationMessageOnUpdate = (prsInformations, draftUrl, releaseNumber) => {
-  return `:construction: *Station Canary v${releaseNumber}* _(updated draft)_
+  return `:construction: *Platform Canary v${releaseNumber}* _(updated draft)_
 
 ${prsInformations}
 

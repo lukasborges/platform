@@ -12,7 +12,7 @@ const styles = {
   },
   '@media (min-width: 600px)': {
     container: {
-      padding: [40, 45, 20, 45],
+      padding: [36, 40, 20, 40],
     },
     resultsContent: {
       padding: [40, 0, 45],

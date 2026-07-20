@@ -35,7 +35,7 @@ class AppDeleteModalBody extends React.PureComponent<Props> {
             <div className={classes!.appNameText}>{app.name}</div>
           </div>
           <div className={classes!.modalText}>
-            <div>It will also be deleted from your Station.</div>
+            <div>It will also be deleted from your Platform.</div>
           </div>
         </div>
         <AppRequestStepsButtons

@@ -44,7 +44,7 @@ storiesOf('Screens|Onboarding', module)
         assignedApplications: [],
       }}
       myOrganization={{
-        name: 'Station',
+        name: 'Platform',
         pictureUrl: 'https://s3.eu-west-2.amazonaws.com/getstation.com/public/assets/logo-station.png',
       } as any}
     />

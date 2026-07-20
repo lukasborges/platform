@@ -1,4 +1,5 @@
 import { animStylesData } from '@src/shared/constants/constants';
+import { colors } from '@src/theme';
 
 const styles = {
   stepContainer: {
@@ -26,7 +27,7 @@ const styles = {
   },
   text: {
     fontSize: 17,
-    color: '#4a4a4a',
+    color: colors.darkGray,
     textAlign: 'center',
   },
 };
