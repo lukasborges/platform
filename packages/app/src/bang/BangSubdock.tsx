@@ -7,12 +7,14 @@ import { bindActionCreators } from 'redux';
 import { updateUI } from 'redux-ui/transpiled/action-reducer';
 // @ts-ignore: no declaration file
 import * as SimpleIcons from 'simple-icons';
+
 import { withGetActivity } from '../activity/queries@local.gql.generated';
 import { getFocus } from '../app/selectors';
 import { SHORTCUTS } from '../keyboard-shortcuts';
 import { hasGDriveTokens } from '../plugins/selectors';
 import { Omit, StationState } from '../types';
 import { getUIQSHighlightedItemId } from '../ui/selectors';
+
 import BangInput from './components/BangInput';
 import BangPresenter from './components/BangPresenter';
 import {
@@ -285,7 +287,7 @@ const BangSubdock = compose(
         dispatch,
       ),
       onShowSettings: () => {
-        dispatch(updateUI('settings', 'activeTabTitle', 'Quick-Switch'));
+        dispatch(updateUI('settings', 'activeTabTitle', 'General'));
         dispatch(updateUI('settings', 'isVisible', true));
         dispatch(setVisibility('center-modal', false, 'topbar_menu_or_keyboard_shortcut'));
       },

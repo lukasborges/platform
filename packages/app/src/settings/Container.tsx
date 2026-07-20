@@ -2,13 +2,13 @@ import { roundedBackground } from '@getstation/theme';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
+
 import Tab from '../common/containers/Tab';
 import Tabs from '../common/containers/Tabs';
 import Overlay from '../components/Overlay';
 
-import SettingsPanelGeneral from './components/SettingsPanelGeneral';
-import SettingsQuickSwitch from './components/SettingsQuickSwitch';
 import SettingsMyApps from './applications/SettingsMyApps';
+import SettingsPanelGeneral from './components/SettingsPanelGeneral';
 
 interface Classes {
   content: string,
@@ -88,7 +88,8 @@ export default class SettingsOverlay extends React.PureComponent<Props, {}> {
   }
 
   render() {
-    const { classes, activeTabTitle } = this.props;
+    const { classes } = this.props;
+    const activeTabTitle = this.props.activeTabTitle === 'My Apps' ? 'My Apps' : 'General';
 
     return (
       <Overlay
@@ -106,11 +107,6 @@ export default class SettingsOverlay extends React.PureComponent<Props, {}> {
           <Tab title="General">
             {() => (
               <SettingsPanelGeneral />
-            )}
-          </Tab>
-          <Tab title="Quick-Switch">
-            {() => (
-              <SettingsQuickSwitch closeSettings={this.closeSettings} />
             )}
           </Tab>
           <Tab title="My Apps">

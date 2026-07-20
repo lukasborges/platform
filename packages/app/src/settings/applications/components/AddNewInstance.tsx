@@ -30,11 +30,10 @@ type Props = DefaultProps & {
     border: '1px solid rgba(255, 255, 255, .08)',
     borderRadius: 8,
     color: 'rgba(255, 255, 255, .88)',
-    cursor: 'default',
+    cursor: 'pointer',
     display: 'inline-flex',
     fontSize: 13,
     fontWeight: 600,
-    gap: 8,
     height: 34,
     outline: 0,
     padding: [0, 13],
@@ -53,6 +52,7 @@ type Props = DefaultProps & {
   icon: {
     fill: 'currentColor',
     height: 16,
+    marginRight: 8,
     width: 16,
   },
 }))
