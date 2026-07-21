@@ -47,10 +47,15 @@ mac:
   singleArchFiles: '*'
   
 win:
+  icon: 'build/icon.ico'
   target:
     - nsis
   artifactName: ${productName}-Setup.${ext}
   verifyUpdateCodeSignature: false
+
+nsis:
+  installerIcon: 'build/installerIcon.ico'
+  uninstallerIcon: 'build/icon.ico'
 
 linux:
   target:
