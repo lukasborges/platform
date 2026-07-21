@@ -92,6 +92,7 @@ class BxNotification {
       });
     });
 
+    this._handleNotificationClickIPC = this._handleNotificationClickIPC.bind(this);
     this._registerIPC();
 
     const newNotification = {
@@ -100,6 +101,7 @@ class BxNotification {
       title: this.title,
       body: this.body,
       icon: this.icon,
+      silent: this.silent,
     };
 
     console.log('>>>>>> New notification 1', (new Date()).toLocaleTimeString(), JSON.stringify(newNotification));
@@ -116,8 +118,8 @@ class BxNotification {
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
             const reader = new FileReader();
-            reader.onload = function(event) {
-              window.bxApi.notificationCenter.sendNotification(this.id, {
+            reader.onload = (event) => {
+              window.bxApi.notificationCenter.sendNotification(newNotification.id, {
                 ...newNotification,
                 icon: event.target.result,
               });          
@@ -227,11 +229,39 @@ class BxNotification {
 const overrideNotifications = () => {
   BxNotification.permission = GRANTED;
 
-  // window.Notification = BxNotification;
-  recursiveOverride(document, window, (windowObject) => { windowObject.Notification = BxNotification });
+  recursiveOverride(document, window, (windowObject) => {
+    windowObject.Notification = BxNotification;
+
+    const permissions = windowObject.navigator && windowObject.navigator.permissions;
+    if (permissions && typeof permissions.query === 'function' && !permissions.query.__bxNotificationOverride) {
+      const originalQuery = permissions.query.bind(permissions);
+      const query = (descriptor) => {
+        const name = descriptor && String(descriptor.name || '').toLowerCase();
+        if (name === 'notifications') {
+          const PermissionStatus = windowObject.EventTarget || EventTarget;
+          const status = new PermissionStatus();
+          Object.defineProperty(status, 'name', { get: () => 'notifications' });
+          Object.defineProperty(status, 'state', { get: () => GRANTED });
+          status.onchange = null;
+          return Promise.resolve(status);
+        }
+        return originalQuery(descriptor);
+      };
+      Object.defineProperty(query, '__bxNotificationOverride', { value: true });
+      permissions.query = query;
+    }
+
+    const ServiceWorkerRegistration = windowObject.ServiceWorkerRegistration;
+    if (ServiceWorkerRegistration && ServiceWorkerRegistration.prototype) {
+      ServiceWorkerRegistration.prototype.showNotification = (title, options) => {
+        new BxNotification(title, options);
+        return Promise.resolve();
+      };
+      ServiceWorkerRegistration.prototype.getNotifications = () => Promise.resolve([]);
+    }
+  });
   
   console.log('>>>>>> Notification override. Done');
 }
 
 overrideNotifications();
-

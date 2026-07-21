@@ -5,6 +5,7 @@ export interface NotificationProps {
   timestamp?: number,
   body: string,
   icon: string,
+  silent?: boolean,
 }
 
 export interface StationNotification {

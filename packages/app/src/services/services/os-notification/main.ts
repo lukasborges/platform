@@ -1,8 +1,9 @@
 import { Notification, webContents } from 'electron';
-// import log from 'electron-log';
+import log from 'electron-log';
 
 import { ServiceSubscription } from '../../lib/class';
 import { RPC } from '../../lib/types';
+
 import { IOSNotificationServiceShowParam, OSNotification, OSNotificationObserver, OSNotificationService } from './interface';
 import { getDoNotDisturb, asNativeImage } from './utils';
 
@@ -17,10 +18,16 @@ export class OSNotificationServiceImpl extends OSNotificationService implements 
       actions: [],
       body: '',
       silent: param.silent,
+      urgency: 'normal',
     };
 
     if (param.imageURL) {
-      notificationOptions.icon = await asNativeImage(param.imageURL);
+      try {
+        const icon = await asNativeImage(param.imageURL);
+        if (!icon.isEmpty()) notificationOptions.icon = icon;
+      } catch (error) {
+        log.warn('Unable to load notification icon; showing notification without it');
+      }
     }
     if (param.body) {
       notificationOptions.body = param.body;

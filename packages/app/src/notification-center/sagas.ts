@@ -1,14 +1,16 @@
 import log from 'electron-log';
 import { eventChannel, SagaIterator } from 'redux-saga';
 import { all, call, delay, put, select } from 'redux-saga/effects';
+
+import { MAIN_APP_READY } from '../app/duck';
 import {
+  ASK_ENABLE_NOTIFICATIONS,
   askEnableNotifications,
   disableNotifications,
   enableNotifications,
   navigateToApplicationTabAutomatically,
+  TOGGLE_NOTIFICATIONS,
 } from '../applications/duck';
-import { MAIN_APP_READY } from '../app/duck';
-import { ASK_ENABLE_NOTIFICATIONS, TOGGLE_NOTIFICATIONS } from '../applications/duck';
 import { getNotificationsEnabled } from '../applications/selectors';
 import { addNotification, clearNotifications, removeNotification, RequestForApplicationNotificationsStep } from '../notifications/duck';
 import {
@@ -23,6 +25,8 @@ import { getNotificationById } from '../notifications/selectors';
 import { getProvider } from '../plugins';
 import DeprecatedSDKProvider from '../plugins/SDKProvider';
 import { observer } from '../services/lib/helpers';
+import { RPC } from '../services/lib/types';
+import { OSNotification } from '../services/services/os-notification/interface';
 import { NewNotificationProps } from '../services/services/tab-webcontents/interface';
 import { ATTACH_WEBCONTENTS_TO_TAB } from '../tab-webcontents/duck';
 import { getWebcontentsIdForTabId } from '../tab-webcontents/selectors';
@@ -35,6 +39,7 @@ import {
   takeEveryWitness,
   takeLatestWitness,
 } from '../utils/sagas';
+
 import { showOSNotification } from './api';
 import { INFINITE, SYNC_WITH_OS } from './constants';
 import {
@@ -68,8 +73,6 @@ import {
 } from './duck';
 import ElectronNotificationStatePoller from './lib/ElectronNotificationStatePoller';
 import { getSnoozeDuration, isVisible } from './selectors';
-import { RPC } from '../services/lib/types';
-import { OSNotification } from '../services/services/os-notification/interface';
 
 const ms = require('ms');
 
@@ -114,11 +117,16 @@ function* sagaNewNotification(action: NewNotificationAction): SagaIterator {
   const { notifications }: DeprecatedSDKProvider = yield call(getProvider);
   const [e, tamperedAction] = yield call([notifications, notifications.callNew], action);
   if (e.isDefaultPrevented()) return;
-  const { applicationId, tabId, notificationId, options, props: { title, timestamp, body, icon } } = tamperedAction;
+  const {
+    applicationId, tabId, notificationId, options,
+    props: { title, timestamp, body, icon, silent },
+  } = tamperedAction;
   yield put(addNotification(
     notificationId,
     { applicationId, tabId, title, timestamp, body, icon,
-      full: options.full, silent: options.silent, webContentsId: options.webContentsId }
+      full: options.full,
+      silent: options.silent === undefined ? silent : options.silent,
+      webContentsId: options.webContentsId }
   ));
   yield put(appendNotification(notificationId));
   yield put(showNotification(notificationId));
