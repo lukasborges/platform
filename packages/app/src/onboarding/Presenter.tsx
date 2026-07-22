@@ -4,11 +4,12 @@ import * as classNames from 'classnames';
 import * as React from 'react';
 // @ts-ignore: no declaration file
 import injectSheet from 'react-jss';
+
 import { MinimalApplication } from '../applications/graphql/withApplications';
 import TrafficLights from '../dock/components/TrafficLights';
+
 import { OnboardingDockIcon } from './components/OnboardingDockIcon';
 import OnboardingStepAppStore from './components/OnboardingStepAppStore';
-
 import {
   InstallApplicationMutationVariables,
   Platform,
@@ -88,7 +89,7 @@ const styles = (theme: ThemeTypes) => ({
   },
   brand: {
     display: 'block',
-    width: 144,
+    width: 180,
     height: 50,
   },
   trafficLights: {
