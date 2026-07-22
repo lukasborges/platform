@@ -1,113 +1,118 @@
-# Platform Desktop Application
+# Platform
 
-> **Fork of [getstation/desktop-app](https://github.com/getstation/desktop-app)**. I like the app and want to keep using it, but upstream hasn't shipped updates, fixes or improvements in a long time.
+Platform is a community-maintained continuation of [Station Desktop](https://github.com/getstation/desktop-app), the workspace that brings web apps and multiple accounts together in one desktop app.
+
+The goal is simple: preserve the workflow people enjoyed in Station while keeping it useful with today's services and operating systems.
+
+![Platform App Store](docs/screenshots/1.png)
 
 ## What this fork changes
 
-- **Google services log in via the normal Google login page**, instead of the OAuth consent flow that some Workspaces block. One login covers Gmail, Drive, Calendar and the other Google apps.
-- **Spell-check suggestions show up in the right-click menu** (broken in upstream).
-- **Spell-check language picker** in the right-click menu, with the choice remembered across restarts.
+- Keeps Station's workflow working on current systems, with reliable sign-in, notifications, external links and spell-check.
+- Refreshes the experience with a curated App Store, clearer app and account controls, and support for custom app icons.
+- Gives the project its own Platform identity and provides ready-to-use builds for Linux and Windows.
 
 ## Table of Contents
+
 - [Installation](#installation)
-  - [Requirements](#requirements)
-  - [MacOS](#macos)
-  - [Windows](#windows)
-  - [Ubuntu](#ubuntu)
-  - [CentOS / Amazon Linux 2](#centos-or-amazon-linux-2)
-- [Run](#run)
+  - [Ready-to-use builds](#ready-to-use-builds)
+  - [Build from source](#build-from-source)
+- [Development](#development)
 - [DevTools](#devtools)
-  - [Toggle Chrome DevTools](#toggle-chrome-devtools)
-  - [Library DevTools](#library-devtools)
-    - [Redux DevTools](#redux-devtools)
-  - [Main proces debugging](#main-proces-debugging)
-  - [Debugging in VSCode](#debugging-in-vscode)
 - [Useful env variables for dev](#useful-env-variables-for-dev)
 - [Migrations](#migrations)
-  - [Inspect DB](#inspect-db)
 - [Manual Packaging](#manual-packaging)
-  - [Arch Linux package](#arch-linux-package)
-  - [Linux rpm (Fedora 41+)](#linux-rpm-fedora-41)
-  - [Code signing](#code-signing)
 - [Development tools](#development-tools)
 - [Releases](#releases)
-- [Select documentation topics](#docs)
+- [Docs](#docs)
 
 ## Installation
 
-### Requirements
-* node >= `18.x`
-* yarn >= `1.19.x`
+### Ready-to-use builds
+
+Download the newest version from [GitHub Releases](https://github.com/lukasborges/platform/releases). Releases are currently marked as pre-release while the fork matures.
+
+#### Windows
+
+Download and run `Platform-Setup.exe`.
+
+#### Linux
+
+Choose the package that matches your system:
+
+- `Platform-x86_64.AppImage` works across most distributions.
+- `Platform-amd64.deb` is for Debian, Ubuntu and derivatives.
+- `Platform-x86_64.rpm` is for Fedora, RHEL and compatible distributions.
+
+For the AppImage, make the file executable before opening it:
 
 ```bash
-$ git clone https://github.com/lukasborges/platform.git
-$ cd platform
-$ yarn
+chmod +x Platform-x86_64.AppImage
+./Platform-x86_64.AppImage
 ```
 
-### MacOS
+Arch Linux users can create a native package with the [Arch packaging command](#arch-linux-package).
 
-No additional requirements.
+#### macOS
 
-### Windows
+The automated releases do not currently include a macOS build. It can still be built locally from source.
 
-Install `node-gyp` dependencies
+### Build from source
+
+You will need Git, Node.js 18 or newer (Node.js 20 is recommended), Corepack, and the usual native build tools for your operating system.
+
+On Debian and Ubuntu, install the build dependencies first:
 
 ```bash
-$ npm --add-python-to-path install --global --production windows-build-tools
+sudo apt install build-essential python3 graphicsmagick libxtst-dev libx11-dev
 ```
 
-### Ubuntu
+Then clone and install the project:
 
 ```bash
-$ sudo apt install graphicsmagick icnsutils libxtst-dev libx11-dev libxrender-dev libxkbfile-dev libgconf-2-4
+git clone https://github.com/lukasborges/platform.git
+cd platform
+corepack enable
+yarn install --immutable
 ```
 
-### CentOS or Amazon Linux 2
+## Development
 
-CentOS 9 is required.
+Start Platform in development mode:
 
 ```bash
-$ sudo yum install clang dbus-devel gtk3-devel libnotify-devel xorg-x11-server-utils libcap-devel \
-                   cups-devel libXtst-devel alsa-lib-devel libXrandr-devel nss-devel
+yarn dev
 ```
 
-> See [dotenv](#dotenv) for further configuration.
+Build every workspace without creating an installer:
 
-## Run
 ```bash
-yarn run dev
+yarn build
 ```
-
-### Natives modules errors
-
-If for any reason you have some error with binding module you could run `npm run rebuild-all-native` to check if you still have the problem
 
 ## DevTools
 
 ### Toggle Chrome DevTools
 
-- MacOS: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
+- macOS: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 - Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 - Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 
 *See [electron-debug](https://github.com/sindresorhus/electron-debug) for more information.*
 
 ### Library DevTools
+
 - [React DevTools](https://github.com/facebook/react-devtools) is available in Chrome DevTools
 - [Apollo Client DevTools](https://github.com/apollographql/apollo-client-devtools) is available in Chrome DevTools
-- [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) see below
 
-#### Redux Devtools
-In order to see redux transactions and state,
-install [Redux DevTools](https://github.com/gaearon/redux-devtools)
-(or the [browser extension](https://github.com/zalmoxisus/redux-devtools-extension))
-and click on `Open Remote DevTools`. Make sure `Use (custom) local server` on `localhost:8000` is activated in the settings.
+For Redux actions and state, start the app with `STATION_REDUX_LOGGER=1` and use the renderer console.
 
-### Main proces debugging
+### Main process debugging
+
 To inspect the main process, connect Chrome by visiting `chrome://inspect` and selecting to inspect the launched Electron app.
 
 ## Useful env variables for dev
+
 - `STATION_NO_WEBVIEWS` if exists, webviews are not loaded
 - `STATION_REDUX_LOGGER` if exists, will enable redux-logger in renderer
 - `STATION_AUTOUPDATER_MOCK_SCENARIO` set the scenario for the mock of `AutoUpdater` module:
@@ -115,37 +120,20 @@ To inspect the main process, connect Chrome by visiting `chrome://inspect` and s
   - `not-available` mock an update is not available
 - `OVERRIDE_USER_DATA_PATH` overrides the `userData` path (example: `OVERRIDE_USER_DATA_PATH="Platform Canary" yarn run dev`)
 - `STATION_CHECK_INACTIVE_TAB_EVERY_MS` override the interval period between each check for inactive tabs
-- `STATION_WAIT_MS_BEFORE_KILL_TAB` override the time to wait before considering a tab is inactive and killing it
 - `STATION_QUICK_TRANSITIONS` all transitions are quick (used to test changing colors)
 - `STATION_REACT_PERF` add the react-addons-perf for react perf debugging
-- `STATION_NO_CHECK_FOR_UPDATE` if exists, the app will not check for update
-- `DEBUG=service:*` Will print debug info of Service framework on all processes
-- `STATION_SHOW_REQUIRE_TIME` if exists, the app will display the execution time of requiring modules upon quit
-  - ~~Main: timers shown upon quit~~ (disabled for now)
-  - ~~Renderer: to show timers, execute this in a console: `require('@getstation/time-require').default()`~~  (disabled for now)
+- `STATION_NO_CHECK_FOR_UPDATE` disables periodic update checks; manual checks still work
+- `DEBUG=service:*` prints service framework diagnostics in every process
 
 ## Migrations
 
-Databases migrations are using [umzug](https://github.com/sequelize/umzug) and [umzug-cli](https://github.com/marcbachmann/umzug-cli).
-
-To test migrations manually:
-```bash
-// Apply migrations
-$ yarn run database migrations up
-// Revert last applied migration
-$ yarn run database migrations down
-```
+Database migrations use [Umzug](https://github.com/sequelize/umzug) and run automatically when Platform opens a profile. See the [persistence guide](docs/persistence.md) before changing a model, proxy or migration.
 
 ### Inspect DB
-Install [TablePlus](https://tableplus.io/) and create a new SQLite connection with the database file located in the active Platform development profile.
+
+Open `db/station.db` inside the active Electron user-data directory with any SQLite client. Development and packaged builds intentionally keep the legacy profile directory names so existing Station data remains available.
 
 ## Manual Packaging
-
-To package apps for the local platform:
-
-```bash
-$ yarn run build
-```
 
 ### Arch Linux package
 
@@ -163,7 +151,7 @@ From the repository root, install the JavaScript dependencies and run the Arch
 release command:
 
 ```bash
-yarn install
+yarn install --immutable
 yarn release:arch
 ```
 
@@ -174,7 +162,7 @@ repository's `release/` directory.
 `makepkg` reads `release/linux-unpacked/` and writes an artifact similar to:
 
 ```text
-release/platform-desktop-app-3.3.0.b1-1-x86_64.pkg.tar.zst
+release/platform-desktop-app-3.3.0.b1-2-x86_64.pkg.tar.zst
 ```
 
 Inspect and install the generated package, replacing `<version>` with the
@@ -195,44 +183,31 @@ current `PKGBUILD` intentionally does not depend on the removed Arch
 `electron-builder`'s bundled `fpm` is too old for `rpm >= 4.20`. Build the rpm with the helper script after `electron-builder` has produced `release/linux-unpacked/`:
 
 ```bash
-$ ./scripts/build-rpm.sh
+./scripts/build-rpm.sh
 ```
-
-#### Code signing
-The application will be automatically signed by the CI on the `release` branch
 
 ## Development tools
 
 Here is a list of tools used during the development process. Consider adding the corresponding plugins to your IDE.
 
-- [Editorconfig](http://editorconfig.org/#download)
-- [ESLint](http://eslint.org/docs/user-guide/integrations#editors)
+- [EditorConfig](https://editorconfig.org/)
+- [ESLint](https://eslint.org/docs/latest/use/integrations)
 - [TSLint](https://github.com/palantir/tslint)
 
 WebStorm and VSCode should be correctly configured by default.
 
-## Workspace management (TODO)
-This repository should be used as a proper monorepo. Packages that should be impacted:
-- appstore (already in this repo but not handled by any monorepo tool yet)
-- @getstation/sdk
-- @getstation/theme
-
 ## Releases
 
-1. [Draft a new release](https://github.com/lukasborges/platform/releases/new) tagged with the desired version
-2. Apply your changes on [`release`](https://github.com/lukasborges/platform/tree/release) branch
-3. On `release` branch, bump the version with `yarn version` to the corresponding version number
-4. Let the CI build artifacts for each platform
-5. Publish the draft
+Every push to `main` starts the release workflow. It creates the next `v3.3.0-fork.N` pre-release and publishes the Linux and Windows installers listed above.
 
-Note: you can remove artifacts and push changes over the same draft
+Add `[skip release]` to a commit message when the change should not publish a new build. macOS artifacts are not part of the automated workflow yet.
 
 ## Docs
 
 - [Services](packages/app/src/services/README.md)
 - [Score Engine](packages/app/src/lib/score-engine/README.md)
-- [Bang Lifecyle](packages/app/src/bang/README.md)
+- [Bang lifecycle](packages/app/src/bang/README.md)
 - [Persistence](docs/persistence.md)
 - [Webpack](docs/webpack.md)
-- [Test Auto-Update](packages/app/test/auto-update/how_to_test.md)
+- [Auto-update testing](packages/app/test/auto-update/how_to_test.md)
 - [Local GraphQL](packages/app/src/graphql/README.md)

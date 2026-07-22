@@ -1,68 +1,85 @@
-## How to add state persistence
-Currently the only backend we have is defined in _app/persistence/local.backend.ts_
+# Persistence
 
-### Example with `App`
+Platform persists Redux state in a local SQLite database. The persistence layer converts between Immutable.js state and Sequelize models; Umzug keeps the database schema compatible between releases.
+
+## Main pieces
+
+- [`packages/app/src/database/model.ts`](../packages/app/src/database/model.ts) defines the Sequelize models.
+- [`packages/app/src/persistence/local.backend.ts`](../packages/app/src/persistence/local.backend.ts) maps Redux state to those models and registers each persisted state branch.
+- [`packages/app/src/persistence/mixins.ts`](../packages/app/src/persistence/mixins.ts) contains reusable model adapters.
+- [`packages/app/src/persistence/backend.ts`](../packages/app/src/persistence/backend.ts) coordinates reading, writing and caching state.
+- [`packages/app/src/persistence/umzug-runs/`](../packages/app/src/persistence/umzug-runs/) contains schema migrations.
+
+The only active backend is local SQLite. It is initialized by [`persistence/index.ts`](../packages/app/src/persistence/index.ts), and pending migrations run automatically before the initial state is loaded.
+
+## Adding or changing persisted state
+
+Use this checklist:
+
+1. Add or update the Sequelize model in `database/model.ts`.
+2. Add the matching state-to-object and object-to-state mapping in `persistence/local.backend.ts`.
+3. Register a new top-level state branch in `getBackend()` when necessary.
+4. Add an Umzug migration for every database schema change.
+5. Add or update a focused test under `packages/app/test/jest/persistence/`.
+
+Do not rely only on changing the model definition. Existing profiles need a migration to reach the new schema.
+
+## Choosing a proxy
+
+- `SingletonProxyMixin` stores one row for a state branch, such as the application settings.
+- `MapProxyMixin` stores keyed records, such as applications or tabs.
+- `ListProxyMixin` stores an ordered or unordered collection.
+- `KeyValueProxyMixin` stores plugin-style key/value data.
+
+The corresponding state proxies (`SingletonStateProxy`, `MapStateProxy`, `ListStateProxy` and `KeyValueStateProxy`) are registered in `getBackend()`.
+
+For example, the `AppProxy` maps the `app` Redux branch to the `App` Sequelize model:
 
 ```typescript
 export class AppProxy extends SingletonProxyMixin({
-  // App is the Sequelize model
   model: App,
-  // Maps 'app' state to an object that can be fed to sequelize for insert or update
   mapStateToObject: async state => ({
     version: state.get('version'),
-    autoLaunchEnabled: state.get('autoLaunchEnabled'),
-    downloadFolder: state.get('downloadFolder'),
+    hideMainMenu: state.get('hideMainMenu'),
   }),
-  // Maps sequelize object to 'app' redux state
-  // As our state is fully Immutable, we must be sure that this always return Immutable objects
-  mapObjectToState: async obj => Immutable.Map({
-    version: obj.version,
-    autoLaunchEnabled: obj.autoLaunchEnabled,
-    downloadFolder: obj.downloadFolder,
+  mapObjectToState: async object => Immutable.Map({
+    version: object.version,
+    hideMainMenu: object.hideMainMenu,
   }),
-}) {
-}
+}) {}
 ```
 
-- Simple maps should extend `SingletonProxyMixin`
-- Complex maps should extend `KeyedProxyMixin`
-- Set and List should extend `ListProxyMixin`
+Keep both mapping directions symmetrical and explicitly list every persisted field.
 
-Then, at the end of the file, add your mapping like this:
+## Migrations
+
+Migration files live in `packages/app/src/persistence/umzug-runs/` and are loaded in filename order. New migrations should use a timestamped name, for example:
+
+```text
+20260720000000-add-application-custom-icon-url.js
+```
+
+Each module exports `up` and `down` functions:
+
 ```javascript
 export default {
-  app: new SingletonStateProxy(AppProxy),
-  ...
-}
+  up(query, DataTypes) {
+    return query.addColumn('application', 'customIconURL', DataTypes.TEXT);
+  },
+  down(query) {
+    return query.removeColumn('application', 'customIconURL');
+  },
+};
 ```
 
-### Unit tests
-See _test/persistence/test-app.ts_ for simple example, and _test/persistence/applications-app.ts_
-for more complex ones.
+Platform refuses to open a database that contains unknown migrations. This protects profiles created by a newer, incompatible build.
 
-### Edit or create Model
-See _app/database/model.ts_
+## Database location
 
-### Migration script
-Add your migration script in _app/persistence/umzug-runs/_ folder.
-Your migration script should be the latest executed script (alphabetically sorted).
+The database is `db/station.db` inside Electron's active user-data directory. The filename and profile directories retain their Station-era names so Platform can open existing user data.
 
-### Define new types
-If we need to add a new mapping type (i.e. for `Immutable.Record`), here is what must be done:
-- Add a new type of proxy in _app/persistence/backend.ts_.
-The new class MUST implement the following methods
-  - `clear()`
-  - `toState()`
-  - `async get()`
-  - `async set(state)`
-- Add a new type of proxy in _app/persistence/local.backend.ts_.
-For simplicity, is can extend `SingletonProxy`.
-The new class MUST implement the following methods
-  - `static async mapStateToObject()`
-  - `static mapObjectToState()`
-  - `static async create()`
-  - `get()`
-  - `async update(state)`
-  - `toJSON()`
-  - `isEmpty()`
-  - `toState()`
+Set `STATION_DB_PATH` to an explicit file when a development task needs an isolated database. Tests already use temporary databases and should never point at a real profile.
+
+## Tests
+
+Persistence tests are under `packages/app/test/jest/persistence/`. The `test-app.ts` and `test-applications.ts` files are useful starting points for singleton and keyed mappings.

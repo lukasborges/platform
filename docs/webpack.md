@@ -1,51 +1,49 @@
-# electron-webpack and bx
-We are using [electron-webpack](https://webpack.electron.build/) (_EW_) to compile and bundle the application.
-This doc aims to point the specifics of our config compared to a simple one.
+# Build and Webpack layout
 
-## Concepts
-_EW_ have some concept kinda enforced. Here is what we do differently.
+Platform still uses `electron-webpack` for the Electron main and renderer bundles. A separate Webpack configuration builds the browser-targeted web UI used by the multi-instance configurator.
 
-### Targets
-- We do not have a `common` folder, it is only leveraged by _EW_ thanks to `@common` imports.
-- Our `main` target is located in [webpack.config.main.js](../webpack.config.main.js)
-- Our `renderer` target is located in [webpack.config.renderer.js](../webpack.config.renderer.js)
-- We also have a `webui` target that doesn't get along with _EW_, so it is executed separately via [webpack.config.webui.js](../webpack.config.webui.js)
-  > NB: a PR could easily fix that IMO (@magne4000)
+## Build commands
 
-#### [main](../webpack.config.main.js)
-Nothing too fancy here.
-Mainly, like for the renderer part, it uses [webpack.config.common.js](../webpack.config.common.js)
-which patches/add different things (TS, loaders, externals, etc.)
+Run these commands from the repository root:
 
-#### [renderer](../webpack.config.renderer.js)
-By default, _EW_ generates a unique `renderer` entry.
-As we have multiple ones, they are added here.
+```bash
+yarn dev
+yarn build
+```
 
-The worker is a renderer entry as the others.
+`yarn dev` generates GraphQL types and CSS, builds the web UI, then starts `electron-webpack` in development mode. `yarn build` performs the same preparation and writes production bundles without creating an installer.
 
-Migration files are also compiled here as they are executed by the worker.
+## Configuration files
 
-The `preload.js` is also generated here, and is directly written on the disk.
+- [`packages/app/webpack.config.main.js`](../packages/app/webpack.config.main.js) customizes the Electron main-process bundle.
+- [`packages/app/webpack.config.renderer.js`](../packages/app/webpack.config.renderer.js) defines the main window, subwindow, About window and worker entries.
+- [`packages/app/webpack.config.webui.js`](../packages/app/webpack.config.webui.js) builds the browser-targeted multi-instance configuration UI.
+- [`packages/app/webpack.config.common.js`](../packages/app/webpack.config.common.js) applies shared `electron-webpack` changes.
+- [`packages/app/webpack.config.base.js`](../packages/app/webpack.config.base.js) is the base for direct Webpack builds such as the web UI.
+- [`packages/app/electron-builder.yml`](../packages/app/electron-builder.yml) controls packaging after the bundles are built.
 
-#### [webui](../webpack.config.webui.js)
-Extends [webpack.config.base.js](../webpack.config.base.js)
-which is a common base when we are running outside _EW_ process.
+## Renderer entries
 
-It is currently outside of _EW_ process because:
-  - It uses a different `target` than the renderer or the main
-  - We can't return [multiple webpack configurations](https://webpack.js.org/configuration/configuration-types/#exporting-multiple-configurations) in _EW_ custom `webpackConfig`
-    - Actually we can but only in `mode==development` but not in `mode==production
+The renderer configuration emits four main entries:
 
-## Good to know
-- In dev mode, pages are loaded from `localhost`
-  - But some files are required to be on the filesystem, like the preload and the migration scripts
-  - for simplicity, webui is also written on the filesystem (no HMR)
-  - HMR is active
-    - On the main process, reloads the whole app
-    - On the worker, reloads the whole app (to optimize this we must tweak services architecture)
-    - On the other renderers, React, stylesheets, reducers, and probably a lot of other things are reloaded on the fly
-- `electron-builder` config files have some `extraResources` and `files` lines to cope with the fact that we use `__dirname` here and there
-  - One goal would be to minimize those lines to only the necessary ones
-- All files should use `export default` instead of `module.exports` syntax (mainly for migration files)
-  - This is due to the fact that `babel-runtime` adds its own exports, and we can't mix both syntax
-- Always prefer `require` instead of `fs` related modules if possible
+- `mainRenderer` for the main Platform window.
+- `subRenderer` for detached subwindows.
+- `aboutRenderer` for the About window.
+- `worker` for the background Redux and service process.
+
+Database migration files are also compiled into `dist/renderer/umzug-runs/` so Umzug can load them at runtime. The App Store build is copied into the renderer output as a local resource.
+
+## Development behavior
+
+- Electron renderer pages are served by the development server with hot-module replacement.
+- The main process and worker can restart the application when their bundles change.
+- The separate web UI is written to disk and does not use HMR.
+- Some runtime resources must remain on disk because they are loaded by path rather than imported into a bundle.
+
+When adding a new entry or resource, verify both `yarn dev` and `yarn build`; a path that works through the development server may still be missing from a packaged build.
+
+## Packaging
+
+`electron-builder.yml` adds runtime assets such as the production environment file, provider icons and illustrations. Keep `files` and `extraResources` limited to assets that cannot be bundled normally.
+
+Installer creation is documented in the root [README](../README.md#manual-packaging).

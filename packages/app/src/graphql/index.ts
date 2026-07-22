@@ -21,8 +21,8 @@ const schema = makeExecutableSchema<StationGQLContext>({ typeDefs });
 addAllResolvers(schema);
 
 /**
- * Returns a ApolloLink that will dispatch GQL operations between the local
- * reactive schema and the remote API based on directive `@local`
+ * Returns an ApolloLink that executes operations against Platform's local
+ * reactive schema in the worker process.
  */
 export const getLink = (contextFn: () => StationGQLContext) => {
   return concat(
