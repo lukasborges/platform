@@ -17,6 +17,11 @@ export interface ElectronWebviewProps extends Omit<Electron.WebviewTag, 'src'> {
   // `initialSrc` is just taken into account once, when the Component is mounting.
   initialSrc?: string;
 
+  // Audio mute state of the webview. Only taken into account on prop updates
+  // (mapped to `setAudioMuted`, see `changableProps`) — the `<webview>` tag
+  // has no `muted` attribute, so the initial state must be applied manually.
+  muted?: boolean;
+
   hidden: boolean;
   className: string;
   preload: string;
@@ -219,6 +224,7 @@ interface ElectronWebview {
   closeDevTools: () => any;
   getTitle: () => any;
   pasteAndMatchStyle: () => any;
+  setAudioMuted: (muted: boolean) => any;
 }
 
 class ElectronWebview extends React.Component<ElectronWebviewProps, {}> {

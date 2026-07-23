@@ -27,6 +27,7 @@ import { Observable, Subscription } from 'rxjs';
 import { oc } from 'ts-optchain';
 import { format as formatUrl } from 'url';
 import { injectJS } from '../plugins/helpers';
+import { getSnoozeState } from '../notification-center/selectors';
 import { getFavicon, getSizedAndOrderedFavicons } from './uiHelpers';
 import { ActionsBus, withActionsBus } from '../store/actionsBus';
 import {
@@ -127,6 +128,7 @@ export interface StateProps {
   errorCode?: number,
   errorDescription?: string,
   crashed: boolean,
+  isSnoozed: boolean,
 
   // Improve : move down the chain, only for ApplicationContainer
   email: Maybe<string>,
@@ -376,6 +378,11 @@ class ApplicationImpl extends React.PureComponent {
     const webviewInjectJS = require(`!!raw-loader!../static/preload/webview-inject.js`).default
     this.webView.view.executeJavaScript(webviewInjectJS); //`(function(){\n${bxNotifJS}\n})()`);
 
+    // The `<webview>` tag has no `muted` attribute, so the initial audio mute
+    // state (e.g. app started while notifications are snoozed) must be applied
+    // explicitly. Subsequent changes are handled by the `muted` prop.
+    this.webView.setAudioMuted(Boolean(this.props.isSnoozed));
+
     const js = await injectJS(this.props.legacyServiceId);
     if (js && this.webView && this.webView.view) {
       this.webView.view.executeJavaScript(js);
@@ -490,6 +497,7 @@ class ApplicationImpl extends React.PureComponent {
         <LazyWebview
           initialSrc={tabUrl}
           hidden={this.props.hidden}
+          muted={this.props.isSnoozed}
           className="l-webview__content"
           preload={preloadUrl}
           allowpopups={true}
@@ -547,12 +555,14 @@ const Application = compose(
       const { application, tab } = ownProps;
       const tabId = getTabId(tab);
       const tabWebcontents = getTabWebcontentsById(state, tabId);
+      const isSnoozed = getSnoozeState(state);
 
       if (tabWebcontents) {
         return {
           errorCode: tabWebcontents.get('errorCode'),
           errorDescription: tabWebcontents.get('errorDescription'),
           crashed: tabWebcontents.get('crashed'),
+          isSnoozed,
 
           // ApplicationContainer
           email: getApplicationDescription(state, application),
@@ -563,6 +573,8 @@ const Application = compose(
       }
 
       return {
+        isSnoozed,
+
         // ApplicationContainer
         email: getApplicationDescription(state, application),
         canGoBack: getForeFrontNavigationStateProperty(state, 'canGoBack'),
