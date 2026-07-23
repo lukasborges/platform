@@ -25,6 +25,7 @@ The goal is simple: preserve the workflow people enjoyed in Station while keepin
 - [Development tools](#development-tools)
 - [Releases](#releases)
 - [Docs](#docs)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -211,3 +212,7 @@ Add `[skip release]` to a commit message when the change should not publish a ne
 - [Webpack](docs/webpack.md)
 - [Auto-update testing](packages/app/test/auto-update/how_to_test.md)
 - [Local GraphQL](packages/app/src/graphql/README.md)
+
+## Contributing
+
+Bug reports and pull requests are welcome. Before opening a PR, make sure `yarn lint` and `yarn test` pass, and describe the user-facing impact of the change.
