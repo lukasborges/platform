@@ -2,6 +2,7 @@ import * as remote from '@electron/remote';
 import PropTypes from 'prop-types';
 import React from 'react';
 import injectSheet from 'react-jss';
+import { hasSystemTitleBar } from '../windows/systemTitleBar';
 
 const platformAppIcon = require('../static/logos/platform-app-icon.svg');
 
@@ -153,9 +154,9 @@ class AboutWindowPresenter extends React.PureComponent {
 
     return (
       <main className={classes.container}>
-        <button aria-label="Close" className={classes.closeButton} onClick={this.close} type="button">
+        {!hasSystemTitleBar() && <button aria-label="Close" className={classes.closeButton} onClick={this.close} type="button">
           ×
-        </button>
+        </button>}
 
         <div className={classes.content}>
           <img alt="" className={classes.appIcon} src={platformAppIcon} />

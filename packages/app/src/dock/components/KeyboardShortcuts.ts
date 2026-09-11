@@ -3,6 +3,7 @@ import { EventEmitter } from 'events';
 import * as Mousetrap from 'mousetrap';
 import * as React from 'react';
 import { SHORTCUTS } from '../../keyboard-shortcuts';
+import { isDarwin } from '../../utils/process';
 
 const originalHandleKey = Mousetrap.prototype.handleKey;
 
@@ -83,6 +84,12 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
     Mousetrap.prototype.handleKey = createHandleKey(() => this.props.keyAboveTab);
   }
 
+  componentDidUpdate(_prevProps: Props, prevState: State) {
+    if (prevState.modifiers !== this.state.modifiers) {
+      this.handleCmdOrCtrlAltKeyUp();
+    }
+  }
+
   componentWillUnmount() {
     this.unwatchCtrl();
     this.unwatchMod();
@@ -96,12 +103,12 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
   }
 
   setModifierState(subState: Partial<State['modifiers']>) {
-    this.setState({
+    this.setState(state => ({
       modifiers: {
-        ...this.state.modifiers,
+        ...state.modifiers,
         ...subState,
       },
-    });
+    }));
   }
 
   incrementCtrlTabCycleCount() {
@@ -189,6 +196,8 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
   }
 
   watchMod() {
+    if (!isDarwin) return;
+
     Mousetrap.bind(
       'mod',
       () => {
@@ -201,7 +210,6 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
       'mod',
       () => {
         this.setModifierState({ mod: false });
-        this.handleCmdOrCtrlAltKeyUp();
       },
       'keyup'
     );
@@ -211,7 +219,7 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
     Mousetrap.bind(
       'ctrl',
       () => {
-        this.setModifierState({ ctrl: true });
+        this.setModifierState(isDarwin ? { ctrl: true } : { ctrl: true, mod: true });
       },
       'keydown'
     );
@@ -220,7 +228,7 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
       'ctrl',
       () => {
         this.ctrlEmitter.emit('keyup');
-        this.setModifierState({ ctrl: false });
+        this.setModifierState(isDarwin ? { ctrl: false } : { ctrl: false, mod: false });
         if (this.state.ctrlTabCycling) {
           this.setState({ ctrlTabCycling: false });
           this.resetCtrlTabCycleCount();
@@ -244,7 +252,6 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
       'alt',
       () => {
         this.setModifierState({ alt: false });
-        this.handleCmdOrCtrlAltKeyUp();
       },
       'keyup'
     );
@@ -276,6 +283,8 @@ export default class KeyboardShortcuts extends React.PureComponent<Props, State>
     Mousetrap.unbind('ctrl');
   }
   unwatchMod() {
+    if (!isDarwin) return;
+
     Mousetrap.unbind('mod');
   }
   unwatchAlt() {

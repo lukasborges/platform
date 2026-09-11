@@ -4,6 +4,7 @@ import * as React from 'react';
 import injectSheet from 'react-jss';
 import DockNavigationButtons from '../dock-navigation/components/DockNavigationButtons';
 import TrafficLightsContainer from '../dock/components/TrafficLightsContainer';
+import { hasSystemTitleBar } from '../windows/systemTitleBar';
 
 export interface Classes {
   container: string,
@@ -52,8 +53,8 @@ export default class OSBar extends React.PureComponent<Props, {}> {
     const { title, onClose, onDoubleClick, classes, canGoBack, canGoForward } = this.props;
 
     return (
-      <div className={classNames('l-osbar', classes!.container)} onDoubleClick={onDoubleClick}>
-        <TrafficLightsContainer onClose={onClose} />
+      <div className={classNames('l-osbar', classes!.container)} onDoubleClick={hasSystemTitleBar() ? undefined : onDoubleClick}>
+        {!hasSystemTitleBar() && <TrafficLightsContainer onClose={onClose} />}
 
         <div className={classes!.navigation}>
           <DockNavigationButtons

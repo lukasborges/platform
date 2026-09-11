@@ -10,6 +10,9 @@ import { BrowserWindowService, BrowserWindowServiceConstructorOptions } from '..
 import services from '../../services/servicesManager';
 import { isPackaged } from '../../utils/env';
 import { windowCreated, windowDeleted } from '../duck';
+import { getUseSystemTitleBar, SYSTEM_TITLE_BAR_ARGUMENT } from '../systemTitleBar';
+
+const useSystemTitleBarAtStartup = getUseSystemTitleBar();
 
 let allowDispatch = true;
 services.electronApp
@@ -77,8 +80,10 @@ export default class GenericWindowManager extends EventEmitter {
 
     this.window = await services.browserWindow.create({
       ...options,
+      ...(useSystemTitleBarAtStartup ? { frame: true, titleBarStyle: 'default' as const, transparent: false } : {}),
       preventNavigation: true,
       webPreferences: {
+        additionalArguments: useSystemTitleBarAtStartup ? [SYSTEM_TITLE_BAR_ARGUMENT] : [],
         nodeIntegration: true,
         webviewTag: true,
         // The following 2 parameters combined will disable the `same-origin` policy.

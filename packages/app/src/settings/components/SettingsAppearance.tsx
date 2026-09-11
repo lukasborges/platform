@@ -7,6 +7,8 @@ import {
   getAppearanceTheme,
   setAppearanceTheme,
 } from '../../theme/appearance';
+import { getUseSystemTitleBar, hasSystemTitleBar, setUseSystemTitleBar } from '../../windows/systemTitleBar';
+import AdwaitaSwitch from './AdwaitaSwitch';
 
 interface Classes {
   container: string,
@@ -21,6 +23,7 @@ interface Classes {
   previewDark: string,
   previewSystem: string,
   settingName: string,
+  titleBarSetting: string,
 }
 
 interface Props {
@@ -29,6 +32,8 @@ interface Props {
 
 interface State {
   theme: AppearanceTheme,
+  useSystemTitleBar: boolean,
+  titleBarError: boolean,
 }
 
 const options: { value: AppearanceTheme, label: string }[] = [
@@ -38,6 +43,13 @@ const options: { value: AppearanceTheme, label: string }[] = [
 ];
 
 const styles = {
+  titleBarSetting: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: 16,
+    marginTop: 20,
+  },
   container: {
     maxWidth: 600,
     padding: [18, 0, 22],
@@ -174,6 +186,8 @@ const styles = {
 export default class SettingsAppearance extends React.PureComponent<Props, State> {
   state: State = {
     theme: getAppearanceTheme(),
+    useSystemTitleBar: getUseSystemTitleBar(),
+    titleBarError: false,
   };
 
   setTheme = (theme: AppearanceTheme) => {
@@ -183,6 +197,16 @@ export default class SettingsAppearance extends React.PureComponent<Props, State
 
   handleThemeClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     this.setTheme(event.currentTarget.dataset.themeValue as AppearanceTheme);
+  }
+
+  handleTitleBarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const useSystemTitleBar = event.currentTarget.checked;
+    try {
+      setUseSystemTitleBar(useSystemTitleBar);
+      this.setState({ useSystemTitleBar, titleBarError: false });
+    } catch (_error) {
+      this.setState({ titleBarError: true });
+    }
   }
 
   render() {
@@ -214,6 +238,23 @@ export default class SettingsAppearance extends React.PureComponent<Props, State
             );
           })}
         </div>
+        <div className={classes!.titleBarSetting}>
+          <span>Use system title bar</span>
+          <AdwaitaSwitch
+            checked={this.state.useSystemTitleBar}
+            label="Use system title bar"
+            onChange={this.handleTitleBarChange}
+          />
+        </div>
+        <p className={classes!.description}>
+          Use your desktop's window borders and controls. Applies after restarting Platform.
+        </p>
+        {this.state.useSystemTitleBar !== hasSystemTitleBar() &&
+          <p className={classes!.description} role="status">Restart Platform to apply this change.</p>
+        }
+        {this.state.titleBarError &&
+          <p role="alert">Could not save this preference. Please try again.</p>
+        }
       </section>
     );
   }

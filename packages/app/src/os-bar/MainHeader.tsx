@@ -14,6 +14,7 @@ import { getActiveApplicationId } from '../nav/selectors';
 import { executeWebviewMethodForCurrentTab } from '../tab-webcontents/duck';
 import { getTabTitle } from '../tabs/get';
 import { StationState } from '../types';
+import { hasSystemTitleBar } from '../windows/systemTitleBar';
 
 type IconName = 'menu' | 'plus' | 'search' | 'back' | 'forward' | 'reload' | 'home' |
   'minimize' | 'maximize' | 'restore' | 'close';
@@ -267,6 +268,8 @@ class MainHeaderImpl extends React.PureComponent<Props, State> {
 
   private mainWindow = remote.getCurrentWindow();
 
+  private useSystemTitleBar = hasSystemTitleBar();
+
   componentDidMount() {
     this.mainWindow.on('maximize', this.updateMaximizedState);
     this.mainWindow.on('unmaximize', this.updateMaximizedState);
@@ -410,7 +413,7 @@ class MainHeaderImpl extends React.PureComponent<Props, State> {
     return (
       <header
         className={`station-main-header ${this.state.isMenuOpen ? 'station-main-header--menu-open' : ''}`}
-        onDoubleClick={onDoubleClick}
+        onDoubleClick={this.useSystemTitleBar ? undefined : onDoubleClick}
       >
         <div className="station-main-header__controls station-main-header__controls--left">
           <button
@@ -451,17 +454,19 @@ class MainHeaderImpl extends React.PureComponent<Props, State> {
 
         <div className="station-main-header__controls station-main-header__controls--right">
           {this.renderButton('search', 'Quick-Switch (Ctrl+T)', onToggleQuickSwitch, { active: quickSwitchVisible })}
-          <span className="station-main-header__separator station-main-header__separator--window" />
-          {this.renderButton('minimize', 'Minimize window', this.minimizeWindow, {
-            className: 'station-main-header__button--window',
-          })}
-          {this.renderButton(
-            this.state.isMaximized ? 'restore' : 'maximize',
-            this.state.isMaximized ? 'Restore window' : 'Maximize window',
-            this.toggleMaximizeWindow,
-            { className: 'station-main-header__button--window' },
-          )}
-          {this.renderButton('close', 'Close window', this.closeWindow, { className: 'station-main-header__button--close' })}
+          {!this.useSystemTitleBar && <>
+            <span className="station-main-header__separator station-main-header__separator--window" />
+            {this.renderButton('minimize', 'Minimize window', this.minimizeWindow, {
+              className: 'station-main-header__button--window',
+            })}
+            {this.renderButton(
+              this.state.isMaximized ? 'restore' : 'maximize',
+              this.state.isMaximized ? 'Restore window' : 'Maximize window',
+              this.toggleMaximizeWindow,
+              { className: 'station-main-header__button--window' },
+            )}
+            {this.renderButton('close', 'Close window', this.closeWindow, { className: 'station-main-header__button--close' })}
+          </>}
         </div>
       </header>
     );

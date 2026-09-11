@@ -10,6 +10,7 @@ export type BrowserWindowServiceConstructorOptions =
     //   and set its `file` parameter to `${savePosition}.json`
     savePosition?: string,
     preventNavigation?: boolean,
+    hasToolbarMenu?: boolean,
   };
 
 @service('browser-window')

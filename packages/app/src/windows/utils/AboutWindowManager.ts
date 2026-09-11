@@ -17,6 +17,7 @@ class AboutWindowManager extends GenericWindowManager {
     const params: BrowserWindowServiceConstructorOptions = {
       width: 390,
       height: 610,
+      useContentSize: true,
       show: false,
       frame: false,
       skipTaskbar: true,

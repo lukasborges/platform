@@ -20,6 +20,7 @@ export class BrowserWindowManagerServiceImpl extends BrowserWindowManagerService
   private worker?: BrowserWindow;
   private provider?: RPC.Node<BrowserWindowManagerProviderService>;
   private autoHideMainMenu: boolean = false;
+  private windowsWithToolbarMenu = new WeakSet<Electron.BrowserWindow>();
 
   constructor(uuid?: string) {
     super(uuid);
@@ -37,10 +38,16 @@ export class BrowserWindowManagerServiceImpl extends BrowserWindowManagerService
   }
 
   async create(options: BrowserWindowServiceConstructorOptions) {
+    const { hasToolbarMenu, ...windowOptions } = options;
     const windowService = new BrowserWindowServiceImpl({
       autoHideMenuBar: this.autoHideMainMenu,
-      ...options,
+      ...windowOptions,
     });
+    if (hasToolbarMenu) {
+      this.windowsWithToolbarMenu.add(windowService.window);
+      windowService.window.setAutoHideMenuBar(false);
+      windowService.window.setMenuBarVisibility(false);
+    }
     this.weakrefs.set(windowService.window, windowService);
     return windowService;
   }
@@ -100,8 +107,9 @@ export class BrowserWindowManagerServiceImpl extends BrowserWindowManagerService
     }
     this.autoHideMainMenu = hide;
     BrowserWindow.getAllWindows().forEach((bw) => {
-      bw.setAutoHideMenuBar(hide);
-      bw.setMenuBarVisibility(!hide);
+      const hasToolbarMenu = this.windowsWithToolbarMenu.has(bw);
+      bw.setAutoHideMenuBar(hasToolbarMenu ? false : hide);
+      bw.setMenuBarVisibility(!hasToolbarMenu && !hide);
     });
     await this.provider.setHideMainMenu(hide);
   }

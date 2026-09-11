@@ -23,6 +23,7 @@ export default class MainWindowManager extends GenericWindowManager {
     await super.create({
       show: true,
       frame: false,
+      hasToolbarMenu: true,
       icon: getResourceIconPath(),
       acceptFirstMouse: true,
       savePosition: 'main-window',

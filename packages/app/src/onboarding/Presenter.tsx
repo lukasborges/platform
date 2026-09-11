@@ -5,6 +5,7 @@ import injectSheet from 'react-jss';
 
 import { MinimalApplication } from '../applications/graphql/withApplications';
 import TrafficLights from '../dock/components/TrafficLights';
+import { hasSystemTitleBar } from '../windows/systemTitleBar';
 
 import OnboardingStepAppStore from './components/OnboardingStepAppStore';
 import {
@@ -375,7 +376,7 @@ class Presenter extends React.PureComponent<Props, State> {
 
     return (
       <header className={classes!.headerBar}>
-        {isDarwin &&
+        {isDarwin && !hasSystemTitleBar() &&
           <div className={classes!.trafficLights}>
             <TrafficLights
               focused={isWindowFocused}
@@ -389,7 +390,7 @@ class Presenter extends React.PureComponent<Props, State> {
         {page === 'apps' &&
           <button
             type="button"
-            className={`${classes!.backButton}${isDarwin ? ` ${classes!.backButtonDarwin}` : ''}`}
+            className={`${classes!.backButton}${isDarwin && !hasSystemTitleBar() ? ` ${classes!.backButtonDarwin}` : ''}`}
             aria-label="Back to welcome"
             onClick={this.showWelcome}
           >
@@ -408,7 +409,7 @@ class Presenter extends React.PureComponent<Props, State> {
               {isLoading ? 'Setting up…' : 'Start Platform'}
             </button>
           }
-          {!isDarwin &&
+          {!isDarwin && !hasSystemTitleBar() &&
             <div className={classes!.headerWindowControls}>
               <button type="button" className={classes!.windowButton} aria-label="Minimize" onClick={onMinimizeWindow}>
                 <span className={classes!.minimizeGlyph} aria-hidden="true" />
