@@ -171,6 +171,10 @@ type AutoUpdateStatus {
   isCheckingUpdate: Boolean,
   """Is browserX update available or not"""
   isUpdateAvailable: Boolean,
+  """Has the available update finished downloading and is ready to install"""
+  isUpdateDownloaded: Boolean,
+  """Download progress percentage (0-100), null when not downloading"""
+  downloadProgress: Float,
   """Name of the new browserX update available"""
   releaseName: String,
 }

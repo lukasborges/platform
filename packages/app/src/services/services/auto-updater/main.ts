@@ -73,6 +73,20 @@ export class AutoUpdaterServiceImpl extends AutoUpdaterService implements RPC.In
       );
     }
 
+    if (observer.onDownloadProgress) {
+      subscriptions.push(
+        fromEvent(autoUpdater, 'download-progress', (info: { percent: number, bytesPerSecond: number, transferred: number, total: number }) => info)
+          .subscribe(info => {
+            observer.onDownloadProgress!({
+              percent: info.percent,
+              bytesPerSecond: info.bytesPerSecond,
+              transferred: info.transferred,
+              total: info.total,
+            });
+          })
+      );
+    }
+
     return new ServiceSubscription(() => {
       subscriptions.forEach(s => s.unsubscribe());
     }, observer);

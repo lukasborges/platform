@@ -4,7 +4,14 @@ import { Resolvers } from '../graphql/resolvers-types.generated';
 import { subscribeStore } from '../utils/observable';
 
 import { checkForUpdates, openReleaseNotes, quitAndInstall } from './duck';
-import { getReleaseName, isCheckingUpdate, isDownloadingUpdate, isUpdateAvailable } from './selectors';
+import {
+  getDownloadProgress,
+  getReleaseName,
+  isCheckingUpdate,
+  isDownloadingUpdate,
+  isUpdateAvailable,
+  isUpdateDownloaded,
+} from './selectors';
 
 export type AutoUpdateStatusParent = {};
 
@@ -24,6 +31,14 @@ const resolvers: Resolvers = {
     isUpdateAvailable: (_obj, _args, context) => {
       return subscribeStore(context.store, isUpdateAvailable)
         .pipe(map(Boolean));
+    },
+    isUpdateDownloaded: (_obj, _args, context) => {
+      return subscribeStore(context.store, isUpdateDownloaded)
+        .pipe(map(Boolean));
+    },
+    downloadProgress: (_obj, _args, context) => {
+      return subscribeStore(context.store, getDownloadProgress)
+        .pipe(map(p => p === undefined || p === null ? null : Number(p)));
     },
     releaseName: (_obj, _args, context) => {
       return subscribeStore(context.store, getReleaseName as () => string)

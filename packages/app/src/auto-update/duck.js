@@ -16,16 +16,26 @@ export const setUpdateIsAvailable = (releaseName) => ({
   releaseName
 });
 
+export const SET_UPDATE_DOWNLOADED = 'browserX/auto-update/SET_UPDATE_DOWNLOADED';
+export const setUpdateDownloaded = (releaseName) => ({
+  type: SET_UPDATE_DOWNLOADED,
+  releaseName
+});
+
 export const SET_DOWNLOADING_AVAILABLE = 'browserX/auto-update/SET_START_DOWNLOADING_AVAILABLE';
 export const setDownloadingUpdate = (startDownloading) => ({
   type: SET_DOWNLOADING_AVAILABLE,
   startDownloading
 });
 
-export const OPEN_RELEASE_NOTES = 'browserX/auto-update/OPEN_RELEASE_NOTES';
-export const openReleaseNotes = () => ({
-  type: OPEN_RELEASE_NOTES
+export const SET_DOWNLOAD_PROGRESS = 'browserX/auto-update/SET_DOWNLOAD_PROGRESS';
+export const setDownloadProgress = (percent) => ({
+  type: SET_DOWNLOAD_PROGRESS,
+  percent,
 });
+
+export const OPEN_RELEASE_NOTES = 'browserX/auto-update/OPEN_RELEASE_NOTES';
+export const openReleaseNotes = () => ({ type: OPEN_RELEASE_NOTES });
 
 export const QUIT_AND_INSTALL = 'browserX/auto-update/QUIT_AND_INSTALL';
 export const quitAndInstall = () => ({ type: QUIT_AND_INSTALL });
@@ -51,9 +61,24 @@ export default function reducer(state = new Map(), action) {
     case SET_UPDATE_IS_AVAILABLE:
       return state
         .set('checking', false)
+        .set('updateAvailable', true)
+        .set('updateDownloaded', false)
+        .set('releaseName', action.releaseName)
+        .set('downloadProgress', null);
+
+    case SET_UPDATE_DOWNLOADED:
+      return state
+        .set('checking', false)
         .set('downloadingUpdate', false)
         .set('updateAvailable', true)
+        .set('updateDownloaded', true)
+        .set('downloadProgress', 100)
         .set('releaseName', action.releaseName);
+
+    case SET_DOWNLOAD_PROGRESS:
+      return state
+        .set('downloadingUpdate', true)
+        .set('downloadProgress', action.percent);
 
     case SET_CHECKING_FOR_UPDATE:
       return state

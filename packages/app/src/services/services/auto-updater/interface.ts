@@ -55,8 +55,18 @@ export class AutoUpdaterServiceObserver extends ServiceBase implements RPC.Inter
   onUpdateAvailable(param: { releaseName: string }) {}
 
   /**
-  * Will be called when `electron.autoUpdater` emits `'error'`.
-  */
+   * Will be called when `electron.autoUpdater` emits `'error'`.
+   */
   // @ts-ignore
   onError(param: { message: string }) {}
+
+  /**
+   * Will be called when `electron.autoUpdater` emits `'download-progress'`.
+   * @param param.percent the integer percentage (0-100) of the downloaded bytes
+   * @param param.bytesPerSecond the current transfer rate in bytes/second
+   * @param param.transferred the number of bytes already transferred
+   * @param param.total the total number of bytes to transfer
+   */
+  // @ts-ignore
+  onDownloadProgress(param: { percent: number, bytesPerSecond: number, transferred: number, total: number }) {}
 }

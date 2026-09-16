@@ -16,9 +16,11 @@ import {
   OPEN_RELEASE_NOTES,
   QUIT_AND_INSTALL,
   SET_UPDATE_IS_AVAILABLE,
+  setDownloadProgress,
+  setDownloadingUpdate,
   setReleaseNotesSubdockVisibility,
   setCheckingForUpdate,
-  setDownloadingUpdate,
+  setUpdateDownloaded,
   setUpdateIsAvailable,
   toggleReleaseNotesSubdockVisibility,
 } from './duck';
@@ -36,6 +38,7 @@ function* initAppUpdater(): SagaIterator {
   const checkingForUpdateChannel = serviceAddObserverChannel(services.autoUpdater, 'onCheckingForUpdate', 'au-checking-update');
   const updateNotAvailableChannel = serviceAddObserverChannel(services.autoUpdater, 'onUpdateNotAvailable', 'au-update-not-available');
   const updateAvailableChannel = serviceAddObserverChannel(services.autoUpdater, 'onUpdateAvailable', 'au-update-available');
+  const downloadProgressChannel = serviceAddObserverChannel(services.autoUpdater, 'onDownloadProgress', 'au-download-progress');
   const errorChannel = serviceAddObserverChannel(services.autoUpdater, 'onError', 'aus-error');
 
   const fileExists = yield call(consumeLockFileIfExists, FILE.SHOW_RELEASE_NOTES);
@@ -50,7 +53,7 @@ function* initAppUpdater(): SagaIterator {
       takeEveryWitness(updateDownloadedChannel, function* handle({ releaseName }: { releaseName: string }) {
         yield put(setCheckingForUpdate(false));
         yield put(setDownloadingUpdate(false));
-        yield put(setUpdateIsAvailable(releaseName));
+        yield put(setUpdateDownloaded(releaseName));
       }),
       takeEveryWitness(checkingForUpdateChannel, function* handle() {
         yield put(setCheckingForUpdate(true));
@@ -62,6 +65,9 @@ function* initAppUpdater(): SagaIterator {
       takeEveryWitness(updateAvailableChannel, function* handle({ releaseName }: { releaseName: string }) {
         yield put(setUpdateIsAvailable(releaseName));
         yield put(setReleaseNotesSubdockVisibility(true));
+      }),
+      takeEveryWitness(downloadProgressChannel, function* handle({ percent }: { percent: number }) {
+        yield put(setDownloadProgress(percent));
       }),
       takeEveryWitness(errorChannel, function* handle({ message }: { message: string }) {
         log.error(new Error(message));
