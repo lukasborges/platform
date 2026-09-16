@@ -9,8 +9,18 @@ import NativeAppDockIcon from '../dock/components/NativeAppDockIcon';
 import connectUI from '../ui/connectUI';
 
 import AutoUpdateSubdock from './components/AutoUpdateSubdock';
-import { openReleaseNotes, setReleaseNotesSubdockVisibility, toggleReleaseNotesSubdockVisibility } from './duck';
-import { getReleaseName, isSubdockOpen as getIsSubdockOpen, isUpdateAvailable as getIsUpdateAvailable } from './selectors';
+import {
+  openReleaseNotes,
+  quitAndInstall,
+  setReleaseNotesSubdockVisibility,
+  toggleReleaseNotesSubdockVisibility,
+} from './duck';
+import {
+  getDownloadProgress,
+  getReleaseName,
+  isSubdockOpen as getIsSubdockOpen,
+  isUpdateAvailable as getIsUpdateAvailable,
+} from './selectors';
 
 interface UIProp {
   visible: boolean,
@@ -21,8 +31,10 @@ export interface Props {
   isUpdateAvailable: boolean,
   isSubdockOpen: boolean,
   releaseName: string,
-  onClickOpenReleaseNotes: () => any
-  onToggleReleaseNotesSubdockVisibility: () => any
+  downloadProgress: number | null,
+  onClickOpenReleaseNotes: () => any,
+  onClickQuitAndInstall: () => any,
+  onToggleReleaseNotesSubdockVisibility: () => any,
   onSetReleaseNotesSubdockVisibility: (visible: boolean) => any
 }
 
@@ -58,7 +70,9 @@ class AutoUpdateDockNotificationImpl extends React.PureComponent<Props, {}> {
         <AutoUpdateSubdock
           updateAvailable={this.props.isUpdateAvailable}
           releaseName={this.props.releaseName}
+          downloadProgress={this.props.downloadProgress}
           onClickOpenReleaseNotes={this.props.onClickOpenReleaseNotes}
+          onClickQuitAndInstall={this.props.onClickQuitAndInstall}
           onClickRemindLater={this.hideSubdock}
         />
       </DockApplicationSubdock>
@@ -78,9 +92,11 @@ export default connect(
     isUpdateAvailable: getIsUpdateAvailable(state),
     isSubdockOpen: getIsSubdockOpen(state),
     releaseName: getReleaseName(state),
+    downloadProgress: getDownloadProgress(state),
   }),
   (dispatch: Dispatch) => bindActionCreators({
     onClickOpenReleaseNotes: openReleaseNotes,
+    onClickQuitAndInstall: quitAndInstall,
     onToggleReleaseNotesSubdockVisibility: toggleReleaseNotesSubdockVisibility,
     onSetReleaseNotesSubdockVisibility: (visible: boolean) => setReleaseNotesSubdockVisibility(visible),
   }, dispatch)

@@ -18,6 +18,9 @@ export interface Classes {
   updateIcon: string,
   updateTitle: string,
   updateDescription: string,
+  progressTrack: string,
+  progressFill: string,
+  progressLabel: string,
   actions: string,
   button: string,
   suggestedButton: string,
@@ -28,8 +31,10 @@ export interface Props {
   classes?: Classes,
   updateAvailable: boolean,
   releaseName: string,
+  downloadProgress: number | null,
   onClickOpenReleaseNotes: () => any,
   onClickRemindLater: () => any,
+  onClickQuitAndInstall: () => any,
 }
 
 const styles = (theme: Theme) => ({
@@ -101,6 +106,25 @@ const styles = (theme: Theme) => ({
     color: 'var(--app-text-secondary)',
     fontSize: 13,
   },
+  progressTrack: {
+    width: '100%',
+    height: 6,
+    margin: [0, 0, 8],
+    overflow: 'hidden',
+    borderRadius: 3,
+    backgroundColor: 'color-mix(in srgb, var(--app-accent) 14%, transparent)',
+  },
+  progressFill: {
+    height: '100%',
+    background: 'var(--app-accent)',
+    transition: 'width 200ms ease-out',
+  },
+  progressLabel: {
+    margin: [0, 0, 20],
+    color: 'var(--app-text-secondary)',
+    fontSize: 12,
+    textAlign: 'center',
+  },
   actions: {
     display: 'flex',
     flexDirection: 'column',
@@ -135,7 +159,19 @@ const styles = (theme: Theme) => ({
 @injectSheet(styles)
 export default class AutoUpdateSubdock extends React.PureComponent<Props, {}> {
   render() {
-    const { classes, updateAvailable, releaseName, onClickOpenReleaseNotes, onClickRemindLater } = this.props;
+    const {
+      classes,
+      updateAvailable,
+      releaseName,
+      downloadProgress,
+      onClickOpenReleaseNotes,
+      onClickRemindLater,
+      onClickQuitAndInstall,
+    } = this.props;
+
+    const isDownloaded = updateAvailable && downloadProgress === 100;
+    const isDownloading = updateAvailable && downloadProgress !== null && downloadProgress !== 100;
+    const percentLabel = isDownloading ? `${Math.floor(downloadProgress as number)}%` : '';
 
     return (
       <div className={classes!.container}>
@@ -151,12 +187,40 @@ export default class AutoUpdateSubdock extends React.PureComponent<Props, {}> {
           { updateAvailable ?
             <div className={classes!.newVersion}>
               <div className={classes!.updateIcon} aria-hidden="true">&#8595;</div>
-              <h2 className={classes!.updateTitle}>A new version is available</h2>
-              <p className={classes!.updateDescription}>Platform {releaseName} is ready to download.</p>
+              <h2 className={classes!.updateTitle}>
+                {isDownloaded ? 'Update ready to install' : 'A new version is available'}
+              </h2>
+              <p className={classes!.updateDescription}>
+                Platform {releaseName} {isDownloaded ? 'has been downloaded.' : 'is downloading in the background.'}
+              </p>
+              {isDownloading ?
+                <div>
+                  <div
+                    className={classes!.progressTrack}
+                    role="progressbar"
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-valuenow={Math.floor(downloadProgress as number)}
+                  >
+                    <div
+                      className={classes!.progressFill}
+                      style={{ width: `${Math.floor(downloadProgress as number)}%` }}
+                    />
+                  </div>
+                  <p className={classes!.progressLabel}>Downloading… {percentLabel}</p>
+                </div>
+                : null
+              }
               <div className={classes!.actions}>
-                <button className={`${classes!.button} ${classes!.suggestedButton}`} type="button" onClick={onClickOpenReleaseNotes}>
-                  View Downloads
-                </button>
+                {isDownloaded ?
+                  <button className={`${classes!.button} ${classes!.suggestedButton}`} type="button" onClick={onClickQuitAndInstall}>
+                    Restart Now
+                  </button>
+                  :
+                  <button className={`${classes!.button} ${classes!.suggestedButton}`} type="button" onClick={onClickOpenReleaseNotes}>
+                    View Downloads
+                  </button>
+                }
                 <button className={`${classes!.button} ${classes!.flatButton}`} type="button" onClick={onClickRemindLater}>
                   Remind Me Later
                 </button>

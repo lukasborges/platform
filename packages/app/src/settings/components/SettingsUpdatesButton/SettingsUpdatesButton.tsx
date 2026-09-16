@@ -8,7 +8,7 @@ import { compose } from 'redux';
 import { settingsButtonStyle } from '../settingsButtonStyle';
 
 import {
-  withGetAutoUpdateStatus, withCheckForUpdatesMutation, withOpenReleaseNotesMutation,
+  withGetAutoUpdateStatus, withCheckForUpdatesMutation, withOpenReleaseNotesMutation, withQuitAndInstallMutation,
 } from './queries@local.gql.generated';
 export interface Classes {
   checking: string,
@@ -21,9 +21,12 @@ export interface Props {
   isDownloadingUpdate: boolean,
   isCheckingUpdate: boolean,
   isUpdateAvailable: boolean,
+  isUpdateDownloaded: boolean,
+  downloadProgress: number | null,
   releaseName: string,
   checkForUpdates: () => any,
   openReleaseNotes: () => any,
+  quitAndInstall: () => any,
 }
 
 export interface State {
@@ -96,8 +99,35 @@ class SettingsUpdatesButton extends React.PureComponent<Props, State> {
       return (
         <Button className={classes!.updateButton} btnSize={Size.SMALL} disabled={this.props.isCheckingUpdate}>
           <span className={classes!.checking} />
-          {this.props.isDownloadingUpdate ? 'Downloading...' : 'Checking...'}
+          Checking...
         </Button>
+      );
+    }
+
+    if (this.props.isDownloadingUpdate) {
+      const percent = typeof this.props.downloadProgress === 'number'
+        ? Math.floor(this.props.downloadProgress)
+        : 0;
+      return (
+        <div>
+          <Button className={classes!.updateButton} btnSize={Size.SMALL} disabled={true}>
+            Downloading... {percent}%
+          </Button>
+
+          <p className={classes!.info}>Downloading Platform {this.props.releaseName}</p>
+        </div>
+      );
+    }
+
+    if (this.props.isUpdateDownloaded) {
+      return (
+        <div>
+          <Button className={classes!.updateButton} btnSize={Size.SMALL} onClick={this.props.quitAndInstall}>
+            Restart to update
+          </Button>
+
+          <p className={classes!.info}>Platform {this.props.releaseName} is ready to install</p>
+        </div>
       );
     }
 
@@ -143,6 +173,10 @@ const connect = compose(
         data.autoUpdateStatus.isCheckingUpdate : false,
       isUpdateAvailable: data && data.autoUpdateStatus && data.autoUpdateStatus.isUpdateAvailable ?
         data.autoUpdateStatus.isUpdateAvailable : false,
+      isUpdateDownloaded: data && data.autoUpdateStatus && data.autoUpdateStatus.isUpdateDownloaded ?
+        data.autoUpdateStatus.isUpdateDownloaded : false,
+      downloadProgress: data && data.autoUpdateStatus && data.autoUpdateStatus.downloadProgress !== undefined ?
+        data.autoUpdateStatus.downloadProgress : null,
       releaseName: data && data.autoUpdateStatus && data.autoUpdateStatus.releaseName ?
         data.autoUpdateStatus.releaseName : '',
     }),
@@ -155,6 +189,11 @@ const connect = compose(
   (withOpenReleaseNotesMutation as any)({
     props: ({ mutate }: any) => ({
       openReleaseNotes: () => mutate && mutate({ variables: { } }),
+    }),
+  }),
+  (withQuitAndInstallMutation as any)({
+    props: ({ mutate }: any) => ({
+      quitAndInstall: () => mutate && mutate({ variables: { } }),
     }),
   }),
 );
