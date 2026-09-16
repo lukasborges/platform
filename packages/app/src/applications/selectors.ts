@@ -19,7 +19,7 @@ import {
   isWebcontentsDetaching,
   isWebcontentsWaitingToAttach,
 } from '../tab-webcontents/selectors';
-import { getTabApplicationId, getTabBadge, getTabId, getTabIsApplicationHome, hasTabApplicationId } from '../tabs/get';
+import { getTabApplicationId, getTabBadge, getTabId, getTabIsApplicationHome, getTabTitle, hasTabApplicationId } from '../tabs/get';
 import { StationState } from '../types';
 import { getEmail } from '../user-identities/get';
 import { getIdentitiesForProvider, getIdentityById } from '../user-identities/selectors';
@@ -123,14 +123,36 @@ const capBadge = (badge: any) => {
   return badge > 99 ? '99+' : badge;
 };
 
+// Extract a trailing/leading "(N)" unread count from a tab title. Mirrors the
+// convention used by WhatsApp Web, Gmail, Slack web, and similar services.
+// We first try the leading pattern (the convention used by WhatsApp, Slack,
+// Telegram and modern Gmail) and fall back to a permissive match anywhere in
+// the title (covers older Gmail and similar variants).
+const LEADING_COUNT_PATTERN = /^\(\s*(\d+)\s*\)/;
+const ANY_PAREN_NUMBER_PATTERN = /\((\d+)\)/;
+const extractCountFromTitle = (title: string | undefined): number | undefined => {
+  if (!title) return undefined;
+  const leading = LEADING_COUNT_PATTERN.exec(title);
+  if (leading) return Number(leading[1]);
+  const any = ANY_PAREN_NUMBER_PATTERN.exec(title);
+  if (any) return Number(any[1]);
+  return undefined;
+};
+
 export const getBadgeForApplication = createSelector(getTabs, tabs => memoize((appId: string) => {
-  const badge =
-    tabs
-      .filter(tab => getTabApplicationId(tab) === appId)
-      .filter(tab => Boolean(getTabBadge(tab)))
-      .map(tab => getTabBadge(tab))
-      .reduce(badgeReducer, undefined);
-  return capBadge(badge);
+  const appTabs = tabs.filter(tab => getTabApplicationId(tab) === appId);
+
+  const explicitBadge = appTabs
+    .filter(tab => Boolean(getTabBadge(tab)))
+    .map(tab => getTabBadge(tab))
+    .reduce(badgeReducer, undefined);
+
+  const titleBadge = appTabs
+    .map(tab => extractCountFromTitle(getTabTitle(tab) as string | undefined))
+    .filter((count): count is number => typeof count === 'number')
+    .reduce((total, count) => total + count, 0);
+
+  return capBadge(badgeReducer(explicitBadge, titleBadge));
 }));
 
 export const getAppBadge = createSelector(
