@@ -26,6 +26,8 @@ export type NEW_NOTIFICATION = 'browserX/notification-center/NEW_NOTIFICATION';
 export const NEW_NOTIFICATION = 'browserX/notification-center/NEW_NOTIFICATION';
 export type NOTIFICATION_CLICK = 'browserX/notification-center/NOTIFICATION_CLICK';
 export const NOTIFICATION_CLICK = 'browserX/notification-center/NOTIFICATION_CLICK';
+export type NOTIFICATION_CLOSE = 'browserX/notification-center/NOTIFICATION_CLOSE';
+export const NOTIFICATION_CLOSE = 'browserX/notification-center/NOTIFICATION_CLOSE';
 export type MARK_AS_READ = 'browserX/notification-center/MARK_AS_READ';
 export const MARK_AS_READ = 'browserX/notification-center/MARK_AS_READ';
 export type MARK_ALL_AS_READ = 'browserX/notification-center/MARK_ALL_AS_READ';
@@ -57,6 +59,7 @@ export type NewNotificationAction = {
 export type AskEnableNotificationsAction = NewNotificationAction &
   { applicationId: string, tabId: string, step: RequestForApplicationNotificationsStep };
 export type NotificationClickAction = { type: NOTIFICATION_CLICK, notificationId: string, interfaceType: string };
+export type NotificationCloseAction = { type: NOTIFICATION_CLOSE, notificationId: string };
 export type ShowNotificationAction = { type: SHOW_NOTIFICATION, notificationId: string };
 export type NotificationCenterActions =
   ToggleVisibilityAction
@@ -72,6 +75,7 @@ export type NotificationCenterActions =
   | ResetSnoozeStartedOnAction
   | NewNotificationAction
   | NotificationClickAction
+  | NotificationCloseAction
   | ShowNotificationAction;
 
 // Other types
@@ -130,6 +134,10 @@ export const newNotification = (applicationId: string | undefined,
 
 export const notificationClick = (notificationId: string, interfaceType: string): NotificationClickAction => ({
   type: NOTIFICATION_CLICK, notificationId, interfaceType,
+});
+
+export const notificationClose = (notificationId: string): NotificationCloseAction => ({
+  type: NOTIFICATION_CLOSE, notificationId,
 });
 
 export const showNotification = (notificationId: string): ShowNotificationAction => ({

@@ -55,6 +55,9 @@ import {
   NOTIFICATION_CLICK,
   notificationClick,
   NotificationClickAction,
+  NOTIFICATION_CLOSE,
+  notificationClose,
+  NotificationCloseAction,
   removeAllNotifications,
   removeNotification as removeNotificationFromNotificationCenter,
   RESET_SNOOZE_DURATION,
@@ -151,11 +154,21 @@ function* sagaShowNotification(action: ShowNotificationAction): SagaIterator {
   yield takeEveryWitness(notificationClickChannel(notif), function* handle() {
     yield put(notificationClick(notificationId, 'pop_up'));
   });
+  yield takeEveryWitness(notificationCloseChannel(notif), function* handle() {
+    yield put(notificationClose(notificationId));
+  });
 }
 
 const notificationClickChannel = (notif: RPC.Node<OSNotification>) => eventChannel(emit => {
   notif.addObserver(observer({
     onClick: () => emit({}),
+  }));
+  return () => { };
+});
+
+const notificationCloseChannel = (notif: RPC.Node<OSNotification>) => eventChannel(emit => {
+  notif.addObserver(observer({
+    onClose: () => emit({}),
   }));
   return () => { };
 });
@@ -180,6 +193,10 @@ function* sagaNotificationClick(action: NotificationClickAction): SagaIterator {
   }
 
   yield callService('osNotification', 'triggerClick', webcontentsId, notificationId);
+}
+
+function* sagaNotificationClose(action: NotificationCloseAction): SagaIterator {
+  yield put(markAsRead(action.notificationId));
 }
 
 function* sagaMarkAsRead(action: MarkAsReadAction): SagaIterator {
@@ -306,6 +323,7 @@ export default function* main(): SagaIterator {
     takeLatestWitness(RESET_SNOOZE_DURATION, sagaResetSnooze),
     takeEveryWithAck(NEW_NOTIFICATION, sagaNewNotification),
     takeEveryWitness(NOTIFICATION_CLICK, sagaNotificationClick),
+    takeEveryWitness(NOTIFICATION_CLOSE, sagaNotificationClose),
     takeEveryWitness(SHOW_NOTIFICATION, sagaShowNotification),
     takeEveryWitness(MARK_AS_READ, sagaMarkAsRead),
     takeEveryWitness(MARK_ALL_AS_READ, sagaMarkAllAsRead),

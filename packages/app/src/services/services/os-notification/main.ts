@@ -63,10 +63,15 @@ export class OSNotificationImpl extends OSNotification implements RPC.Interface<
   }
 
   async addObserver(obs: RPC.Node<OSNotificationObserver>) {
-    const cb = () => obs.onClick();
-    this.notif.on('click', cb);
+    const onClick = () => obs.onClick();
+    const onClose = () => obs.onClose();
+    this.notif.on('click', onClick);
+    this.notif.on('close', onClose);
     return new ServiceSubscription({
-      unsubscribe: () => this.notif.removeListener('click', cb),
+      unsubscribe: () => {
+        this.notif.removeListener('click', onClick);
+        this.notif.removeListener('close', onClose);
+      },
     }, obs);
   }
 }

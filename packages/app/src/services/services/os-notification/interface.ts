@@ -47,7 +47,7 @@ export class OSNotificationService extends ServiceBase implements RPC.Interface<
 @service('os-notification')
 export class OSNotification extends ServiceBase implements RPC.Interface<OSNotification> {
   /**
-   * Add an observer (click) to this Notification.
+   * Add an observer (click, close) to this Notification.
    */
   // @ts-ignore
   addObserver(obs: RPC.Node<OSNotificationObserver>): Promise<RPC.Subscription> {}
@@ -60,4 +60,11 @@ export class OSNotificationObserver extends ServiceBase implements RPC.Interface
    */
   // @ts-ignore
   onClick(): void {}
+
+  /**
+   * Will be called when the subject's notification is dismissed by the user
+   * (close button, swipe, auto-close) without being clicked.
+   */
+  // @ts-ignore
+  onClose(): void {}
 }
