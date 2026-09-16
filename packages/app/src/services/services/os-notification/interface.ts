@@ -4,6 +4,11 @@ import { RPC } from '../../lib/types';
 
 export type IOSNotificationServiceShowParam = {
   /**
+   * Identifier we use to look the notification up later (e.g. when the user
+   * marks it as read in the in-app center).
+   */
+  notificationId: string,
+  /**
    * Title of the notification.
    */
   title: string,
@@ -37,6 +42,18 @@ export class OSNotificationService extends ServiceBase implements RPC.Interface<
    */
   // @ts-ignore
   show(param: IOSNotificationServiceShowParam): Promise<RPC.Node<OSNotification>> {}
+  /**
+   * Dismiss a single OS notification identified by `notificationId`.
+   */
+  // @ts-ignore
+  dismiss(notificationId: string): Promise<void> {}
+  /**
+   * Dismiss every OS notification that is still on screen. Used when the user
+   * clears the in-app notification center so the shell notification panel
+   * (and its badge counter) drops to zero as well.
+   */
+  // @ts-ignore
+  closeAll(): Promise<void> {}
   // @ts-ignore
   isDoNotDisturbEnabled(): Promise<boolean> {}
 }

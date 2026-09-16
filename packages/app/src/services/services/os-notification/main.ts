@@ -8,6 +8,7 @@ import { IOSNotificationServiceShowParam, OSNotification, OSNotificationObserver
 import { getDoNotDisturb, asNativeImage } from './utils';
 
 export class OSNotificationServiceImpl extends OSNotificationService implements RPC.Interface<OSNotificationService> {
+  private activeNotifications = new Map<string, Notification>();
 
   async show(param: IOSNotificationServiceShowParam) {
 
@@ -34,6 +35,9 @@ export class OSNotificationServiceImpl extends OSNotificationService implements 
     }
 
     const notification = new Notification(notificationOptions);
+    this.activeNotifications.set(param.notificationId, notification);
+    notification.on('close', () => this.activeNotifications.delete(param.notificationId));
+    notification.on('click', () => this.activeNotifications.delete(param.notificationId));
     notification.show();
 
     return new OSNotificationImpl(notification);
@@ -46,6 +50,26 @@ export class OSNotificationServiceImpl extends OSNotificationService implements 
       // Send signal back to the webview to trigger click callbacks if any
       myWebcontent.send('trigger-notification-click', notificationId);
     } catch (e) {}
+  }
+
+  async dismiss(notificationId: string) {
+    const notification = this.activeNotifications.get(notificationId);
+    if (notification) {
+      try {
+        notification.close();
+      } catch (e) {
+        log.warn('Failed to close OS notification', e);
+      }
+      this.activeNotifications.delete(notificationId);
+    }
+  }
+
+  async closeAll() {
+    // Snapshot to avoid mutating the map while iterating (close fires 'close' synchronously).
+    const ids = [...this.activeNotifications.keys()];
+    for (const id of ids) {
+      await this.dismiss(id);
+    }
   }
 
   async isDoNotDisturbEnabled() {
@@ -63,7 +87,13 @@ export class OSNotificationImpl extends OSNotification implements RPC.Interface<
   }
 
   async addObserver(obs: RPC.Node<OSNotificationObserver>) {
-    const onClick = () => obs.onClick();
+    const onClick = () => {
+      // Dismiss the OS-level notification so it leaves the shell notification
+      // center (and its badge count drops). The resulting `close` event will
+      // also flow through `onClose` to remove the entry from our badge list.
+      obs.onClick();
+      this.notif.close();
+    };
     const onClose = () => obs.onClose();
     this.notif.on('click', onClick);
     this.notif.on('close', onClose);

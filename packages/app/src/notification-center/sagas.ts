@@ -145,6 +145,7 @@ function* sagaShowNotification(action: ShowNotificationAction): SagaIterator {
   }
 
   const notif = yield call(showOSNotification, {
+    notificationId,
     title: getNotificationTitle(notificationState),
     body: getNotificationBody(notificationState),
     imageURL: getNotificationIcon(notificationState),
@@ -204,11 +205,17 @@ function* sagaMarkAsRead(action: MarkAsReadAction): SagaIterator {
 
   yield put(removeNotificationFromNotificationCenter(notificationId));
   yield put(removeNotification(notificationId));
+  // Dismiss the matching OS notification so the shell notification center
+  // (and its badge counter) drops to zero too.
+  yield callService('osNotification', 'dismiss', notificationId);
 }
 
 function* sagaMarkAllAsRead(): SagaIterator {
   yield put(removeAllNotifications());
   yield put(clearNotifications());
+  // Dismiss every OS notification still on screen so the shell notification
+  // center (and its badge counter) drops to zero as well.
+  yield callService('osNotification', 'closeAll');
 }
 
 function* interceptNotificationEventsFromWebContents({ webcontentsId, tabId }: { webcontentsId: number, tabId: string }): SagaIterator {
