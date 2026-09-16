@@ -118,16 +118,13 @@ class NotificationCenterHeader extends React.PureComponent<Props, {}> {
               />
             }
 
-            { !syncWithOS &&
-              <ButtonIcon
-                className={classes!.markAllAsReadButton}
-                symbolId={IconSymbol.MARK_READ}
-                btnStyle={Style.SECONDARY}
-                btnSize={Size.XSMALL}
-                disabled={Boolean(endDate)}
-                onClick={markAllRead}
-              />
-            }
+            <ButtonIcon
+              className={classes!.markAllAsReadButton}
+              symbolId={IconSymbol.MARK_READ}
+              btnStyle={Style.SECONDARY}
+              btnSize={Size.XSMALL}
+              onClick={markAllRead}
+            />
           </div>
         </div>
       </div>
