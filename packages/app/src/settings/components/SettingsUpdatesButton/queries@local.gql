@@ -14,3 +14,7 @@ mutation CheckForUpdatesMutation @local {
 mutation OpenReleaseNotesMutation @local {
   openReleaseNotes,
 }
+
+mutation QuitAndInstallMutation @local {
+  quitAndInstall,
+}
