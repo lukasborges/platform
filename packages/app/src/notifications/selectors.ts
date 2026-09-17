@@ -1,4 +1,5 @@
 import { StationState } from '../types';
+import { getNotificationApplicationId } from './get';
 import { ImmutableNotification, ImmutableNotifications } from './types';
 
 export const getNotifications = (state: StationState): ImmutableNotifications =>
@@ -12,3 +13,9 @@ export const getNotificationsRequests = (state: StationState) =>
     .get('applications')
     .filter((application: any) => application.has('askEnableNotification'))
     .toList();
+
+export const getNotificationIdsForApplication = (state: StationState, applicationId: string | undefined): string[] =>
+  getNotifications(state)
+    .filter((notification: any) => getNotificationApplicationId(notification) === applicationId)
+    .keySeq()
+    .toArray() as string[];

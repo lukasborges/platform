@@ -2,7 +2,8 @@ import log from 'electron-log';
 import { eventChannel, SagaIterator } from 'redux-saga';
 import { all, call, delay, put, select } from 'redux-saga/effects';
 
-import { MAIN_APP_READY } from '../app/duck';
+import { CHANGE_APP_FOCUS_STATE, MAIN_APP_READY } from '../app/duck';
+import { getFocus } from '../app/selectors';
 import {
   ASK_ENABLE_NOTIFICATIONS,
   askEnableNotifications,
@@ -12,8 +13,11 @@ import {
   TOGGLE_NOTIFICATIONS,
 } from '../applications/duck';
 import { getNotificationsEnabled } from '../applications/selectors';
+import { CHANGE_SELECTED_APP_MAIN, ChangeSelectedAppMain } from '../nav/duck';
+import { getActiveApplicationId } from '../nav/selectors';
 import { addNotification, clearNotifications, removeNotification, RequestForApplicationNotificationsStep } from '../notifications/duck';
 import {
+  getNotificationApplicationId,
   getNotificationBody,
   getNotificationIcon,
   getNotificationOptions,
@@ -21,7 +25,7 @@ import {
   getNotificationTitle,
   getNotificationWebContentsId,
 } from '../notifications/get';
-import { getNotificationById } from '../notifications/selectors';
+import { getNotificationById, getNotificationIdsForApplication } from '../notifications/selectors';
 import { getProvider } from '../plugins';
 import DeprecatedSDKProvider from '../plugins/SDKProvider';
 import { observer } from '../services/lib/helpers';
@@ -133,12 +137,28 @@ function* sagaNewNotification(action: NewNotificationAction): SagaIterator {
   yield put(showNotification(notificationId));
 }
 
+function* isApplicationOnScreen(applicationId: string | undefined): SagaIterator {
+  const focusedWindowId = yield select(getFocus);
+  if (!focusedWindowId) return false;
+  const activeApplicationId = yield select(getActiveApplicationId);
+  return activeApplicationId === applicationId;
+}
+
 function* sagaShowNotification(action: ShowNotificationAction): SagaIterator {
   const snooze = yield select(getSnoozeDuration);
   const { notificationId } = action;
 
   const notificationState = yield select(getNotificationById, notificationId);
   if (!notificationState || snooze) {
+    return;
+  }
+
+  const applicationId = getNotificationApplicationId(notificationState);
+  if (yield call(isApplicationOnScreen, applicationId)) {
+    // The user is already looking at the application the notification comes from,
+    // so it is read on arrival: showing it would only leave an entry behind in the
+    // shell notification center, inflating the launcher badge with nothing to read.
+    yield put(markAsRead(notificationId));
     return;
   }
 
@@ -206,6 +226,23 @@ function* sagaMarkAsRead(action: MarkAsReadAction): SagaIterator {
   // Dismiss the matching OS notification so the shell notification center
   // (and its badge counter) drops to zero too.
   yield callService('osNotification', 'dismiss', notificationId);
+}
+
+function* sagaMarkApplicationNotificationsAsRead(applicationId: string | undefined): SagaIterator {
+  const notificationIds = yield select(getNotificationIdsForApplication, applicationId);
+  for (const notificationId of notificationIds) {
+    yield put(markAsRead(notificationId));
+  }
+}
+
+function* sagaSelectedApplicationChanged({ applicationId }: ChangeSelectedAppMain): SagaIterator {
+  yield call(sagaMarkApplicationNotificationsAsRead, applicationId);
+}
+
+function* sagaAppFocused({ focus }: { focus: number | null }): SagaIterator {
+  if (!focus) return;
+  const applicationId = yield select(getActiveApplicationId);
+  yield call(sagaMarkApplicationNotificationsAsRead, applicationId);
 }
 
 function* sagaMarkAllAsRead(): SagaIterator {
@@ -327,6 +364,11 @@ export default function* main(): SagaIterator {
     takeEveryWitness(SHOW_NOTIFICATION, sagaShowNotification),
     takeEveryWitness(MARK_AS_READ, sagaMarkAsRead),
     takeEveryWitness(MARK_ALL_AS_READ, sagaMarkAllAsRead),
+    // Reading happens in the application itself: opening or coming back to it is
+    // what marks its notifications as read, and drops them from the shell
+    // notification center (and from the launcher badge counting its entries).
+    takeEveryWitness(CHANGE_SELECTED_APP_MAIN, sagaSelectedApplicationChanged),
+    takeEveryWitness(CHANGE_APP_FOCUS_STATE, sagaAppFocused),
     takeEveryWitness(MAIN_APP_READY, electronNotificationStatePoller),
     takeEveryWitness(ASK_ENABLE_NOTIFICATIONS, askEnableNotificationsFlow),
     takeEveryWitness(TOGGLE_NOTIFICATIONS, toggleAppNotifications),
