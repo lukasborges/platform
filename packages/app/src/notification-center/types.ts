@@ -11,7 +11,6 @@ export interface NotificationProps {
 export interface StationNotification {
   snoozeDuration?: string,
   snoozeStartedOn?: number,
-  isVisible?: boolean,
   notifications: string[],
 }
 

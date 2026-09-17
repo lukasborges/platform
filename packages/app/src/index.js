@@ -19,9 +19,6 @@ import PlatformThemeProvider from './theme/PlatformThemeProvider';
 
 import { ActionsBusReactContext, createActionsEmitter, createActionsBus } from './store/actionsBus';
 
-import { BxNotification } from './notification-center/webview-preload';
-
-window.Notification = BxNotification;
 initializeAppearanceTheme();
 
 // prevent app pinch zomming

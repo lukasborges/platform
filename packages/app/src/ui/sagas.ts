@@ -1,4 +1,3 @@
-import * as Immutable from 'immutable';
 import { SagaIterator } from 'redux-saga';
 import { all, call, put, select } from 'redux-saga/effects';
 // @ts-ignore : no declaration file
@@ -10,12 +9,6 @@ import {
 } from '../bang/duck';
 import { isVisible as bangIsVisible } from '../bang/selectors';
 import { CHANGE_SELECTED_APP_MAIN, ChangeSelectedAppMain } from '../nav/duck';
-import {
-  SET_VISIBILITY as NOTIFICATION_CENTER_SET_VISIBILITY,
-  setVisibility as notificationCenterSetVisibility,
-  SetVisibilityAction as NotificationCenterSetVisibilityAction,
-} from '../notification-center/duck';
-import { isVisible as notificationCenterIsVisible } from '../notification-center/selectors';
 import { MARK_AS_DONE } from '../onboarding/duck';
 import { isDone } from '../onboarding/selectors';
 import { REHYDRATION_COMPLETE } from '../store/duck';
@@ -28,34 +21,26 @@ import {
   ToggleVisibility as UiToggleVisibility,
 } from './duck';
 
-// TODO search
+// The notification center UI was removed. The mutual-exclusion logic between
+// the bang and the notification center panel is no longer needed — only the
+// bang participates now.
 
 type VisibilityActions =
-  | NotificationCenterSetVisibilityAction
   | BangSetVisibilityAction
   | ChangeSelectedAppMain;
 
 type VisibilityTypes =
-  | NOTIFICATION_CENTER_SET_VISIBILITY
   | BANG_SET_VISIBILITY;
 
 const actionCreatorsByActionTypes = Immutable.Map<VisibilityTypes, [VisibilityActions, () => boolean]>([
-  [NOTIFICATION_CENTER_SET_VISIBILITY, [notificationCenterSetVisibility(false), notificationCenterIsVisible]],
   [BANG_SET_VISIBILITY, [bangSetVisibility('center-modal', false), bangIsVisible]],
 ]);
 
-/**
- * ⚠ beware of infinite loop with this, because we are trigerring the same events as the ones
- * ⚠ we are listening.
- * @param {VisibilityActions} action
- * @returns {SagaIterator}
- */
 function* computeElementsVisibility(action: VisibilityActions): SagaIterator {
   let mustShow: VisibilityTypes | boolean = false;
   const doNotHide: VisibilityTypes[] = [];
   switch (action.type) {
     case BANG_SET_VISIBILITY:
-    case NOTIFICATION_CENTER_SET_VISIBILITY:
       if (action.visible) {
         mustShow = action.type;
       }
@@ -135,7 +120,6 @@ export default function* main(): SagaIterator {
   yield all([
     takeEveryWitness(
       [
-        NOTIFICATION_CENTER_SET_VISIBILITY,
         CHANGE_SELECTED_APP_MAIN,
         BANG_SET_VISIBILITY,
       ],

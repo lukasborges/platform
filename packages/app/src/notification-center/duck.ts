@@ -4,10 +4,6 @@ import { RequestForApplicationNotificationsStep } from '../notifications/duck';
 
 // Constants
 
-export type TOGGLE_VISIBILITY = 'browserX/notification-center/TOGGLE_VISIBILITY';
-export const TOGGLE_VISIBILITY = 'browserX/notification-center/TOGGLE_VISIBILITY';
-export type SET_VISIBILITY = 'browserX/notification-center/SET_VISIBILITY';
-export const SET_VISIBILITY = 'browserX/notification-center/SET_VISIBILITY';
 export type APPEND_NOTIFICATION = 'browserX/notification-center/APPEND_NOTIFICATION';
 export const APPEND_NOTIFICATION = 'browserX/notification-center/APPEND_NOTIFICATION';
 export type REMOVE_NOTIFICATION = 'browserX/notification-center/REMOVE_NOTIFICATION';
@@ -37,8 +33,6 @@ export const SHOW_NOTIFICATION = 'browserX/notification-center/SHOW_NOTIFICATION
 
 // Action Types
 
-export type ToggleVisibilityAction = { type: TOGGLE_VISIBILITY };
-export type SetVisibilityAction = { type: SET_VISIBILITY, visible: boolean };
 export type AppendNotiticationAction = { type: APPEND_NOTIFICATION, notificationId: string };
 export type MarkAsReadAction = { type: MARK_AS_READ, notificationId: string };
 export type MarkAllAsReadAction = { type: MARK_ALL_AS_READ };
@@ -62,9 +56,7 @@ export type NotificationClickAction = { type: NOTIFICATION_CLICK, notificationId
 export type NotificationCloseAction = { type: NOTIFICATION_CLOSE, notificationId: string };
 export type ShowNotificationAction = { type: SHOW_NOTIFICATION, notificationId: string };
 export type NotificationCenterActions =
-  ToggleVisibilityAction
-  | SetVisibilityAction
-  | AppendNotiticationAction
+  AppendNotiticationAction
   | MarkAsReadAction
   | MarkAllAsReadAction
   | RemoveNotificationAction
@@ -83,10 +75,6 @@ export type NotificationCenterActions =
 export type NewNotificationOptions = { full?: boolean, silent?: boolean, webContentsId?: string };
 
 // Action creators
-
-export const toggleVisibility = (): ToggleVisibilityAction => ({ type: TOGGLE_VISIBILITY });
-
-export const setVisibility = (visible: boolean): SetVisibilityAction => ({ type: SET_VISIBILITY, visible });
 
 export const appendNotification = (notificationId: string): AppendNotiticationAction => ({
   type: APPEND_NOTIFICATION, notificationId,
@@ -151,10 +139,6 @@ const defaultMap = Immutable.Map({
 }) as StationNotificationImmutable;
 export default function notificationCenter(state: StationNotificationImmutable = defaultMap, action: NotificationCenterActions) {
   switch (action.type) {
-    case SET_VISIBILITY: {
-      return state.set('isVisible', action.visible);
-    }
-
     case APPEND_NOTIFICATION: {
       return state.update('notifications', notifs => notifs.push(action.notificationId));
     }

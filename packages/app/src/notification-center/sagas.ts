@@ -68,14 +68,12 @@ import {
   setSnoozeDuration,
   SetSnoozeDurationAction,
   setSnoozeStartedOn,
-  setVisibility,
   SHOW_NOTIFICATION,
   showNotification,
   ShowNotificationAction,
-  TOGGLE_VISIBILITY,
 } from './duck';
 import ElectronNotificationStatePoller from './lib/ElectronNotificationStatePoller';
-import { getSnoozeDuration, isVisible } from './selectors';
+import { getSnoozeDuration } from './selectors';
 
 const ms = require('ms');
 
@@ -258,11 +256,6 @@ function* interceptNotificationEventsFromWebContents({ webcontentsId, tabId }: {
   });
 }
 
-function* sagaToggleVisibility(): SagaIterator {
-  const visible = yield select(isVisible);
-  yield put(setVisibility(!visible));
-}
-
 function pollerEmitterChannel() {
   return eventChannel((emitter: any) => {
     const poller = new ElectronNotificationStatePoller();
@@ -334,7 +327,6 @@ export default function* main(): SagaIterator {
     takeEveryWitness(SHOW_NOTIFICATION, sagaShowNotification),
     takeEveryWitness(MARK_AS_READ, sagaMarkAsRead),
     takeEveryWitness(MARK_ALL_AS_READ, sagaMarkAllAsRead),
-    takeEveryWitness(TOGGLE_VISIBILITY, sagaToggleVisibility),
     takeEveryWitness(MAIN_APP_READY, electronNotificationStatePoller),
     takeEveryWitness(ASK_ENABLE_NOTIFICATIONS, askEnableNotificationsFlow),
     takeEveryWitness(TOGGLE_NOTIFICATIONS, toggleAppNotifications),

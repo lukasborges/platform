@@ -20,12 +20,6 @@ $station-rail-width: 68px;
     left: $station-rail-width;
     top: $station-header-height;
   }
-
-  .l-notification-center {
-    bottom: 0;
-    left: $station-rail-width;
-    top: $station-header-height;
-  }
 }
 
 .station-main-header {
@@ -508,7 +502,7 @@ $station-rail-width: 68px;
 
 .station-dock {
   .appcues-subdock-appstore,
-  .appcues-subdock-notification-center {
+  .appcues-subdock-recent {
     height: 1px !important;
     opacity: 0;
     overflow: hidden;

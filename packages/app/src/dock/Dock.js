@@ -28,8 +28,6 @@ import {
 import { getForeFrontNavigationStateProperty } from '../applications/utils';
 import AutoUpdateDockNotification from '../auto-update/AutoUpdateDockNotification';
 import { getActiveApplicationId } from '../nav/selectors';
-import FocusModeDockContainer from '../notification-center/FocusModeDockContainer';
-import NotificationCenter from '../notification-center/NotificationCenter';
 import { getLinks } from '../password-managers/selectors';
 import { setSubdockApplication } from '../subdock/duck';
 import { getSubdockApplicationId } from '../subdock/selectors';
@@ -531,8 +529,6 @@ class DockImpl extends React.PureComponent {
         <div className={classNames(classes.bottomSection, 'station-dock-bottom')}>
           <AutoUpdateDockNotification />
           <AppStore />
-          <FocusModeDockContainer />
-          <NotificationCenter />
         </div>
 
         <KeyboardShortcuts
