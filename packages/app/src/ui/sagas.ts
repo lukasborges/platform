@@ -1,3 +1,4 @@
+import * as Immutable from 'immutable';
 import { SagaIterator } from 'redux-saga';
 import { all, call, put, select } from 'redux-saga/effects';
 // @ts-ignore : no declaration file
