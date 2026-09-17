@@ -27,6 +27,7 @@ import {
 } from '../applications/get';
 import { getForeFrontNavigationStateProperty } from '../applications/utils';
 import AutoUpdateDockNotification from '../auto-update/AutoUpdateDockNotification';
+import MuteDockIcon from './MuteDockIcon';
 import { getActiveApplicationId } from '../nav/selectors';
 import { getLinks } from '../password-managers/selectors';
 import { setSubdockApplication } from '../subdock/duck';
@@ -529,6 +530,7 @@ class DockImpl extends React.PureComponent {
         <div className={classNames(classes.bottomSection, 'station-dock-bottom')}>
           <AutoUpdateDockNotification />
           <AppStore />
+          <MuteDockIcon />
         </div>
 
         <KeyboardShortcuts
