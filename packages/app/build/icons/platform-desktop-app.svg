@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 512 512" fill="none">
+  <title>Platform</title>
+  <defs>
+    <linearGradient id="module" x1="0" y1="46" x2="0" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#303338"/>
+      <stop offset="1" stop-color="#202328"/>
+    </linearGradient>
+    <linearGradient id="core" x1="0" y1="200" x2="0" y2="312" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4AD7E7"/>
+      <stop offset="1" stop-color="#35C4D6"/>
+    </linearGradient>
+    <path id="corner" d="M46 210V142C46 89 89 46 142 46H222V142H184C161 142 142 161 142 184V210H46Z"/>
+  </defs>
+  <rect width="512" height="512" fill="#FFFFFF" rx="112"/>
+  <g fill="#121419">
+    <use href="#corner" transform="translate(0 6)"/>
+    <use href="#corner" transform="matrix(-1 0 0 1 512 6)"/>
+    <use href="#corner" transform="matrix(1 0 0 -1 0 518)"/>
+    <use href="#corner" transform="matrix(-1 0 0 -1 512 518)"/>
+  </g>
+  <g fill="url(#module)">
+    <use href="#corner"/>
+    <use href="#corner" transform="matrix(-1 0 0 1 512 0)"/>
+    <use href="#corner" transform="matrix(1 0 0 -1 0 512)"/>
+    <use href="#corner" transform="rotate(180 256 256)"/>
+  </g>
+  <rect width="112" height="112" x="200" y="208" fill="#16AFC1" rx="28"/>
+  <rect width="112" height="112" x="200" y="200" fill="url(#core)" rx="28"/>
+</svg>

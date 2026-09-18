@@ -58,7 +58,7 @@ nsis:
   uninstallerIcon: 'build/icon.ico'
 
 linux:
-  icon: 'build/icon_512x512.png'
+  icon: 'build/icons'
   target:
     - AppImage
     - deb

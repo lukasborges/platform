@@ -35,8 +35,14 @@ package() {
   ln -s '/opt/Platform/platform-desktop-app' "${pkgdir}/usr/bin/platform"
   ln -s '/opt/Platform/platform-desktop-app' "${pkgdir}/usr/bin/station"
 
-  install -Dm644 "${startdir}/packages/app/src/static/icon-app.png" \
-    "${pkgdir}/usr/share/icons/hicolor/512x512/apps/platform-desktop-app.png"
+  local icondir="${startdir}/packages/app/build/icons"
+  local size
+  for size in 16 24 32 48 64 128 256 512; do
+    install -Dm644 "${icondir}/${size}x${size}.png" \
+      "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/platform-desktop-app.png"
+  done
+  install -Dm644 "${icondir}/platform-desktop-app.svg" \
+    "${pkgdir}/usr/share/icons/hicolor/scalable/apps/platform-desktop-app.svg"
 
   install -Dm644 /dev/stdin \
     "${pkgdir}/usr/share/applications/platform-desktop-app.desktop" <<'DESKTOP'
